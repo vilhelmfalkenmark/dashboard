@@ -1,0 +1,129 @@
+    /*
+    Flaticon icon font: Flaticon
+    Creation date: 12/04/2016 17:24
+    */
+
+    @font-face {
+  font-family: "Flaticon";
+  src: url("./Flaticon.eot");
+  src: url("./Flaticon.eot?#iefix") format("embedded-opentype"),
+       url("./Flaticon.woff") format("woff"),
+       url("./Flaticon.ttf") format("truetype"),
+       url("./Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("./Flaticon.svg#Flaticon") format("svg");
+  }
+}
+
+    .fi:before{
+        display: inline-block;
+  font-family: "Flaticon";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+    }
+
+    .flaticon-black:before { content: "\f100"; }
+.flaticon-cloud:before { content: "\f101"; }
+.flaticon-cloud-1:before { content: "\f102"; }
+.flaticon-cloud-10:before { content: "\f103"; }
+.flaticon-cloud-11:before { content: "\f104"; }
+.flaticon-cloud-12:before { content: "\f105"; }
+.flaticon-cloud-2:before { content: "\f106"; }
+.flaticon-cloud-3:before { content: "\f107"; }
+.flaticon-cloud-4:before { content: "\f108"; }
+.flaticon-cloud-5:before { content: "\f109"; }
+.flaticon-cloud-6:before { content: "\f10a"; }
+.flaticon-cloud-7:before { content: "\f10b"; }
+.flaticon-cloud-8:before { content: "\f10c"; }
+.flaticon-cloud-9:before { content: "\f10d"; }
+.flaticon-flash:before { content: "\f10e"; }
+.flaticon-nature:before { content: "\f10f"; }
+.flaticon-nature-1:before { content: "\f110"; }
+.flaticon-shape:before { content: "\f111"; }
+.flaticon-sky:before { content: "\f112"; }
+.flaticon-sky-1:before { content: "\f113"; }
+.flaticon-sky-2:before { content: "\f114"; }
+.flaticon-sky-3:before { content: "\f115"; }
+.flaticon-summer:before { content: "\f116"; }
+.flaticon-summer-1:before { content: "\f117"; }
+.flaticon-summer-2:before { content: "\f118"; }
+.flaticon-summer-3:before { content: "\f119"; }
+.flaticon-temperature:before { content: "\f11a"; }
+.flaticon-tool:before { content: "\f11b"; }
+.flaticon-two:before { content: "\f11c"; }
+.flaticon-weather:before { content: "\f11d"; }
+.flaticon-weather-1:before { content: "\f11e"; }
+.flaticon-weather-10:before { content: "\f11f"; }
+.flaticon-weather-11:before { content: "\f120"; }
+.flaticon-weather-12:before { content: "\f121"; }
+.flaticon-weather-13:before { content: "\f122"; }
+.flaticon-weather-14:before { content: "\f123"; }
+.flaticon-weather-15:before { content: "\f124"; }
+.flaticon-weather-2:before { content: "\f125"; }
+.flaticon-weather-3:before { content: "\f126"; }
+.flaticon-weather-4:before { content: "\f127"; }
+.flaticon-weather-5:before { content: "\f128"; }
+.flaticon-weather-6:before { content: "\f129"; }
+.flaticon-weather-7:before { content: "\f12a"; }
+.flaticon-weather-8:before { content: "\f12b"; }
+.flaticon-weather-9:before { content: "\f12c"; }
+    
+    $font-Flaticon-black: "\f100";
+    $font-Flaticon-cloud: "\f101";
+    $font-Flaticon-cloud-1: "\f102";
+    $font-Flaticon-cloud-10: "\f103";
+    $font-Flaticon-cloud-11: "\f104";
+    $font-Flaticon-cloud-12: "\f105";
+    $font-Flaticon-cloud-2: "\f106";
+    $font-Flaticon-cloud-3: "\f107";
+    $font-Flaticon-cloud-4: "\f108";
+    $font-Flaticon-cloud-5: "\f109";
+    $font-Flaticon-cloud-6: "\f10a";
+    $font-Flaticon-cloud-7: "\f10b";
+    $font-Flaticon-cloud-8: "\f10c";
+    $font-Flaticon-cloud-9: "\f10d";
+    $font-Flaticon-flash: "\f10e";
+    $font-Flaticon-nature: "\f10f";
+    $font-Flaticon-nature-1: "\f110";
+    $font-Flaticon-shape: "\f111";
+    $font-Flaticon-sky: "\f112";
+    $font-Flaticon-sky-1: "\f113";
+    $font-Flaticon-sky-2: "\f114";
+    $font-Flaticon-sky-3: "\f115";
+    $font-Flaticon-summer: "\f116";
+    $font-Flaticon-summer-1: "\f117";
+    $font-Flaticon-summer-2: "\f118";
+    $font-Flaticon-summer-3: "\f119";
+    $font-Flaticon-temperature: "\f11a";
+    $font-Flaticon-tool: "\f11b";
+    $font-Flaticon-two: "\f11c";
+    $font-Flaticon-weather: "\f11d";
+    $font-Flaticon-weather-1: "\f11e";
+    $font-Flaticon-weather-10: "\f11f";
+    $font-Flaticon-weather-11: "\f120";
+    $font-Flaticon-weather-12: "\f121";
+    $font-Flaticon-weather-13: "\f122";
+    $font-Flaticon-weather-14: "\f123";
+    $font-Flaticon-weather-15: "\f124";
+    $font-Flaticon-weather-2: "\f125";
+    $font-Flaticon-weather-3: "\f126";
+    $font-Flaticon-weather-4: "\f127";
+    $font-Flaticon-weather-5: "\f128";
+    $font-Flaticon-weather-6: "\f129";
+    $font-Flaticon-weather-7: "\f12a";
+    $font-Flaticon-weather-8: "\f12b";
+    $font-Flaticon-weather-9: "\f12c";

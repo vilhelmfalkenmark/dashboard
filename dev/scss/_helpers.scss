@@ -1,0 +1,19 @@
+// Justify content vertically and horizontally
+.flex-center
+{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+// Clear floats
+.clear
+{
+  clear: both;
+}
+// Center content
+.center
+{
+  margin: 0 auto;
+  text-align: center;
+}

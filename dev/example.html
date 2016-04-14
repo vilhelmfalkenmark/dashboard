@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="sv">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Oden integration jQuery Example</title>
+	</head>
+	<body>
+		<input type="button" value="get code" id="getCode">
+		<input type="button" value="get token" id="getToken">
+		<input type="button" value="get data" id="getData">
+		<br>
+		<br>
+		<div id="output"></div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script>
+			var clientId = "14_2fkd4hf79xj4gk4gw88w0sko4w4o8g08ggwwg4wco880wwcgwg", // 1 @ https://integration.oden.wtf you can find client ID/Client Secret and change redirectUri
+					clientSecret = "4woborol010kw48ccosgg8k8wokcgc848kws40c48k0k0ks8kc", // 1
+					redirectUri = "http://localhost/oden/index.html", // 1 Important! This must match the settings in Oden, and can be changed @ https://integration.oden.wtf
+					button1 = $("#getCode"),
+					button2 = $("#getToken"),
+					button3 = $("#getData"),
+					output = $("#output"),
+					responseData,
+					responseData2,
+					token,
+					refresh_token;
+
+			button1.on("click", function(){ // 1 You need a code to be able to get a token from Oden (in this example you get redirected back to the oden/index.html).
+				window.location.href="https://integration.oden.wtf/oauth/v2/auth?client_id="+ clientId +"&redirect_uri=" + redirectUri + "&response_type=code";
+			})
+
+			button2.on("click", function(){ // 2 Now you have the code in the addressbar
+				var locationCode = location.href,
+						code = locationCode.split("="); // 2 split off the code in address
+				$.ajax({
+					type: "GET",
+					url: "https://integration.oden.wtf/oauth/v2/token?client_id=" + clientId + "&client_secret=" + clientSecret + "&grant_type=authorization_code&redirect_uri=" + redirectUri + "&code=" + code[1],
+					success: function(response) {
+						responseData = response;
+						token = responseData.access_token
+						refresh_token = responseData.refresh_token
+						output.html("Get token: " + token + "<br>" + " Get refresh Token: " + refresh_token);
+
+					}
+				}).fail(function (response) {
+					output.html("something went wrong" + " " + response);
+				});
+			})
+
+			button3.on("click", function(){ // 3 Now you got your token, use it to collect data from Oden API.
+				$.ajax({
+					type: "GET",
+					url: "https://integration.oden.wtf/api/shoutout/shoutouts?access_token=" + token,
+					success: function(response) {
+						responseData2 = response;
+						output.html("Response: " + response);
+					}
+				}).fail(function (response) { // 3 The token expires in 5 minutes, and if it does it gives you an 401 error.
+					if (response.status === 401){
+						output.html("fail 401, getting new token.");
+						refreshTokenIfExpired(); // 3 This is optional, if you want to refresh your token or not.
+					}
+				});
+			});
+
+			function refreshTokenIfExpired(){ // 3 This function is not necessary for collecting data, only if you want to do something more than 5 minutes in Oden API.
+				$.ajax({
+					type: "GET",
+					url: "https://integration.oden.wtf/oauth/v2/token?client_id=" + clientId + "&client_secret=" + clientSecret + "&grant_type=refresh_token&refresh_token=" + refresh_token,
+					success: function(response) {
+						output.innerHTML = "Response: " + response;
+						responseData = response;
+						token = responseData.access_token
+						refresh_token = responseData.refresh_token
+					}
+				}).fail(function (response) {
+					if (response.status === 401){
+						console.log("fail 401" + " try again!");
+					}
+				});
+			};
+		</script>
+	</body>
+</html>
