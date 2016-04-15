@@ -1,48 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="css/weather-icons/font/flaticon.css">
-    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
-    <!--build:css css/styles.min.css-->
-    <link rel="stylesheet" href="css/stylesheet.css">
-    <!--endbuild-->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="css/weather-icons/font/flaticon.css">
+  <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+  <!--build:css css/styles.min.css-->
+  <link rel="stylesheet" href="css/stylesheet.css">
+  <!--endbuild-->
 
 </head>
+
 <body>
-<div class="container">
-  <div class="row">
-    <!-- PUBLIC TRANSPORT -->
-    <div class="col-6">
-      <div class="public-transport-container">
-        
+  <div class="container">
+    <div class="row">
+      <!-- PUBLIC TRANSPORT -->
+      <div class="col-6">
+        <!-- <div class="public-transport-container">
+
+      </div> -->
+
+        <!-- START TEST-->
+        <div class="public-transport-container">
+          <div class="station-container">
+            <h3><span class="station-name">Långsjöstrand </span><span class="distance-to-station">743 meter </span><span>4038</span></h3>
+            <ul class="departure-list">
+              <li><span>469 </span><span>Buss </span><span>Nacka sjukhus </span><span>Nu</span></li>
+              <li><span>414 </span><span>Buss </span><span>Orminge C via Boo gård </span><span>Nu</span></li>
+              <li><span>471 </span><span>Buss </span><span>Slussen </span><span>12 min</span></li>
+              <li><span>821 </span><span>Buss </span><span>Nacka sjukhus </span><span>13 min</span></li>
+              <li><span>409 </span><span>Buss </span><span>Duvnäs utskog </span><span>13 min</span></li>
+            </ul>
+          </div>
+
+          <div class="station-container">
+            <h3><span class="station-name">Storängen </span><span class="distance-to-station">978 meter </span><span>9427</span></h3>
+            <ul class="departure-list">
+              <li><span>25 </span><span>Lokalbana </span><span>Saltsjöbaden </span><span>12:52</span></li>
+            </ul>
+          </div>
+
+          <div class="station-container">
+            <h3><span class="station-name">Skogalund </span><span class="distance-to-station">872 meter </span><span>4039</span></h3>
+            <ul class="departure-list">
+              <li><span>469 </span><span>Buss </span><span>Nacka sjukhus </span><span>Nu</span></li>
+              <li><span>414 </span><span>Buss </span><span>Orminge C via Boo gård </span><span>Nu</span></li>
+            </ul>
+          </div>
+          <div class="station-container">
+            <h3><span class="station-name">Storängen </span><span class="distance-to-station">978 meter </span><span>4037</span></h3>
+            <ul class="departure-list">
+              <li><span>414 </span><span>Buss </span><span>Slussen </span><span>3 min</span></li>
+              <li><span>413 </span><span>Buss </span><span>Talludden </span><span>3 min</span></li>
+              <li><span>471 </span><span>Buss </span><span>Västra Orminge </span><span>5 min</span></li>
+              <li><span>465 </span><span>Buss </span><span>Nacka strand </span><span>5 min</span></li>
+              <li><span>465 </span><span>Buss </span><span>Fisksätra </span><span>6 min</span></li>
+              <li><span>410 </span><span>Buss </span><span>Ektorps centrum </span><span>8 min</span></li>
+            </ul>
+          </div>
+          <div class="station-container">
+            <h3><span class="station-name">Storängen </span><span class="distance-to-station">978 meter </span><span>9427</span></h3>
+            <ul class="departure-list">
+              <li><span>414 </span><span>Buss </span><span>Slussen </span><span>3 min</span></li>
+              <li><span>413 </span><span>Buss </span><span>Talludden </span><span>3 min</span></li>
+              <li><span>471 </span><span>Buss </span><span>Västra Orminge </span><span>5 min</span></li>
+              <li><span>465 </span><span>Buss </span><span>Nacka strand </span><span>5 min</span></li>
+              <li><span>465 </span><span>Buss </span><span>Fisksätra </span><span>6 min</span></li>
+              <li><span>410 </span><span>Buss </span><span>Ektorps centrum </span><span>8 min</span></li>
+            </ul>
+          </div>
+
+          <div class="station-container">
+            <h3><span class="station-name">Storängen </span><span class="distance-to-station">978 meter </span><span>9427</span></h3>
+            <ul class="departure-list">
+              <li><span>25 </span><span>Lokalbana </span><span>Saltsjöbaden </span><span>12:52</span></li>
+            </ul>
+          </div>
+        </div>
+        <!-- SLUT TEST-->
+
       </div>
-    </div>
-    <div class="col-6">
+
+      <!-- Geolocation-->
+
+      <div class="col-6">
         <div id="demo">
+        </div>
+      </div>
+
+      <!-- DATE AND TIME -->
+      <div class="col-6">
+        <h2 class="date"></h2>
+        <h3 class="time"></h3>
+      </div>
+      <!-- WEATHER -->
+      <div class="col-6">
+        <div class="weather-container">
 
         </div>
-    </div>
-    <!-- DATE AND TIME -->
-    <div class="col-6">
-      <h2 class="date"></h2>
-      <h3 class="time"></h3>
-    </div>
-    <!-- WEATHER -->
-    <div class="col-6">
-      <div class="weather-container">
-
       </div>
+
+      <!-- NEWS -->
+      <div class="col-6">
+        <div id="news-container">
+
+        </div>
+      </div>
+
+      <!-- Calender -->
+      <div class="col-6">
+        <div class="calender-container">
+          <div id="authorize-div" style="display: none">
+            <span>Authorize access to Google Calendar API</span>
+            <!--Button for the user to click to initiate auth sequence -->
+            <button id="authorize-button" onclick="handleAuthClick(event)">
+              Authorize
+            </button>
+          </div>
+
+          <ul class="calender">
+
+          </ul>
+        </div>
+      </div>
+
+
     </div>
-
   </div>
-</div>
-
-<!--build:js js/main.min.js -->
-<script src="js/jquery-2.1.4.min.js"></script>
-<script src="js/script.js"></script>
-<!-- endbuild -->
+  <script src="js/jquery-2.1.4.min.js"></script>
+  <!--build:js js/main.min.js -->
+  <script src="js/script.js"></script>
+  <script src="js/googlecalender.js"></script>
+  <!-- endbuild -->
+  <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
 </body>
+
 </html>

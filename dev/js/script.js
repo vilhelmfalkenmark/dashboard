@@ -70,8 +70,7 @@ var smhiRequest = "http://opendata-download-metfcst.smhi.se/api/category/pmp1.5g
 
     var observation = document.createElement("div");
     observation.className = "observation";
-
-    observation.innerHTML = "<p class='weather-date'>"+observations[k].validTime+"</p>";
+    observation.innerHTML = "<p class='weather-date format-date'>"+observations[k].validTime+"</p>";
     observation.innerHTML += "<p class='weather-temp'>"+observations[k].t+"</p>";
     observation.innerHTML += "<p class='weather-windspeed'>"+observations[k].ws+"</p>";
     observation.innerHTML += "<p class='weather-winddirection'>"+observations[k].wd+"</p>";
@@ -84,124 +83,171 @@ var smhiRequest = "http://opendata-download-metfcst.smhi.se/api/category/pmp1.5g
 
 /*###########################################
  ############################################
- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
                 RESEPLANERARE
  ############################################
  ###########################################*/
 
-$.ajax({
-     type: "GET",
-     url:  "data.php?lat=59.3024216&long=18.1870591", // Chas
-     // url:  "data.php?lat=59.3490464&long=18.065024", // Körsbärsvägen
-     // url:  "data.php?lat=59.319600&long=18.072087", // Slussen
-     // url:  "data.php?lat=59.3458412&long=18.0649849", // Stockholm Östra
-     dataType: "JSON",
-     // jsonpCallback: 'callback',
-     success: function(response) {
-       console.log(response);
+// $.ajax({
+//      type: "GET",
+//      // url:  "data.php?lat=59.3024216&long=18.1870591", // Chas
+//
+//
+//      // url:  "data.php?lat=59.3490464&long=18.065024", // Körsbärsvägen
+//      // url:  "data.php?lat=59.319600&long=18.072087", // Slussen
+//      // url:  "data.php?lat=59.3458412&long=18.0649849", // Stockholm Östra
+//
+//
+//      dataType: "JSON",
+//      // jsonpCallback: 'callback',
+//      success: function(response) {
+//        console.log(response);
+//
+//       for (var i = 0; i < response.length; i++) {
+//          var distance = document.createElement("span");
+//          distance.innerHTML = response[i].distance;
+//          for (var key in response[i].ResponseData) {
+//            if(response[i].ResponseData[key].constructor === Array && response[i].ResponseData[key].length > 0) {
+//
+//              var stationContainer = document.createElement("div");
+//              stationContainer.className = "station-container";
+//
+//              var stationName = document.createElement("span")
+//              stationName.className = "station-name";
+//              stationName.innerText = response[i].ResponseData[key][0].StopAreaName+" ";
+//
+//              var distance = document.createElement("span")
+//              distance.className = "distance-to-station";
+//              distance.innerText = response[i].distance+" meter ";
+//
+//              var stationId = document.createElement("span");
+//              stationId.innerText = response[i].ResponseData[key][0].SiteId;
+//
+//
+//              var stationNameHeader = document.createElement("h3");
+//
+//              stationNameHeader.appendChild(stationName)
+//              stationNameHeader.appendChild(distance)
+//              stationNameHeader.appendChild(stationId)
+//
+//              stationContainer.appendChild(stationNameHeader)
+//
+//              var ul = document.createElement("ul");
+//              ul.className = "departure-list";
+//
+//              for (var k = 0; k < response[i].ResponseData[key].length; k++) {
+//
+//               var li = document.createElement("li");
+//
+//               var lineNumber = document.createElement("span");
+//               lineNumber.innerHTML = response[i].ResponseData[key][k].LineNumber+" ";
+//
+//               var transportMode = document.createElement("span");
+//               // transportMode.innerHTML = response[i].ResponseData[key][k].TransportMode+" ";
+//               if(response[i].ResponseData[key][k].TransportMode == "BUS") {
+//                transportMode.innerHTML = "Buss ";
+//               }
+//               else if(response[i].ResponseData[key][k].TransportMode == "METRO") {
+//                transportMode.innerHTML = "Tunnelbana ";
+//               }
+//               else if(response[i].ResponseData[key][k].TransportMode == "TRAM") {
+//                transportMode.innerHTML = "Lokalbana ";
+//               }
+//               else if(response[i].ResponseData[key][k].TransportMode == "BOAT") {
+//                transportMode.innerHTML = "Båt ";
+//               }
+//
+//               var destination = document.createElement("span");
+//               destination.innerHTML = response[i].ResponseData[key][k].Destination+" ";
+//
+//               var displayTime = document.createElement("span");
+//               displayTime.innerHTML = response[i].ResponseData[key][k].DisplayTime;
+//
+//              li.appendChild(lineNumber)
+//              li.appendChild(transportMode)
+//              li.appendChild(destination)
+//              li.appendChild(displayTime)
+//
+//               ul.appendChild(li);
+//
+//              }
+//              stationContainer.appendChild(ul);
+//
+//            }
+//            $(".public-transport-container").append(stationContainer);
+//          }
+//       }
+//
+//       /*###########################################
+//        ############################################
+//                Hitta dubbletter i svaret
+//        ############################################
+//        ############################################*/
+//
+//
+//
+//
+//
+//
+//      },
+//      error: function() {
+//       console.log('Inget svar från API');
+//      }
+// });
 
-      for (var i = 0; i < response.length; i++) {
-         var distance = document.createElement("span");
-         distance.innerHTML = response[i].distance;
-         for (var key in response[i].ResponseData) {
-           if(response[i].ResponseData[key].constructor === Array && response[i].ResponseData[key].length > 0) {
 
-             var stationContainer = document.createElement("div");
-             stationContainer.className = "station-container";
-
-             var stationName = document.createElement("span")
-             stationName.className = "station-name";
-             stationName.innerText = response[i].ResponseData[key][0].StopAreaName+" ";
-
-             var distance = document.createElement("span")
-             distance.className = "distance-to-station";
-             distance.innerText = response[i].distance+" meter ";
-
-             var stationId = document.createElement("span");
-             stationId.innerText = response[i].ResponseData[key][0].SiteId;
-
-
-             var stationNameHeader = document.createElement("h3");
-
-             stationNameHeader.appendChild(stationName)
-             stationNameHeader.appendChild(distance)
-             stationNameHeader.appendChild(stationId)
-
-             stationContainer.appendChild(stationNameHeader)
-
-             var ul = document.createElement("ul");
-             ul.className = "departure-list";
-
-             for (var k = 0; k < response[i].ResponseData[key].length; k++) {
-
-              var li = document.createElement("li");
-
-              var lineNumber = document.createElement("span");
-              lineNumber.innerHTML = response[i].ResponseData[key][k].LineNumber+" ";
-
-              var transportMode = document.createElement("span");
-              // transportMode.innerHTML = response[i].ResponseData[key][k].TransportMode+" ";
-              if(response[i].ResponseData[key][k].TransportMode == "BUS") {
-               transportMode.innerHTML = "Buss ";
-              }
-              else if(response[i].ResponseData[key][k].TransportMode == "METRO") {
-               transportMode.innerHTML = "Tunnelbana ";
-              }
-              else if(response[i].ResponseData[key][k].TransportMode == "TRAM") {
-               transportMode.innerHTML = "Lokalbana ";
-              }
-              else if(response[i].ResponseData[key][k].TransportMode == "BOAT") {
-               transportMode.innerHTML = "Båt ";
-              }
-
-              var destination = document.createElement("span");
-              destination.innerHTML = response[i].ResponseData[key][k].Destination+" ";
-
-              var displayTime = document.createElement("span");
-              displayTime.innerHTML = response[i].ResponseData[key][k].DisplayTime;
-
-             li.appendChild(lineNumber)
-             li.appendChild(transportMode)
-             li.appendChild(destination)
-             li.appendChild(displayTime)
-
-              ul.appendChild(li);
-
-             }
-             stationContainer.appendChild(ul);
-
-           }
-           $(".public-transport-container").append(stationContainer);
-         }
-      }
-
-      /*###########################################
-       ############################################
-               Hitta dubbletter i svaret
-       ############################################
-       ############################################*/
-
-       var departureList = document.getElementsByClassName('departure-list')
-
-       // for (var l = 0; l < departureList.length; l++) {
-       //
-       //    for (var k = 0; k < departureList.length; k++) {
-       //
-       //     if(stationNames[l].innerText == stationNames[k].innerText && k != l )
-       //     {
-       //      stationNames[k].className += " duplicate";
-       //     }
-       //
-       //     }
-       //
-       // }
-
-
-     },
-     error: function() {
-      console.log('Inget svar från API');
+ var departureList = document.getElementsByClassName('departure-list');
+ for (var h = 0; h < departureList.length; h++) {
+  for (var l = 0; l < departureList.length; l++) {
+     if(departureList[h].childElementCount == departureList[l].childElementCount && l != h)
+     {
+      // console.log(departureList[h].previousElementSibling.firstElementChild.innerText);
+      // console.log(departureList[l].previousElementSibling.firstElementChild.innerText);
+       if((departureList[h].lastElementChild.innerHTML == departureList[l].lastElementChild.innerHTML) // Kolla att första barnet stämmer
+       && (departureList[h].firstElementChild.innerHTML == departureList[l].firstElementChild.innerHTML) // Kolla att sista barnet stämmer
+       && (departureList[h].previousElementSibling.firstElementChild.innerText == departureList[l].previousElementSibling.firstElementChild.innerText) // Kolla att rubriken för containern stämmer
+       && (departureList[h].className === "departure-list") // Säkerställ att det inte läggs till två gånger.
+       )
+       {
+        departureList[l].className += " duplicate";
+        departureList[l].parentNode.className += " duplicate-container";
+       }
      }
- });
+   }
+ }
+
+ /*###########################################
+  ############################################
+             Nyheter från TEXT-TV
+  ############################################
+  ###########################################*/
+  // Sida 100 - 104 är nyheter
+  // var textTVURL = "http://api.mediacreeper.com/0.3/name/search/Svenska Dagbladet AB";
+
+  $.ajax({
+    dataType: "json",
+    // url: textTVURL,
+    // data: data,
+    success: function(newsResponse) {
+           console.log(newsResponse);
+      // var newsContainer = document.getElementsByClassName('news-container')[0];
+
+      // for (var n = 0; n < newsResponse.length; n++) {
+      //   console.log("Kommer in här");
+      //     var news = document.createElement("div");
+      //     news.className = "news";
+      //     news.innerHTML = newsResponse[n].content[0];
+      //
+      //     // news.innerHTML = news.innerHTML.innerText;
+      //
+      //
+      //     $("#news-container").append(news);
+      // }
+
+    }
+   });
+
+
+
 
 
 
@@ -222,6 +268,16 @@ $.ajax({
      "<br>Longitude: " + position.coords.longitude;
  }
   getLocation();
+
+
+
+
+
+
+
+
+
+
 
 
 
