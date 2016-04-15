@@ -1,3 +1,52 @@
-.observation {
-  border-bottom: 1px solid red;
+.weather-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 15px;
+  h4 {
+    margin: 5px 0;
+    text-transform: uppercase;
+    font-size: 14px;
+    height: 40px;
+
+  }
+}
+.observation, .current-observation {
+  width: calc(20% - 20px);
+  position: relative;
+  border-right: 1px solid $lightGrey;
+  margin: 30px 12px 0 7px;
+  .cloudicon {
+    font-size: 26px;
+  }
+  &:last-of-type {
+    border-right:none;
+  }
+}
+.weather-text {
+  display: block;
+  font-size: 12px;
+  height: 40px;
+
+  margin: 4px 0;
+}
+
+ .weather-temp {
+  display: block;
+  position: relative;
+  margin: 10px 0;
+}
+.wheater-windspeed, .weather-winddirection {
+  // display: inline-block;
+}
+.flaticon-weather, .fa-arrow-down {
+  margin-left: 10px;
+}
+.weather-date {
+  text-transform: uppercase;
+}
+.time-span {
+  margin: 2px 0;
+  display: block;
+  font-size: 0.9em;
+
 }

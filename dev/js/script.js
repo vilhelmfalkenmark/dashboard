@@ -66,16 +66,79 @@ var smhiRequest = "http://opendata-download-metfcst.smhi.se/api/category/pmp1.5g
    findWeather();
 
 
+   var cloudIcons = ["flaticon-weather-2","flaticon-summer","flaticon-summer","flaticon-nature",
+   "flaticon-cloud-1","flaticon-cloud-4","flaticon-cloud-4","flaticon-sky","flaticon-sky", /* SLUT VANLIGA MOLN */
+  ];
+  var rainIcons = ["flaticon-weather-4","flaticon-cloud-3"];
+
+  var cloudText = ["Klart","Överlag klart","Halvklart","Lätt molnighet","Lite moln","Molnigt","Nästan mulet","Mulet","Mulet"]
+  var rainText = ["Ingen nederbörd","Lätt nederbörd","Måttlig nederbörd","Kraftig nederbörd"];
+
    for (var k = 0; k < observations.length; k++) {
 
     var observation = document.createElement("div");
+
+
     observation.className = "observation";
-    observation.innerHTML = "<p class='weather-date format-date'>"+observations[k].validTime+"</p>";
-    observation.innerHTML += "<p class='weather-temp'>"+observations[k].t+"</p>";
-    observation.innerHTML += "<p class='weather-windspeed'>"+observations[k].ws+"</p>";
-    observation.innerHTML += "<p class='weather-winddirection'>"+observations[k].wd+"</p>";
-    observation.innerHTML += "<p class='weather-cloud'>"+observations[k].tcc+"</p>";
-    observation.innerHTML += "<p class='weather-rain'>"+observations[k].pit+"</p>";
+
+    var weatherDate = document.createElement("h4");
+
+    if(k == 0) {
+     weatherDate.innerHTML = "Just nu";
+    }
+    else {
+     weatherDate.innerHTML = observations[k].validTime;
+     weatherDate.className = "weather-date format-date";
+
+    }
+
+    // weatherDate.innerHTML = observations[k].validTime;
+
+    var weatherTemp = document.createElement("span");
+    weatherTemp.className = "weather-temp";
+    weatherTemp.innerHTML = observations[k].t+"<i class='flaticon-weather'></i>";
+
+    var windSpeed = document.createElement("span");
+    windSpeed.className = "weather-windspeed";
+    windSpeed.innerHTML = observations[k].ws+" m/s";
+
+    var windDirection = document.createElement("span");
+    windDirection.className = "weather-winddirection";
+    // windDirection.innerHTML = " <i class='fa fa-arrow-up'></i>";
+    // windDirection.style.transform = "rotate("+observations[k].wd+"deg)";
+
+    var windIcon = document.createElement("i");
+    windIcon.className = "fa fa-arrow-down";
+    windIcon.style.transform = "rotate("+observations[k].wd+"deg)";
+
+    windDirection.appendChild(windIcon);
+
+    var clouds = document.createElement("i");
+
+    if(observations[k].pit < 2) { // Om nederbörd är mindre än 2/8 visa ikon utan regn
+     clouds.className = cloudIcons[observations[k].tcc]+" cloudicon";
+    }
+    else if(observations[k].pit >= 2 && observations[k].pit <= 5) {
+     clouds.className = rainIcons[0]+" cloudicon";
+    }
+    else if(observations[k].pit > 5 ) {
+     clouds.className = rainIcons[1]+" cloudicon";
+    }
+
+    var weatherText = document.createElement("span");
+    weatherText.className = "weather-text";
+    weatherText.innerHTML = cloudText[observations[k].tcc] +". "+rainText[observations[k].pit/2];
+
+    observation.appendChild(weatherDate)
+    observation.appendChild(clouds)
+    observation.appendChild(weatherText)
+    observation.appendChild(weatherTemp)
+    observation.appendChild(windSpeed)
+    observation.appendChild(windDirection)
+
+
+
+
     $(".weather-container").append(observation);
    }
 
@@ -255,19 +318,19 @@ var smhiRequest = "http://opendata-download-metfcst.smhi.se/api/category/pmp1.5g
 /*===========================================
  ======== FÅ GEOLOCATION KOORDINATER ========
  ==========================================*/
- var x = document.getElementById("demo");
- function getLocation() {
-     if (navigator.geolocation) {
-         navigator.geolocation.getCurrentPosition(showPosition);
-     } else {
-         x.innerHTML = "Geolocation is not supported by this browser.";
-     }
- }
- function showPosition(position) {
-     x.innerHTML = "Latitude: " + position.coords.latitude +
-     "<br>Longitude: " + position.coords.longitude;
- }
-  getLocation();
+ // var x = document.getElementById("demo");
+ // function getLocation() {
+ //     if (navigator.geolocation) {
+ //         navigator.geolocation.getCurrentPosition(showPosition);
+ //     } else {
+ //         x.innerHTML = "Geolocation is not supported by this browser.";
+ //     }
+ // }
+ // function showPosition(position) {
+ //     x.innerHTML = "Latitude: " + position.coords.latitude +
+ //     "<br>Longitude: " + position.coords.longitude;
+ // }
+ //  getLocation();
 
 
 

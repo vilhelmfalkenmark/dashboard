@@ -15,14 +15,55 @@
 
 <body>
   <div class="container">
-    <div class="row">
+
+    <div class="flex-row">
+      <!-- DATE AND TIME -->
+      <div class="flex-card flex-col-2 flex-center">
+        <h3 class="card-icon"><i class="fa fa-clock-o"></i> Tid & Datum</h3>
+          <div class="time-date-container">
+            <h5 class="date"></h2>
+            <h6 class="time"></h3>
+          </div>
+      </div>
+
+      <!-- CALENDER -->
+      <div class="flex-card flex-col-4 flex-center">
+        <h3 class="card-icon"><i class="fa fa-calendar"></i> Kalender</h3>
+
+        <div class="calender-container">
+          <div id="authorize-div" style="display: none">
+            <span>Authorize access to Google Calendar API</span>
+            <!--Button for the user to click to initiate auth sequence -->
+            <button id="authorize-button" onclick="handleAuthClick(event)">
+              Authorize
+            </button>
+          </div>
+          <ul class="calender">
+            <!-- <li class="calender-activity">Kommande saker i din kalender:</li>
+            <li class="calender-activity">Laga bilen<span class="activity-date format-date">fredag 15 april 2016 Kl: 13:30</span></li>
+            <li class="calender-activity">Vara extra gullig mot min flickvän!<span class="activity-date format-date">lördag 16 april 2016</span></li>
+            <li class="calender-activity">Ringa min tjej<span class="activity-date format-date">måndag 18 april 2016</span></li> -->
+          </ul>
+        </div>
+      </div>
+
+      <!-- WEATHER -->
+      <div class="flex-card flex-col-6">
+        <h3 class="card-icon"><i class="fa fa-sun-o"></i> Vädret i Stockholm</h3>
+
+        <div class="weather-container">
+        </div>
+      </div>
+
+    <!-- <END FIRST FLEX-ROW -->
+    </div>
+
+
+
+
+    <div class="flex-row">
       <!-- PUBLIC TRANSPORT -->
-      <div class="col-6">
-        <!-- <div class="public-transport-container">
-
-      </div> -->
-
-        <!-- START TEST-->
+      <div class="flex-card flex-col-6">
         <div class="public-transport-container">
           <div class="station-container">
             <h3><span class="station-name">Långsjöstrand </span><span class="distance-to-station">743 meter </span><span>4038</span></h3>
@@ -79,8 +120,30 @@
             </ul>
           </div>
         </div>
-        <!-- SLUT TEST-->
+      </div>
+    </div>
 
+
+
+
+
+
+
+
+    <div class="row">
+
+
+
+
+      <!-- PUBLIC TRANSPORT -->
+      <div class="col-6">
+        <!-- <div class="public-transport-container">
+
+      </div> -->
+
+        <!-- START TEST-->
+
+        <!-- SLUT TEST-->
       </div>
 
       <!-- Geolocation-->
@@ -90,16 +153,9 @@
         </div>
       </div>
 
-      <!-- DATE AND TIME -->
-      <div class="col-6">
-        <h2 class="date"></h2>
-        <h3 class="time"></h3>
-      </div>
       <!-- WEATHER -->
       <div class="col-6">
-        <div class="weather-container">
 
-        </div>
       </div>
 
       <!-- NEWS -->
@@ -109,22 +165,7 @@
         </div>
       </div>
 
-      <!-- Calender -->
-      <div class="col-6">
-        <div class="calender-container">
-          <div id="authorize-div" style="display: none">
-            <span>Authorize access to Google Calendar API</span>
-            <!--Button for the user to click to initiate auth sequence -->
-            <button id="authorize-button" onclick="handleAuthClick(event)">
-              Authorize
-            </button>
-          </div>
 
-          <ul class="calender">
-
-          </ul>
-        </div>
-      </div>
 
 
     </div>

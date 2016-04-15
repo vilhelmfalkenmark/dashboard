@@ -1,5 +1,102 @@
+@font-face {
+  font-family: adelle;
+  src: url(../fonts/adelle-normal.ttf);
+}
 body
 {
+ font-family: "adelle", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.1px;
+  font-weight: 300;
+  background-color: $darkGrey;
   color: $darkGrey;
-  font-family: Helvetica Neue, Helvetica, Arial;
+  overflow-x: hidden;
+}
+
+.time-date-container {
+  font-size: 1.6em;
+
+  * {
+    margin: 10px 0;
+    text-align: center;
+    text-transform: capitalize;
+  }
+  h6 {
+    letter-spacing: 5px;
+
+  }
+}
+
+
+/*###########################################
+ ############################################
+                  Card-icons
+ ############################################
+ ############################################*/
+ .card-icon {
+   position: absolute;
+   top: 15px;
+   left: 20px;
+   margin: 0;
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+/*###########################################
+ ############################################
+                    FLEX - GRID
+ ############################################
+ ############################################*/
+.flex-row {
+
+display: flex;
+justify-content: space-around
+}
+
+.flex-card {
+  margin: 10px;
+  background-color: white;
+  border: 1px solid gray;
+  position: relative;
+}
+.flex-col-10
+{
+  width: percentage(9/12);
+}
+.flex-col-9
+{
+  width: percentage(9/12);
+}
+.flex-col-8
+{
+  width: percentage(8/12);
+}
+.flex-col-7
+{
+  width: percentage(7/12);
+}
+.flex-col-6
+{
+  width: percentage(6/12);
+}
+.flex-col-4
+{
+  width: percentage(4/12);
+}
+.flex-col-3
+{
+  width: percentage(3/12);
+}
+.flex-col-2
+{
+  width: percentage(2/12);
 }

@@ -130,11 +130,6 @@ function appendPre(event, when, numberofActivities) {
                   Format-date
  ############################################
  ############################################*/
-
- // var str = "Hello world!";
- // var res = str.substr(1, 4);
- // ello
-
 var day;
 var month;
 var year;
@@ -168,16 +163,10 @@ function formatDate() {
    weekDay = weekDays[new Date(dateString).getDay()];
 
    if(time.length > 0) {
-    formatDate[l].innerText = weekDay+" "+day+" "+months[month-1]+" "+year+" Kl: "+time;
+    formatDate[l].innerHTML = weekDay+" "+day+" "+months[month-1]+" "+year+"<span class='time-span'>Klockan: "+time+"</span>";
    }
    else {
     formatDate[l].innerText =  weekDay+" "+day+" "+months[month-1]+" "+year;
    }
   }
 }
-
-
-// var dateString = "2016-04-12";
-//
-// var daysOfWeek = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
-// var whichDay = daysOfWeek[new Date(dateString).getDay()];
