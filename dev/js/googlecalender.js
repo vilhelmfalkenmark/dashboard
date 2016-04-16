@@ -144,15 +144,11 @@ var weekDay;
 var weekDays = ["söndag","måndag","tisdag","onsdag","torsdag","fredag","lördag"];
 var months = ["januari","februari","mars","april","maj","juni","juli","augusti","september","oktober","november","december"];
 
-// 2016-04-18
-
 function formatDate() {
+ var today = document.getElementsByClassName('date')[0].innerText.toLowerCase();
   var formatDate = document.getElementsByClassName("format-date");
-
   for (var l = 0; l < formatDate.length; l++) {
-
    dateString = formatDate[l].innerText.substr(0,10);
-
    formatDate[l].innerText = formatDate[l].innerText.replace("-","");
    formatDate[l].innerText = formatDate[l].innerText.replace("-","");
    formatDate[l].innerText = formatDate[l].innerText.replace("T","");
@@ -161,16 +157,26 @@ function formatDate() {
    month = formatDate[l].innerText.substr(4,2);
    year = formatDate[l].innerText.substr(0,4);
    time = formatDate[l].innerText.substr(8,5);
-
    weekDay = weekDays[new Date(dateString).getDay()];
-
    weekDay = weekDay.substr(0,3);
 
    if(time.length > 0) {
-    formatDate[l].innerHTML = "<div class='calender-date'>"+weekDay+" "+day+" "+months[month-1]+"</div>"+"<div class='time-span'>Kl: "+time+"</div>";
+    if((weekDay == today.substr(0,3)) && (day == today.substr(7,2)) && (months[month-1] ==  today.substr(10,5)))
+    {
+     formatDate[l].innerHTML = "<div class='calender-date'>IDAG</div>"+"<div class='time-span'>Kl: "+time+"</div>";
+    }
+    else {
+     formatDate[l].innerHTML = "<div class='calender-date'>"+weekDay+" "+day+" "+months[month-1]+"</div>"+"<div class='time-span'>Kl: "+time+"</div>";
+    }
    }
    else {
-    formatDate[l].innerHTML = "<div class='calender-date'>"+weekDay+" "+day+" "+months[month-1]+"</div>"+"<div class='time-span'>Heldag</div>";
+    if((weekDay == today.substr(0,3)) && (day == today.substr(7,2)) && (months[month-1] ==  today.substr(10,5)))
+    {
+     formatDate[l].innerHTML = "<div class='calender-date'>IDAG</div>"+"<div class='time-span'>Heldag</div>";
+    }
+    else {
+     formatDate[l].innerHTML = "<div class='calender-date'>"+weekDay+" "+day+" "+months[month-1]+"</div>"+"<div class='time-span'>Heldag</div>";
+    }
    }
   }
 }
