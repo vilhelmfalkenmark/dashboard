@@ -3,11 +3,11 @@
                     FLEX - GRID
  ############################################
  ############################################*/
-$mobile-small-gtr: 5px;
-$mobile-large-gtr: 5px;
-$tablet-gtr: 5px;
-$desktop-gtr: 15px;
-$standard-gtr: 10px;
+$ms-gtr: 5px;
+$ml-gtr: 5px;
+$tab-gtr: 10px;
+$desk-gtr: 15px;
+$standard-gtr: 20px;
 
 .flex-row {
   display: flex;
@@ -17,16 +17,15 @@ $standard-gtr: 10px;
 }
 .flex-row-gtr {
   @extend .flex-row;
-  margin: $desktop-gtr/2;
+  margin: $standard-gtr/2;
 }
 @mixin flex-col-gtr ($width, $gtr) {
-  flex-basis: $width - $gtr;
+  flex-basis: calc(#{$width} - #{$gtr});
   margin: $gtr/2;
 }
 @mixin flex-col ($width) {
   flex-basis: $width;
 }
-
 
 /*###########################################
  ############################################
@@ -34,87 +33,77 @@ $standard-gtr: 10px;
  ############################################
  ############################################*/
 .col-12 {
-  flex-basis: percentage(12/12);
+  @include flex-col(percentage(12/12))
 }
 .col-11 {
-  flex-basis: percentage(11/12);
+  @include flex-col(percentage(11/12))
 }
 .col-10 {
-  flex-basis: percentage(10/12);
+  @include flex-col(percentage(10/12))
 }
 .col-9 {
-  flex-basis: percentage(9/12);
+  @include flex-col(percentage(9/12))
 }
 .col-8 {
-  flex-basis: percentage(8/12);
+  @include flex-col(percentage(8/12))
 }
 .col-7 {
-  flex-basis: percentage(7/12);
+  @include flex-col(percentage(7/12))
 }
 .col-6 {
-  flex-basis: percentage(6/12);
-  margin: $desktop-gtr/2;
+  @include flex-col(percentage(6/12))
 }
 .col-5 {
-  flex-basis: calc(#{percentage(5/12)} - #{$desktop-gtr});
-  margin: $desktop-gtr/2;
+  @include flex-col(percentage(5/12))
 }
 .col-4 {
-  flex-basis: calc(#{percentage(4/12)} - #{$desktop-gtr});
-  margin: $desktop-gtr/2;
+  @include flex-col(percentage(4/12))
 }
 .col-3 {
-  flex-basis: calc(#{percentage(3/12)} - #{$desktop-gtr});
-  margin: $desktop-gtr/2;
+  @include flex-col(percentage(3/12))
 }
 .col-2 {
-  flex-basis: percentage(2/12);
+  @include flex-col(percentage(2/12))
 }
 .col-1 {
-  flex-basis: percentage(1/12);
+  @include flex-col(percentage(1/12))
 }
-
 // WITH GUTTER
-
-.col-gtr-12 {
-  flex-basis: percentage(12/12);
+.col-12-gtr {
+  @include flex-col-gtr(percentage(12/12),$standard-gtr)
 }
-.col-gtr-12 {
-  flex-basis: percentage(11/12);
+.col-11-gtr {
+  @include flex-col-gtr(percentage(11/12),$standard-gtr)
 }
-.col-gtr-12 {
-  flex-basis: percentage(10/12);
+.col-10-gtr {
+  @include flex-col-gtr(percentage(10/12),$standard-gtr)
 }
-.col-gtr-12 {
-  flex-basis: percentage(9/12);
+.col-9-gtr {
+  @include flex-col-gtr(percentage(9/12),$standard-gtr)
 }
-.col-gtr-12 {
-  flex-basis: percentage(8/12);
+.col-8-gtr {
+  @include flex-col-gtr(percentage(8/12),$standard-gtr)
 }
-.col-gtr-12 {
-  flex-basis: percentage(7/12);
+.col-7-gtr {
+  @include flex-col-gtr(percentage(7/12),$standard-gtr)
 }
-.col-gtr-12 {
-  flex-basis: percentage(6/12);
-  margin: $desktop-gtr/2;
+.col-6-gtr {
+  @include flex-col-gtr(percentage(6/12),$standard-gtr)
 }
-.col-gtr-12 {
-  flex-basis: calc(#{percentage(5/12)} - #{$desktop-gtr});
-  margin: $desktop-gtr/2;
+.col-5-gtr {
+  @include flex-col-gtr(percentage(5/12),$standard-gtr)
 }
-.col-gtr-12 {
-  flex-basis: calc(#{percentage(4/12)} - #{$desktop-gtr});
-  margin: $desktop-gtr/2;
+.col-4-gtr {
+  @include flex-col-gtr(percentage(4/12),$standard-gtr)
 }
-.col-gtr-12 {
-  flex-basis: calc(#{percentage(3/12)} - #{$desktop-gtr});
-  margin: $desktop-gtr/2;
+.col-3-gtr {
+  @include flex-col-gtr(percentage(3/12),$standard-gtr)
 }
-.col-gtr-12 {
-  flex-basis: percentage(2/12);
+.col-2-gtr {
+  @include flex-col-gtr(percentage(2/12),$standard-gtr)
 }
-.col-gtr-12 {
-  flex-basis: percentage(1/12);
+.col-1-gtr {
+  @include flex-col-gtr(percentage(1/12),$standard-gtr)
 }
 
 
@@ -125,38 +114,81 @@ $standard-gtr: 10px;
  ############################################
  ############################################*/
 @include respond-to(mobile-small) {
+  .flex-row-gtr {
+    margin: $ms-gtr/2;
+  }
   .col-12-ms {
-    width: percentage(12/12);
+    @include flex-col(percentage(12/12))
   }
   .col-11-ms {
-    width: percentage(11/12);
+    @include flex-col(percentage(11/12))
   }
   .col-10-ms {
-    width: percentage(10/12);
+    @include flex-col(percentage(10/12))
   }
   .col-9-ms {
-    width: percentage(9/12);
+    @include flex-col(percentage(9/12))
   }
   .col-8-ms {
-    width: percentage(8/12);
+    @include flex-col(percentage(8/12))
   }
   .col-7-ms {
-    width: percentage(7/12);
+    @include flex-col(percentage(7/12))
   }
   .col-6-ms {
-    width: percentage(6/12);
+    @include flex-col(percentage(6/12))
+  }
+  .col-5-ms {
+    @include flex-col(percentage(5/12))
   }
   .col-4-ms {
-    width: percentage(4/12);
+    @include flex-col(percentage(4/12))
   }
   .col-3-ms {
-    width: percentage(3/12);
+    @include flex-col(percentage(3/12))
   }
   .col-2-ms {
-    width: percentage(2/12);
+    @include flex-col(percentage(2/12))
   }
   .col-1-ms {
-    width: percentage(1/12);
+    @include flex-col(percentage(1/12))
+  }
+  // WITH GUTTER
+  .col-12-gtr-ms {
+    @include flex-col-gtr(percentage(12/12),$ms-gtr)
+  }
+  .col-11-gtr-ms {
+    @include flex-col-gtr(percentage(11/12),$ms-gtr)
+  }
+  .col-10-gtr-ms {
+    @include flex-col-gtr(percentage(10/12),$ms-gtr)
+  }
+  .col-9-gtr-ms {
+    @include flex-col-gtr(percentage(9/12),$ms-gtr)
+  }
+  .col-8-gtr-ms {
+    @include flex-col-gtr(percentage(8/12),$ms-gtr)
+  }
+  .col-7-gtr-ms {
+    @include flex-col-gtr(percentage(7/12),$ms-gtr)
+  }
+  .col-6-gtr-ms {
+    @include flex-col-gtr(percentage(6/12),$ms-gtr)
+  }
+  .col-5-gtr-ms {
+    @include flex-col-gtr(percentage(5/12),$ms-gtr)
+  }
+  .col-4-gtr-ms {
+    @include flex-col-gtr(percentage(4/12),$ms-gtr)
+  }
+  .col-3-gtr-ms {
+    @include flex-col-gtr(percentage(3/12),$ms-gtr)
+  }
+  .col-2-gtr-ms {
+    @include flex-col-gtr(percentage(2/12),$ms-gtr)
+  }
+  .col-1-gtr-ms {
+    @include flex-col-gtr(percentage(1/12),$ms-gtr)
   }
 }
 /*###########################################
@@ -164,22 +196,255 @@ $standard-gtr: 10px;
           Mobile-Large
  ############################################
  ############################################*/
-@include respond-to(mobile-large) {
-
-}
+ @include respond-to(mobile-large) {
+   .flex-row-gtr {
+     margin: $ml-gtr/2;
+   }
+   .col-12-ml {
+     @include flex-col(percentage(12/12))
+   }
+   .col-11-ml {
+     @include flex-col(percentage(11/12))
+   }
+   .col-10-ml {
+     @include flex-col(percentage(10/12))
+   }
+   .col-9-ml {
+     @include flex-col(percentage(9/12))
+   }
+   .col-8-ml {
+     @include flex-col(percentage(8/12))
+   }
+   .col-7-ml {
+     @include flex-col(percentage(7/12))
+   }
+   .col-6-ml {
+     @include flex-col(percentage(6/12))
+   }
+   .col-5-ml {
+     @include flex-col(percentage(5/12))
+   }
+   .col-4-ml {
+     @include flex-col(percentage(4/12))
+   }
+   .col-3-ml {
+     @include flex-col(percentage(3/12))
+   }
+   .col-2-ml {
+     @include flex-col(percentage(2/12))
+   }
+   .col-1-ml {
+     @include flex-col(percentage(1/12))
+   }
+   // WITH GUTTER
+   .col-12-gtr-ml {
+     @include flex-col-gtr(percentage(12/12),$ml-gtr)
+   }
+   .col-11-gtr-ml {
+     @include flex-col-gtr(percentage(11/12),$ml-gtr)
+   }
+   .col-10-gtr-ml {
+     @include flex-col-gtr(percentage(10/12),$ml-gtr)
+   }
+   .col-9-gtr-ml {
+     @include flex-col-gtr(percentage(9/12),$ml-gtr)
+   }
+   .col-8-gtr-ml {
+     @include flex-col-gtr(percentage(8/12),$ml-gtr)
+   }
+   .col-7-gtr-ml {
+     @include flex-col-gtr(percentage(7/12),$ml-gtr)
+   }
+   .col-6-gtr-ml {
+     @include flex-col-gtr(percentage(6/12),$ml-gtr)
+   }
+   .col-5-gtr-ml {
+     @include flex-col-gtr(percentage(5/12),$ml-gtr)
+   }
+   .col-4-gtr-ml {
+     @include flex-col-gtr(percentage(4/12),$ml-gtr)
+   }
+   .col-3-gtr-ml {
+     @include flex-col-gtr(percentage(3/12),$ml-gtr)
+   }
+   .col-2-gtr-ml {
+     @include flex-col-gtr(percentage(2/12),$ml-gtr)
+   }
+   .col-1-gtr-ml {
+     @include flex-col-gtr(percentage(1/12),$ml-gtr)
+   }
+ }
 /*###########################################
  ############################################
           Tablet
  ############################################
  ############################################*/
-@include respond-to(tablet) {
-
-}
+ @include respond-to(tablet) {
+   .flex-row-gtr {
+     margin: $tab-gtr/2;
+   }
+   .col-12-tab {
+     @include flex-col(percentage(12/12))
+   }
+   .col-11-tab {
+     @include flex-col(percentage(11/12))
+   }
+   .col-10-tab {
+     @include flex-col(percentage(10/12))
+   }
+   .col-9-tab {
+     @include flex-col(percentage(9/12))
+   }
+   .col-8-tab {
+     @include flex-col(percentage(8/12))
+   }
+   .col-7-tab {
+     @include flex-col(percentage(7/12))
+   }
+   .col-6-tab {
+     @include flex-col(percentage(6/12))
+   }
+   .col-5-tab {
+     @include flex-col(percentage(5/12))
+   }
+   .col-4-tab {
+     @include flex-col(percentage(4/12))
+   }
+   .col-3-tab {
+     @include flex-col(percentage(3/12))
+   }
+   .col-2-tab {
+     @include flex-col(percentage(2/12))
+   }
+   .col-1-tab {
+     @include flex-col(percentage(1/12))
+   }
+   // WITH GUTTER
+   .col-12-gtr-tab {
+     @include flex-col-gtr(percentage(12/12),$tab-gtr)
+   }
+   .col-11-gtr-tab {
+     @include flex-col-gtr(percentage(11/12),$tab-gtr)
+   }
+   .col-10-gtr-tab {
+     @include flex-col-gtr(percentage(10/12),$tab-gtr)
+   }
+   .col-9-gtr-tab {
+     @include flex-col-gtr(percentage(9/12),$tab-gtr)
+   }
+   .col-8-gtr-tab {
+     @include flex-col-gtr(percentage(8/12),$tab-gtr)
+   }
+   .col-7-gtr-tab {
+     @include flex-col-gtr(percentage(7/12),$tab-gtr)
+   }
+   .col-6-gtr-tab {
+     @include flex-col-gtr(percentage(6/12),$tab-gtr)
+   }
+   .col-5-gtr-tab {
+     @include flex-col-gtr(percentage(5/12),$tab-gtr)
+   }
+   .col-4-gtr-tab {
+     @include flex-col-gtr(percentage(4/12),$tab-gtr)
+   }
+   .col-3-gtr-tab {
+     @include flex-col-gtr(percentage(3/12),$tab-gtr)
+   }
+   .col-2-gtr-tab {
+     @include flex-col-gtr(percentage(2/12),$tab-gtr)
+   }
+   .col-1-gtr-tab {
+     @include flex-col-gtr(percentage(1/12),$tab-gtr)
+   }
+ }
 /*###########################################
  ############################################
           Desktop
  ############################################
  ############################################*/
-@include respond-to(desktop) {
+ @include respond-to(desktop) {
+   .flex-row-gtr {
+     margin: $desk-gtr/2;
+   }
+   
+   .flex-row-gtr:first-of-type {
+     margin: $desk-gtr/2 $desk-gtr/2 0 $desk-gtr/2;
+   }
+   .flex-row-gtr:last-of-type {
+     margin: 0 $desk-gtr/2 $desk-gtr/2 $desk-gtr/2;
+   }
 
-}
+   .col-12-desk {
+     @include flex-col(percentage(12/12))
+   }
+   .col-11-desk {
+     @include flex-col(percentage(11/12))
+   }
+   .col-10-desk {
+     @include flex-col(percentage(10/12))
+   }
+   .col-9-desk {
+     @include flex-col(percentage(9/12))
+   }
+   .col-8-desk {
+     @include flex-col(percentage(8/12))
+   }
+   .col-7-desk {
+     @include flex-col(percentage(7/12))
+   }
+   .col-6-desk {
+     @include flex-col(percentage(6/12))
+   }
+   .col-5-desk {
+     @include flex-col(percentage(5/12))
+   }
+   .col-4-desk {
+     @include flex-col(percentage(4/12))
+   }
+   .col-3-desk {
+     @include flex-col(percentage(3/12))
+   }
+   .col-2-desk {
+     @include flex-col(percentage(2/12))
+   }
+   .col-1-desk {
+     @include flex-col(percentage(1/12))
+   }
+   // WITH GUTTER
+   .col-12-gtr-desk {
+     @include flex-col-gtr(percentage(12/12),$desk-gtr)
+   }
+   .col-11-gtr-desk {
+     @include flex-col-gtr(percentage(11/12),$desk-gtr)
+   }
+   .col-10-gtr-desk {
+     @include flex-col-gtr(percentage(10/12),$desk-gtr)
+   }
+   .col-9-gtr-desk {
+     @include flex-col-gtr(percentage(9/12),$desk-gtr)
+   }
+   .col-8-gtr-desk {
+     @include flex-col-gtr(percentage(8/12),$desk-gtr)
+   }
+   .col-7-gtr-desk {
+     @include flex-col-gtr(percentage(7/12),$desk-gtr)
+   }
+   .col-6-gtr-desk {
+     @include flex-col-gtr(percentage(6/12),$desk-gtr)
+   }
+   .col-5-gtr-desk {
+     @include flex-col-gtr(percentage(5/12),$desk-gtr)
+   }
+   .col-4-gtr-desk {
+     @include flex-col-gtr(percentage(4/12),$desk-gtr)
+   }
+   .col-3-gtr-desk {
+     @include flex-col-gtr(percentage(3/12),$desk-gtr)
+   }
+   .col-2-gtr-desk {
+     @include flex-col-gtr(percentage(2/12),$desk-gtr)
+   }
+   .col-1-gtr-desk {
+     @include flex-col-gtr(percentage(1/12),$desk-gtr)
+   }
+ }
