@@ -59,7 +59,7 @@ function listUpcomingEvents() {
     'timeMin': (new Date()).toISOString(),
     'showDeleted': false,
     'singleEvents': true,
-    'maxResults': 15,
+    'maxResults': 5,
     'orderBy': 'startTime'
   });
 
@@ -106,24 +106,28 @@ function appendPre(event, when, numberofActivities) {
 
   var activity = document.createElement("li");
   activity.className = "calender-activity";
-  activity.innerText = event;
+  // activity.innerText = event;
 
-  var whenSpan = document.createElement("span");
+  activitySpan = document.createElement("span");
+  activitySpan.className = "the-activity";
+  activitySpan.innerText = event;
 
+  var whenSpan = document.createElement("div");
   whenSpan.className = "activity-date format-date";
   whenSpan.innerText = when;
 
   if (counter > 0) // Rubriken "Min kalender" ska inte ha ett datum.
   {
-    activity.appendChild(whenSpan);
+   activity.appendChild(whenSpan);
   }
+  activity.appendChild(activitySpan);
   calender.appendChild(activity);
+
   if (counter == numberofActivities) {
-    formatDate();
+     formatDate();
   }
   counter++;
 }
-
 
 /*###########################################
  ############################################
@@ -149,8 +153,6 @@ function formatDate() {
 
    dateString = formatDate[l].innerText.substr(0,10);
 
-   console.log(dateString);
-
    formatDate[l].innerText = formatDate[l].innerText.replace("-","");
    formatDate[l].innerText = formatDate[l].innerText.replace("-","");
    formatDate[l].innerText = formatDate[l].innerText.replace("T","");
@@ -162,11 +164,13 @@ function formatDate() {
 
    weekDay = weekDays[new Date(dateString).getDay()];
 
+   weekDay = weekDay.substr(0,3);
+
    if(time.length > 0) {
-    formatDate[l].innerHTML = weekDay+" "+day+" "+months[month-1]+" "+year+"<span class='time-span'>Klockan: "+time+"</span>";
+    formatDate[l].innerHTML = "<div class='calender-date'>"+weekDay+" "+day+" "+months[month-1]+"</div>"+"<div class='time-span'>Kl: "+time+"</div>";
    }
    else {
-    formatDate[l].innerText =  weekDay+" "+day+" "+months[month-1]+" "+year;
+    formatDate[l].innerHTML = "<div class='calender-date'>"+weekDay+" "+day+" "+months[month-1]+"</div>"+"<div class='time-span'>Heldag</div>";
    }
   }
 }

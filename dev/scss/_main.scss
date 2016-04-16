@@ -14,17 +14,38 @@ body
 }
 
 .time-date-container {
-  font-size: 1.6em;
 
-  * {
-    margin: 10px 0;
-    text-align: center;
-    text-transform: capitalize;
+  margin: 10px;
+ text-transform: capitalize;
+
+
+
+
+  // font-size: 1.6em;
+  // text-align: center;
+  // * {
+  //   margin: 10px 0;
+  //   text-align: center;
+  //   text-transform: capitalize;
+  // }
+  .date {
+    font-size: 1.4em;
+    margin: 2px;
+
   }
   h6 {
-    letter-spacing: 5px;
-
+    font-size: 1.4em;
+    letter-spacing: 3px;
+    margin: 5px;
   }
+  .date-info {
+    margin-top: 25px;
+  }
+  p {
+    font-size: 14px;
+    margin: 5px 0;
+  }
+
 }
 
 
@@ -36,7 +57,7 @@ body
  .card-icon {
    position: absolute;
    top: 15px;
-   left: 20px;
+   left: 15px;
    margin: 0;
  }
 

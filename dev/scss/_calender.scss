@@ -1,0 +1,44 @@
+.calender {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.calender-container {
+  width: 100%;
+  margin: 30px 15px  15px 15px;
+}
+.calender-activity:first-of-type {
+   display: none;
+}
+.calender-activity {
+  margin: 0;
+  width: 100%;
+  margin: 12px 0 0 0;
+  border-bottom: 1px solid $lightGrey;
+}
+.activity-date {
+  display: inline-block;
+  width: 105px;
+}
+.the-activity {
+  display: inline-block;
+  width: calc(100% - 115px);
+}
+.calender-date {
+  background-color: $red;
+  color: white;
+  padding: 10px 5px;
+  text-align: center;
+  text-transform: capitalize;
+}
+.time-span {
+  background-color: $lightGrey;
+  padding: 8px 5px;
+  color: $darkGrey;
+  margin: 0;
+  text-transform: capitalize;
+  text-align: center;
+}
+.the-activity {
+  margin-left: 10px;
+}
