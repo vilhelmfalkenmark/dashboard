@@ -1,11 +1,15 @@
+.calender-card {
+  // @extend .flex-center;
+}
+
 .calender {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
 .calender-container {
-  width: 100%;
-  margin: 30px 15px  15px 15px;
+  width: 90%;
+  margin: 65px 15px 15px 15px;
 }
 .calender-activity:first-of-type {
    display: none;
@@ -13,7 +17,7 @@
 .calender-activity {
   margin: 0;
   width: 100%;
-  margin: 12px 0 0 0;
+  margin: 15px 0 0 0;
   border-bottom: 1px solid $lightGrey;
 }
 .activity-date {

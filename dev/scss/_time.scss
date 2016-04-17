@@ -1,0 +1,29 @@
+.time-card {
+  // @extend .flex-center;
+}
+.time-date-container {
+
+  width: 100%;
+  margin: 65px 15px 15px 15px;
+
+
+ text-transform: capitalize;
+  .date {
+    font-size: 1.4em;
+    margin: 2px;
+    text-transform: uppercase;
+
+  }
+  h6 {
+    font-size: 1.4em;
+    letter-spacing: 3px;
+    margin: 5px;
+  }
+  .date-info {
+    margin-top: 25px;
+  }
+  p {
+    font-size: 14px;
+    margin: 5px 0;
+  }
+}

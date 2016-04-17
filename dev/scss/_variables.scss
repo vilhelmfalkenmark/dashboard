@@ -1,9 +1,14 @@
 $red: #D64541;
-$blue: #4183D7;
 $green: #26A65B;
 $purple: #663399;
 $darkGrey: #363636;
 $lightGrey: rgb(222,222,222);
+
+$lightBlue: rgb(12,166,210);
+$mediumBlue: rgb(0,131,170);
+$darkBlue: rgb(3,90,115);
+$darkestBlue: rgb(3,77,97);
+
 
 
 
@@ -12,3 +17,22 @@ $mobile-large-break: 767px;
 $tablet-break: 1024px;
 
 $gutter: 15px;
+
+
+/*###########################################
+ ############################################
+                  FONTS
+ ############################################
+ ############################################*/
+ @font-face {
+   font-family: robotoLight;
+   src: url(../fonts/RobotoCondensed-Light.ttf);
+ }
+ @font-face {
+   font-family: robotoRegular;
+   src: url(../fonts/RobotoCondensed-Regular.ttf);
+ }
+ @font-face {
+   font-family: robotoBold;
+   src: url(../fonts/RobotoCondensed-Bold.ttf);
+ }

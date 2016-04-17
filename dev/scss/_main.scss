@@ -1,66 +1,44 @@
-@font-face {
-  font-family: adelle;
-  src: url(../fonts/adelle-normal.ttf);
-}
+
 body
 {
- font-family: "adelle", sans-serif;
+ font-family: "robotoRegular", sans-serif;
   font-weight: 700;
   letter-spacing: 0.1px;
   font-weight: 300;
-  background-color: $lightGrey;
+  background-color: $darkGrey;
   color: $darkGrey;
   overflow-x: hidden;
 }
 
-.time-date-container {
-
-  margin: 10px;
- text-transform: capitalize;
-
-
-
-
-  // font-size: 1.6em;
-  // text-align: center;
-  // * {
-  //   margin: 10px 0;
-  //   text-align: center;
-  //   text-transform: capitalize;
-  // }
-  .date {
-    font-size: 1.4em;
-    margin: 2px;
-
-  }
-  h6 {
-    font-size: 1.4em;
-    letter-spacing: 3px;
-    margin: 5px;
-  }
-  .date-info {
-    margin-top: 25px;
-  }
-  p {
-    font-size: 14px;
-    margin: 5px 0;
-  }
-}
-
-
-
 .flex-card {
-  // margin: 10px;
-  background-color: white;
-  // border: 1px solid gray;
   position: relative;
 }
 
-
-
-
-
-
+/*###########################################
+ ############################################
+                  CARD COLORS
+ ############################################
+ ############################################*/
+.time-card {
+  color: white;
+  background-color: $lightBlue;
+}
+.calender-card {
+  color: white;
+  background-color: $mediumBlue;
+}
+.weather-card {
+  color: white;
+  background-color: $darkBlue;
+}
+.public-transport-card {
+  color: white;
+  background-color: $darkestBlue;
+}
+.twitter-card {
+  color: white;
+  background-color: $lightBlue;
+}
 /*###########################################
  ############################################
                   Card-icons
@@ -69,6 +47,14 @@ body
  .card-icon {
    position: absolute;
    top: 15px;
+  //  color: $red;
    left: 15px;
    margin: 0;
+   font-size: 30px;
+   text-transform: uppercase;
+   i {
+     margin-right: 10px;
+   }
+ }
+ .content-container {
  }

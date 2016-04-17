@@ -19,8 +19,8 @@
     ###############################################-->
     <div class="flex-row">
       <!-- DATE AND TIME -->
-      <div class="flex-card flex-col-2 flex-center">
-        <h3 class="card-icon"><i class="fa fa-clock-o"></i> Tid & Datum</h3>
+      <div class="flex-card time-card col-3-desk col-6-gtr-tab col-12-gtr-ml col-12-gtr-ms">
+        <h3 class="card-icon"><i class="fa fa-clock-o"></i>Tid & Datum</h3>
         <div class="time-date-container">
           <h5 class="date"></h2>
             <h6 class="time"></h3>
@@ -29,9 +29,9 @@
             </div>
           </div>
           <!-- CALENDER -->
-          <div class="flex-card flex-col-4 flex-center">
-            <h3 class="card-icon"><i class="fa fa-calendar"></i> Kalender</h3>
-            <div class="calender-container">
+          <div class="flex-card calender-card col-4-desk col-6-gtr-tab col-12-gtr-ml col-12-gtr-ms">
+            <h3 class="card-icon"><i class="fa fa-calendar"></i>Kalender</h3>
+            <div class="calender-container content-container">
               <div id="authorize-div" style="display: none">
                 <span>Authorize access to Google Calendar API</span>
                 <!--Button for the user to click to initiate auth sequence -->
@@ -43,27 +43,21 @@
             </div>
           </div>
           <!-- WEATHER -->
-          <div class="flex-card flex-col-6">
-            <h3 class="card-icon"><i class="fa fa-sun-o"></i> Vädret i Stockholm</h3>
-            <div class="weather-container">
+          <div class="flex-card weather-card col-5-desk col-12-gtr-tab col-12-gtr-ml col-12-gtr-ms">
+            <h3 class="card-icon"><i class="fa fa-sun-o"></i>Vädret i Stockholm</h3>
+            <div class="weather-container content-container">
             </div>
           </div>
-        </div>
-        <!--##############################################
-        END FIRST FLEX-ROW
-        &
-        START SECOND FLEX-ROW
-        ###############################################-->
-        <div class="flex-row">
+
           <!-- PUBLIC TRANSPORT -->
-          <div class="flex-card flex-col-6">
-            <div class="public-transport-container"></div>
+          <div class="flex-card public-transport-card col-7-desk col-8-gtr-tab col-12-gtr-ml col-12-gtr-ms">
+            <h3 class="card-icon"><i class="fa fa-bus "></i>Avgångar nära dig</h3>
+            <div class="public-transport-container content-container"></div>
           </div>
           <!-- TWITTER -->
-          <div class="flex-card flex-col-6">
+          <div class="flex-card twitter-card col-5-desk col-4-gtr-tab col-12-gtr-ml col-12-gtr-ms">
             <h3 class="card-icon"><i class="fa fa-twitter "></i>Dagens Nyheters Twitterfeed</h3>
-
-            <div class="twitter-container"></div>
+            <div class="twitter-container content-container"></div>
           </div>
         </div>
         <!--##############################################
@@ -74,6 +68,7 @@
       <!--build:js js/main.min.js -->
       <script src="js/script.js"></script>
       <script src="js/googlecalender.js"></script>
+      <script src="js/dom.js"></script>
       <!-- endbuild -->
       <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
     </body>

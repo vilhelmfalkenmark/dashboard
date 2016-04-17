@@ -31,11 +31,9 @@
   setInterval(function() {
    updateClock()
   }, 1000);
-
   // console.log(currentYear)
   // console.log(currentDay)
   // console.log(currentMonth)
-
   /*###########################################
   ############################################
   NAMNSDAGAR ETC.
@@ -55,7 +53,7 @@
     for (var key in today) {
      if (key == "röd dag") {
       var redDay = document.createElement("p");
-      redDay.innerText = "Röd dag: " + today[key];
+      redDay.innerText = "Helgdag: " + today[key];
       dateInfoContainer.appendChild(redDay);
      }
     }
@@ -87,24 +85,51 @@
   ############################################
   ############################################*/
   // var x = document.getElementById("demo");
-  // function getLocation() {
-  //     if (navigator.geolocation) {
-  //         navigator.geolocation.getCurrentPosition(showPosition);
-  //     } else {
-  //         x.innerHTML = "Geolocation is not supported by this browser.";
-  //     }
-  // }
-  // function showPosition(position) {
-  //     x.innerHTML = "Latitude: " + position.coords.latitude +
-  //     "<br>Longitude: " + position.coords.longitude;
-  // }
-  //  getLocation();
+  function getLocation() {
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+          alert("Geolocation stödjs inte i den här browsern och vi kan därför inte hitta din plats");
+      }
+  }
+  function showPosition(position) {
+      var long = position.coords.longitude;
+      var lat = position.coords.latitude;
+
+      sl(position.coords.latitude,position.coords.longitude);
+
+  }
+   getLocation();
+
+
+
+   //
+   // console.log(showPosition());
+   // console.log(showPosition());
+
+   // function getPosition(long,lat) {
+   //  var returnArray = [long,lat];
+   //
+   //
+   // }
+   //
+
+
 
   /*###########################################
   ############################################
   VÄDER FRÅN SMHI
   ############################################
   ############################################*/
+
+  // function getWeather(lat,long) {
+  //
+  // // var latitude = lat.substr(0,4);
+  // // var longitude = long.substr(0,4);
+  //
+  // console.log("Väder kallad!")
+
+  // var smhiRequest = "http://opendata-download-metfcst.smhi.se/api/category/pmp1.5g/version/1/geopoint/lat/"+latitude+"/lon/"+longitude+"/data.json";
   var smhiRequest = "http://opendata-download-metfcst.smhi.se/api/category/pmp1.5g/version/1/geopoint/lat/59.32/lon/18.05/data.json";
 
   var today = new Date();
@@ -114,12 +139,14 @@
    var allObservations = json.timeseries;
    var limiter = 1;
 
-   var numberOfObservation = 6;
+   var numberOfObservation = 12;
+
+
 
    function findWeather() {
     for (var i = 0; i < allObservations.length; i++) {
      if (allObservations[i].validTime.substr(8, 2) == currentDay && allObservations[i].validTime.substr(11, 2) == today.getHours()) {
-      for (var j = 0; j <= 24; j += numberOfObservation) {
+      for (var j = 0; j <= 24; j += 8) {
        observations.push(allObservations[i + j]);
       }
       return false;
@@ -149,27 +176,23 @@
    if (k == 0) {
     weatherDate.innerHTML = "Just nu";
    } else {
-    //
-    // console.log(observations[k].validTime.substr(8,2))
-    // console.log(currentDay+" är currentDay")
 
     if (observations[k].validTime.substr(8, 2) == currentDay) {
      weatherDate.innerHTML = "Idag klockan " + observations[k].validTime.substr(11, 2);
     } else if (observations[k].validTime.substr(8, 2) == currentDay + 1) {
      weatherDate.innerHTML = "Imorgon klockan " + observations[k].validTime.substr(11, 2);
     }
-    // console.log(observations[k].validTime.substr(11,2));
+    else  {
+    weatherDate.innerHTML = "I övermorgon klockan " + observations[k].validTime.substr(11, 2);
    }
-
-   // weatherDate.innerHTML = observations[k].validTime;
-
+   }
    var weatherTemp = document.createElement("span");
    weatherTemp.className = "weather-temp";
-   weatherTemp.innerHTML = observations[k].t + "<i class='flaticon-weather'></i>";
+   weatherTemp.innerHTML = "<i class='flaticon-tool'></i>"+observations[k].t + "<i class='flaticon-weather'></i>";
 
    var windSpeed = document.createElement("span");
    windSpeed.className = "weather-windspeed";
-   windSpeed.innerHTML = observations[k].ws + " m/s";
+   windSpeed.innerHTML = "<i class='flaticon-weather-3'></i>"+observations[k].ws + " m/s";
 
    var windDirection = document.createElement("span");
    windDirection.className = "weather-winddirection";
@@ -205,26 +228,26 @@
 
    $(".weather-container").append(observation);
   }
-
  })
+
 
  /*###########################################
  ############################################
  RESEPLANERARE
  ############################################
  ###########################################*/
-
+function sl(lat,long) {
  $.ajax({
       type: "GET",
       // url:  "data.php?lat=59.3024216&long=18.1870591", // Chas
       // url:  "data.php?lat=59.3490464&long=18.065024", // Körsbärsvägen
       // url:  "data.php?lat=59.319600&long=18.072087", // Slussen
-      url:  "data.php?lat=59.3458412&long=18.0649849", // Stockholm Östra
+      url:  "data.php?lat="+lat+"&+long="+long, // Stockholm Östra
 
       dataType: "JSON",
       // jsonpCallback: 'callback',
       success: function(response) {
-        console.log(response);
+        // console.log(response);
 
        for (var i = 0; i < response.length; i++) {
           var distance = document.createElement("span");
@@ -286,8 +309,8 @@
                var displayTime = document.createElement("span");
                displayTime.innerHTML = response[i].ResponseData[key][k].DisplayTime;
 
-              li.appendChild(lineNumber)
               li.appendChild(transportMode)
+              li.appendChild(lineNumber)
               li.appendChild(destination)
               li.appendChild(displayTime)
               ul.appendChild(li);
@@ -298,12 +321,30 @@
           }
        }
        findDuplicates();
+       $( ".departure-list" ).each(function( ) {
+         // console.log(this.children.length);
+         if(this.children.length > 3 )
+         {
+          $(this).parent().append("<div class='number-of-departures'>Visa alla "+this.children.length+" avgångar.</div>")
+         }
+      });
+      $(".station-container").click(function(){
+       console.log("Hejsan!");
+       $(this).toggleClass("open-station-container");
+      });
+
+
+
       },
       error: function() {
        console.log('Inget svar från API');
       }
  });
 
+
+
+
+}
 
  function findDuplicates() {
   var departureList = document.getElementsByClassName('departure-list');
@@ -366,7 +407,7 @@ $.ajax({
  dataType: "json",
  // jsonpCallback: 'callback',
  success: function(twitter) {
-  // console.log(twitter);
+  console.log(twitter);
   var twitterContainer = document.getElementsByClassName('twitter-container')[0];
   var tweetContainer;
   var tweetDate;

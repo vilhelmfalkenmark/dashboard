@@ -6,8 +6,8 @@
 $ms-gtr: 5px;
 $ml-gtr: 5px;
 $tab-gtr: 10px;
-$desk-gtr: 15px;
-$standard-gtr: 20px;
+$desk-gtr: 10px;
+$standard-gtr: 10px;
 
 .flex-row {
   display: flex;
@@ -366,14 +366,6 @@ $standard-gtr: 20px;
    .flex-row-gtr {
      margin: $desk-gtr/2;
    }
-   
-   .flex-row-gtr:first-of-type {
-     margin: $desk-gtr/2 $desk-gtr/2 0 $desk-gtr/2;
-   }
-   .flex-row-gtr:last-of-type {
-     margin: 0 $desk-gtr/2 $desk-gtr/2 $desk-gtr/2;
-   }
-
    .col-12-desk {
      @include flex-col(percentage(12/12))
    }

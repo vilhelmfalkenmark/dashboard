@@ -1,6 +1,70 @@
 .public-transport-container {
-  padding-left: 50px;
+
+  @extend .flex-row-gtr;
 }
 .duplicate-container {
   display: none;
+}
+.distance-to-station {
+  display: block;
+  font-size: 12px;
+}
+
+.departure-list {
+  list-style: none;
+  padding: 10px 5px 10px 10px;
+
+  
+  li {
+    margin: 5px 0;
+    display: none;
+  }
+  li:nth-child(0)
+  {
+    // display: block;
+  }
+  li:nth-child(1)
+  {
+    display: block;
+  }
+  li:nth-child(2)
+  {
+    display: block;
+  }
+  li:nth-child(3)
+  {
+    display: block;
+  }
+}
+
+
+
+
+.station-container {
+
+  cursor: pointer;
+  @extend .col-4-gtr;
+
+  background-color: $lightGrey;
+
+  h3 {
+    text-align: center;
+
+    span:last-of-type { // ID FÖR STATION
+      display: none;
+    }
+
+  }
+}
+.station-container:hover {
+  // background-color: darken($lightGrey,10%);
+}
+.open-station-container {
+
+  background-color: $red;
+  color: white;
+  li {
+    display: block;
+  }
+
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,29 +11,30 @@
   <link rel="stylesheet" href="css/stylesheet.css">
   <!--endbuild-->
 </head>
+
 <body>
   <div class="container">
     <!--##############################################
     START FIRST FLEX-ROW
     ###############################################-->
-    <div class="flex-row-gtr">
+    <div class="flex-row">
       <!-- DATE AND TIME -->
-      <div class="flex-card col-3-gtr-desk col-6-gtr-tab col-12-gtr-ml col-12-gtr-ms flex-center">
-        <h3 class="card-icon"><i class="fa fa-clock-o"></i> Tid &amp; Datum</h3>
+      <div class="flex-card time-card col-3-desk col-6-gtr-tab col-12-gtr-ml col-12-gtr-ms">
+        <h3 class="card-icon"><i class="fa fa-clock-o"></i>Tid &amp; Datum</h3>
         <div class="time-date-container">
-          <h5 class="date">lördag 16 april</h5>
-          <h6 class="time">15:13:13</h6>
+          <h5 class="date">söndag 17 april</h5>
+          <h6 class="time">17:14:43</h6>
           <div class="date-info">
             <p>Vecka: 15</p>
-            <p>Röd dag: Nej</p>
-            <p>Namnsdag idag: <span>Patrik &amp; </span><span>Patricia</span></p>
+            <p>Helgdag: Ja</p>
+            <p>Namnsdag idag: <span>Elias &amp; </span><span>Elis</span></p>
           </div>
         </div>
       </div>
       <!-- CALENDER -->
-      <div class="flex-card col-4-gtr-desk col-6-gtr-tab col-12-gtr-ml col-12-gtr-ms flex-center">
-        <h3 class="card-icon"><i class="fa fa-calendar"></i> Kalender</h3>
-        <div class="calender-container">
+      <div class="flex-card calender-card col-4-desk col-6-gtr-tab col-12-gtr-ml col-12-gtr-ms">
+        <h3 class="card-icon"><i class="fa fa-calendar"></i>Kalender</h3>
+        <div class="calender-container content-container">
           <div id="authorize-div" style="display: none">
             <span>Authorize access to Google Calendar API</span>
             <!--Button for the user to click to initiate auth sequence -->
@@ -42,16 +44,6 @@
           </div>
           <ul class="calender">
             <li class="calender-activity"><span class="the-activity">Kommande saker i din kalender:</span></li>
-            <li class="calender-activity">
-              <div class="activity-date format-date">
-                <div class="calender-date">IDAG</div>
-                <div class="time-span">Heldag</div>
-              </div><span class="the-activity">Vara extra gullig mot min flickvän!</span></li>
-            <li class="calender-activity">
-              <div class="activity-date format-date">
-                <div class="calender-date">IDAG</div>
-                <div class="time-span">Kl: 20:00</div>
-              </div><span class="the-activity">Spela Diablo med Joe</span></li>
             <li class="calender-activity">
               <div class="activity-date format-date">
                 <div class="calender-date">mån 18 april</div>
@@ -66,267 +58,192 @@
         </div>
       </div>
       <!-- WEATHER -->
-      <div class="flex-card col-5-gtr-desk col-12-gtr-tab col-12-gtr-ml col-12-gtr-ms">
-        <h3 class="card-icon"><i class="fa fa-sun-o"></i> Vädret i Stockholm</h3>
-        <div class="weather-container">
+      <div class="flex-card weather-card col-5-desk col-12-gtr-tab col-12-gtr-ml col-12-gtr-ms">
+        <h3 class="card-icon"><i class="fa fa-sun-o"></i>Vädret i Stockholm</h3>
+        <div class="weather-container content-container">
           <div class="observation">
-            <h4>Just nu</h4><i class="flaticon-sky cloudicon"></i><span class="weather-text">Mulet. Ingen nederbörd</span><span class="weather-temp">6.5<i class="flaticon-weather"></i></span><span class="weather-windspeed">1.9 m/s</span><span class="weather-winddirection"><i class="fa fa-arrow-down" style="transform: rotate(142deg);"></i></span></div>
-          <div
-            class="observation">
-            <h4>Idag klockan 21</h4><i class="flaticon-sky cloudicon"></i><span class="weather-text">Mulet. Ingen nederbörd</span><span class="weather-temp">4.5<i class="flaticon-weather"></i></span><span class="weather-windspeed">3 m/s</span><span class="weather-winddirection"><i class="fa fa-arrow-down" style="transform: rotate(142deg);"></i></span></div>
-        <div
-          class="observation">
-          <h4>Imorgon klockan 03</h4><i class="flaticon-sky cloudicon"></i><span class="weather-text">Mulet. Ingen nederbörd</span><span class="weather-temp">4.8<i class="flaticon-weather"></i></span><span class="weather-windspeed">3.1 m/s</span><span class="weather-winddirection"><i class="fa fa-arrow-down" style="transform: rotate(157deg);"></i></span></div>
-      <div
-        class="observation">
-        <h4>Imorgon klockan 09</h4><i class="flaticon-sky cloudicon"></i><span class="weather-text">Mulet. Ingen nederbörd</span><span class="weather-temp">6.8<i class="flaticon-weather"></i></span><span class="weather-windspeed">3.7 m/s</span><span class="weather-winddirection"><i class="fa fa-arrow-down" style="transform: rotate(185deg);"></i></span></div>
-    <div
-      class="observation">
-      <h4>Imorgon klockan 15</h4><i class="flaticon-cloud-4 cloudicon"></i><span class="weather-text">Molnigt. Ingen nederbörd</span><span class="weather-temp">8.1<i class="flaticon-weather"></i></span><span class="weather-windspeed">4.1 m/s</span><span class="weather-winddirection"><i class="fa fa-arrow-down" style="transform: rotate(180deg);"></i></span></div>
-  </div>
-  </div>
-  </div>
-  <!--##############################################
-        END FIRST FLEX-ROW
-        &
-        START SECOND FLEX-ROW
-        ###############################################-->
-  <div class="flex-row-gtr">
-    <!-- PUBLIC TRANSPORT -->
-    <div class="flex-card col-6-gtr-desk col-6-gtr-tab col-12-gtr-ml col-12-gtr-ms">
-      <div class="public-transport-container">
-        <div class="station-container">
-          <h3><span class="station-name">Valhallavägen </span><span class="distance-to-station">101 meter </span><span>1082</span></h3>
-          <ul class="departure-list">
-            <li><span>4 </span><span>Buss </span><span>Radiohuset </span><span>Nu</span></li>
-            <li><span>61 </span><span>Buss </span><span>Hornsberg </span><span>3 min</span></li>
-            <li><span>4 </span><span>Buss </span><span>Gullmarsplan </span><span>4 min</span></li>
-            <li><span>72 </span><span>Buss </span><span>Frihamnen </span><span>5 min</span></li>
-            <li><span>61 </span><span>Buss </span><span>Ruddammen </span><span>5 min</span></li>
-            <li><span>67 </span><span>Buss </span><span>Skansen </span><span>5 min</span></li>
-            <li><span>4 </span><span>Buss </span><span>Radiohuset </span><span>6 min</span></li>
-            <li><span>72 </span><span>Buss </span><span>Karlbergs station </span><span>7 min</span></li>
-            <li><span>4 </span><span>Buss </span><span>Gullmarsplan </span><span>9 min</span></li>
-            <li><span>67 </span><span>Buss </span><span>Frösundavik </span><span>10 min</span></li>
-            <li><span>4 </span><span>Buss </span><span>Radiohuset </span><span>12 min</span></li>
-          </ul>
-        </div>
-        <div class="station-container duplicate-container">
-          <h3><span class="station-name">Valhallavägen </span><span class="distance-to-station">101 meter </span><span>1082</span></h3>
-          <ul class="departure-list duplicate">
-            <li><span>4 </span><span>Buss </span><span>Radiohuset </span><span>Nu</span></li>
-            <li><span>61 </span><span>Buss </span><span>Hornsberg </span><span>3 min</span></li>
-            <li><span>4 </span><span>Buss </span><span>Gullmarsplan </span><span>4 min</span></li>
-            <li><span>72 </span><span>Buss </span><span>Frihamnen </span><span>5 min</span></li>
-            <li><span>61 </span><span>Buss </span><span>Ruddammen </span><span>5 min</span></li>
-            <li><span>67 </span><span>Buss </span><span>Skansen </span><span>5 min</span></li>
-            <li><span>4 </span><span>Buss </span><span>Radiohuset </span><span>6 min</span></li>
-            <li><span>72 </span><span>Buss </span><span>Karlbergs station </span><span>7 min</span></li>
-            <li><span>4 </span><span>Buss </span><span>Gullmarsplan </span><span>9 min</span></li>
-            <li><span>67 </span><span>Buss </span><span>Frösundavik </span><span>10 min</span></li>
-            <li><span>4 </span><span>Buss </span><span>Radiohuset </span><span>12 min</span></li>
-          </ul>
-        </div>
-        <div class="station-container">
-          <h3><span class="station-name">Jarlaplan </span><span class="distance-to-station">228 meter </span><span>1085</span></h3>
-          <ul class="departure-list">
-            <li><span>2 </span><span>Buss </span><span>Sofia </span><span>2 min</span></li>
-            <li><span>2 </span><span>Buss </span><span>Norrtull </span><span>4 min</span></li>
-            <li><span>2 </span><span>Buss </span><span>Sofia </span><span>9 min</span></li>
-            <li><span>2 </span><span>Buss </span><span>Norrtull </span><span>13 min</span></li>
-          </ul>
-        </div>
-        <div class="station-container">
-          <h3><span class="station-name">Roslagsgatan </span><span class="distance-to-station">240 meter </span><span>1083</span></h3>
-          <ul class="departure-list">
-            <li><span>4 </span><span>Buss </span><span>Gullmarsplan </span><span>Nu</span></li>
-            <li><span>2 </span><span>Buss </span><span>Norrtull </span><span>Nu</span></li>
-            <li><span>50 </span><span>Buss </span><span>Hornsberg </span><span>Nu</span></li>
-            <li><span>67 </span><span>Buss </span><span>Frösundavik </span><span>1 min</span></li>
-            <li><span>61 </span><span>Buss </span><span>Ruddammen </span><span>3 min</span></li>
-            <li><span>67 </span><span>Buss </span><span>Skansen </span><span>4 min</span></li>
-            <li><span>72 </span><span>Buss </span><span>Frihamnen </span><span>4 min</span></li>
-            <li><span>4 </span><span>Buss </span><span>Radiohuset </span><span>5 min</span></li>
-            <li><span>61 </span><span>Buss </span><span>Hornsberg </span><span>5 min</span></li>
-            <li><span>2 </span><span>Buss </span><span>Norrtull </span><span>5 min</span></li>
-            <li><span>4 </span><span>Buss </span><span>Gullmarsplan </span><span>6 min</span></li>
-            <li><span>50 </span><span>Buss </span><span>Hornsberg </span><span>6 min</span></li>
-            <li><span>72 </span><span>Buss </span><span>Karlbergs station </span><span>8 min</span></li>
-            <li><span>4 </span><span>Buss </span><span>Radiohuset </span><span>11 min</span></li>
-            <li><span>4 </span><span>Buss </span><span>Gullmarsplan </span><span>11 min</span></li>
-            <li><span>67 </span><span>Buss </span><span>Frösundavik </span><span>12 min</span></li>
-            <li><span>2 </span><span>Buss </span><span>Norrtull </span><span>14 min</span></li>
-            <li><span>50 </span><span>Buss </span><span>Hornsberg </span><span>14 min</span></li>
-          </ul>
-        </div>
-        <div class="station-container">
-          <h3><span class="station-name">Surbrunnsgatan </span><span class="distance-to-station">283 meter </span><span>1092</span></h3>
-          <ul class="departure-list">
-            <li><span>50 </span><span>Buss </span><span>Hornsberg </span><span>Nu</span></li>
-            <li><span>50 </span><span>Buss </span><span>Stora Lappkärrsberget </span><span>1 min</span></li>
-            <li><span>50 </span><span>Buss </span><span>Hornsberg </span><span>5 min</span></li>
-            <li><span>50 </span><span>Buss </span><span>Stora Lappkärrsberget </span><span>9 min</span></li>
-            <li><span>50 </span><span>Buss </span><span>Hornsberg </span><span>13 min</span></li>
-          </ul>
-        </div>
-        <div class="station-container">
-          <h3><span class="station-name">Körsbärsvägen </span><span class="distance-to-station">286 meter </span><span>1094</span></h3>
-          <ul class="departure-list">
-            <li><span>61 </span><span>Buss </span><span>Hornsberg </span><span>2 min</span></li>
-            <li><span>61 </span><span>Buss </span><span>Ruddammen </span><span>6 min</span></li>
-          </ul>
-        </div>
-        <div class="station-container">
-          <h3><span class="station-name">Tekniska högskolan </span><span class="distance-to-station">382 meter </span><span>9204</span></h3>
-          <ul class="departure-list">
-            <li><span>14 </span><span>Tunnelbana </span><span>Mörby centrum </span><span>5 min</span></li>
-            <li><span>14 </span><span>Tunnelbana </span><span>Fruängen </span><span>4 min</span></li>
-            <li><span>14 </span><span>Tunnelbana </span><span>Liljeholmen </span><span>8 min</span></li>
-            <li><span>14 </span><span>Tunnelbana </span><span>Fruängen </span><span>14 min</span></li>
-          </ul>
-        </div>
-        <div class="station-container">
-          <h3><span class="station-name">Östra station </span><span class="distance-to-station">382 meter </span><span>9204</span></h3>
-          <ul class="departure-list">
-            <li><span>4 </span><span>Buss </span><span>Radiohuset </span><span>2 min</span></li>
-            <li><span>4 </span><span>Buss </span><span>Gullmarsplan </span><span>2 min</span></li>
-            <li><span>670 </span><span>Buss </span><span>Vaxholm </span><span>4 min</span></li>
-            <li><span>72 </span><span>Buss </span><span>Karlbergs station </span><span>5 min</span></li>
-            <li><span>72 </span><span>Buss </span><span>Frihamnen </span><span>7 min</span></li>
-            <li><span>4 </span><span>Buss </span><span>Gullmarsplan </span><span>7 min</span></li>
-            <li><span>67 </span><span>Buss </span><span>Skansen </span><span>7 min</span></li>
-            <li><span>4 </span><span>Buss </span><span>Radiohuset </span><span>8 min</span></li>
-            <li><span>67 </span><span>Buss </span><span>Frösundavik </span><span>8 min</span></li>
-            <li><span>676 </span><span>Buss </span><span>Norrtälje </span><span>9 min</span></li>
-            <li><span>4 </span><span>Buss </span><span>Gullmarsplan </span><span>13 min</span></li>
-            <li><span>4 </span><span>Buss </span><span>Radiohuset </span><span>14 min</span></li>
-          </ul>
-        </div>
-        <div class="station-container">
-          <h3><span class="station-name">Stockholms östra </span><span class="distance-to-station">382 meter </span><span>9204</span></h3>
-          <ul class="departure-list">
-            <li><span>29 </span><span>Lokalbana </span><span>Näsbypark </span><span>Nu</span></li>
-            <li><span>27 </span><span>Lokalbana </span><span>Lindholmen </span><span>4 min</span></li>
-            <li><span>28S </span><span>Lokalbana </span><span>Österskär </span><span>15:24</span></li>
-          </ul>
-        </div>
-        <div class="station-container duplicate-container">
-          <h3><span class="station-name">Tekniska högskolan </span><span class="distance-to-station">382 meter </span><span>9600</span></h3>
-          <ul class="departure-list duplicate">
-            <li><span>14 </span><span>Tunnelbana </span><span>Mörby centrum </span><span>5 min</span></li>
-            <li><span>14 </span><span>Tunnelbana </span><span>Fruängen </span><span>4 min</span></li>
-            <li><span>14 </span><span>Tunnelbana </span><span>Liljeholmen </span><span>8 min</span></li>
-            <li><span>14 </span><span>Tunnelbana </span><span>Fruängen </span><span>14 min</span></li>
-          </ul>
-        </div>
-        <div class="station-container duplicate-container">
-          <h3><span class="station-name">Östra station </span><span class="distance-to-station">382 meter </span><span>9600</span></h3>
-          <ul class="departure-list duplicate">
-            <li><span>4 </span><span>Buss </span><span>Radiohuset </span><span>2 min</span></li>
-            <li><span>4 </span><span>Buss </span><span>Gullmarsplan </span><span>2 min</span></li>
-            <li><span>670 </span><span>Buss </span><span>Vaxholm </span><span>4 min</span></li>
-            <li><span>72 </span><span>Buss </span><span>Karlbergs station </span><span>5 min</span></li>
-            <li><span>72 </span><span>Buss </span><span>Frihamnen </span><span>7 min</span></li>
-            <li><span>4 </span><span>Buss </span><span>Gullmarsplan </span><span>7 min</span></li>
-            <li><span>67 </span><span>Buss </span><span>Skansen </span><span>7 min</span></li>
-            <li><span>4 </span><span>Buss </span><span>Radiohuset </span><span>8 min</span></li>
-            <li><span>67 </span><span>Buss </span><span>Frösundavik </span><span>8 min</span></li>
-            <li><span>676 </span><span>Buss </span><span>Norrtälje </span><span>9 min</span></li>
-            <li><span>4 </span><span>Buss </span><span>Gullmarsplan </span><span>13 min</span></li>
-            <li><span>4 </span><span>Buss </span><span>Radiohuset </span><span>14 min</span></li>
-          </ul>
-        </div>
-        <div class="station-container duplicate-container">
-          <h3><span class="station-name">Stockholms östra </span><span class="distance-to-station">382 meter </span><span>9600</span></h3>
-          <ul class="departure-list duplicate">
-            <li><span>29 </span><span>Lokalbana </span><span>Näsbypark </span><span>Nu</span></li>
-            <li><span>27 </span><span>Lokalbana </span><span>Lindholmen </span><span>4 min</span></li>
-            <li><span>28S </span><span>Lokalbana </span><span>Österskär </span><span>15:24</span></li>
-          </ul>
-        </div>
-        <div class="station-container duplicate-container">
-          <h3><span class="station-name">Tekniska högskolan </span><span class="distance-to-station">382 meter </span><span>9600</span></h3>
-          <ul class="departure-list duplicate">
-            <li><span>14 </span><span>Tunnelbana </span><span>Mörby centrum </span><span>5 min</span></li>
-            <li><span>14 </span><span>Tunnelbana </span><span>Fruängen </span><span>4 min</span></li>
-            <li><span>14 </span><span>Tunnelbana </span><span>Liljeholmen </span><span>8 min</span></li>
-            <li><span>14 </span><span>Tunnelbana </span><span>Fruängen </span><span>14 min</span></li>
-          </ul>
-        </div>
-        <div class="station-container duplicate-container">
-          <h3><span class="station-name">Östra station </span><span class="distance-to-station">382 meter </span><span>9600</span></h3>
-          <ul class="departure-list duplicate">
-            <li><span>4 </span><span>Buss </span><span>Radiohuset </span><span>2 min</span></li>
-            <li><span>4 </span><span>Buss </span><span>Gullmarsplan </span><span>2 min</span></li>
-            <li><span>670 </span><span>Buss </span><span>Vaxholm </span><span>4 min</span></li>
-            <li><span>72 </span><span>Buss </span><span>Karlbergs station </span><span>5 min</span></li>
-            <li><span>72 </span><span>Buss </span><span>Frihamnen </span><span>7 min</span></li>
-            <li><span>4 </span><span>Buss </span><span>Gullmarsplan </span><span>7 min</span></li>
-            <li><span>67 </span><span>Buss </span><span>Skansen </span><span>7 min</span></li>
-            <li><span>4 </span><span>Buss </span><span>Radiohuset </span><span>8 min</span></li>
-            <li><span>67 </span><span>Buss </span><span>Frösundavik </span><span>8 min</span></li>
-            <li><span>676 </span><span>Buss </span><span>Norrtälje </span><span>9 min</span></li>
-            <li><span>4 </span><span>Buss </span><span>Gullmarsplan </span><span>13 min</span></li>
-            <li><span>4 </span><span>Buss </span><span>Radiohuset </span><span>14 min</span></li>
-          </ul>
-        </div>
-        <div class="station-container duplicate-container">
-          <h3><span class="station-name">Stockholms östra </span><span class="distance-to-station">382 meter </span><span>9600</span></h3>
-          <ul class="departure-list duplicate">
-            <li><span>29 </span><span>Lokalbana </span><span>Näsbypark </span><span>Nu</span></li>
-            <li><span>27 </span><span>Lokalbana </span><span>Lindholmen </span><span>4 min</span></li>
-            <li><span>28S </span><span>Lokalbana </span><span>Österskär </span><span>15:24</span></li>
-          </ul>
-        </div>
-        <div class="station-container">
-          <h3><span class="station-name">Frejgatan </span><span class="distance-to-station">415 meter </span><span>1097</span></h3>
-          <ul class="departure-list">
-            <li><span>50 </span><span>Buss </span><span>Stora Lappkärrsberget </span><span>2 min</span></li>
-            <li><span>50 </span><span>Buss </span><span>Hornsberg </span><span>4 min</span></li>
-            <li><span>50 </span><span>Buss </span><span>Stora Lappkärrsberget </span><span>10 min</span></li>
-            <li><span>50 </span><span>Buss </span><span>Hornsberg </span><span>12 min</span></li>
-          </ul>
+            <h4>Just nu</h4><i class="flaticon-sky cloudicon"></i><span class="weather-text">Mulet. Ingen nederbörd</span><span class="weather-temp"><i class="flaticon-tool"></i>7.4<i class="flaticon-weather"></i></span><span class="weather-windspeed"><i class="flaticon-weather-3"></i>4.2 m/s</span>
+            <span
+              class="weather-winddirection"><i class="fa fa-arrow-down" style="transform: rotate(205deg);"></i></span>
+          </div>
+          <div class="observation">
+            <h4>Imorgon klockan 01</h4><i class="flaticon-sky cloudicon"></i><span class="weather-text">Mulet. Ingen nederbörd</span><span class="weather-temp"><i class="flaticon-tool"></i>4.6<i class="flaticon-weather"></i></span><span class="weather-windspeed"><i class="flaticon-weather-3"></i>4.6 m/s</span>
+            <span
+              class="weather-winddirection"><i class="fa fa-arrow-down" style="transform: rotate(282deg);"></i></span>
+          </div>
+          <div class="observation">
+            <h4>Imorgon klockan 09</h4><i class="flaticon-cloud-4 cloudicon"></i><span class="weather-text">Molnigt. Ingen nederbörd</span><span class="weather-temp"><i class="flaticon-tool"></i>10.2<i class="flaticon-weather"></i></span><span class="weather-windspeed"><i class="flaticon-weather-3"></i>6.9 m/s</span>
+            <span
+              class="weather-winddirection"><i class="fa fa-arrow-down" style="transform: rotate(255deg);"></i></span>
+          </div>
+          <div class="observation">
+            <h4>Imorgon klockan 17</h4><i class="flaticon-sky cloudicon"></i><span class="weather-text">Mulet. undefined</span><span class="weather-temp"><i class="flaticon-tool"></i>8.8<i class="flaticon-weather"></i></span><span class="weather-windspeed"><i class="flaticon-weather-3"></i>7.5 m/s</span>
+            <span
+              class="weather-winddirection"><i class="fa fa-arrow-down" style="transform: rotate(230deg);"></i></span>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- TWITTER -->
-    <div class="flex-card col-6-gtr-desk col-6-gtr-tab col-12-gtr-ml col-12-gtr-ms">
-      <h3 class="card-icon"><i class="fa fa-twitter "></i>Dagens Nyheters Twitterfeed</h3>
 
-      <div class="twitter-container">
-        <div class="tweet-container">
-          <p class="tweet-date">Lördag 16 Apr Klockan: 12:48</p>
-          <p class="tweet-content">RT @DN_Sport: Hon stal bollen – och fixade @PixboWallenstam:s första guld på damsidan.
-            <a href="https://t.co/an1nSPeCi0" class="twitter-link" target="_blank">Läs mer</a> #innebandy <a href="https://t.co/nb86…" class="twitter-link" target="_blank">Läs mer</a></p>
+      <!-- PUBLIC TRANSPORT -->
+      <div class="flex-card public-transport-card col-7-desk col-8-gtr-tab col-12-gtr-ml col-12-gtr-ms">
+        <h3 class="card-icon"><i class="fa fa-bus "></i>Avgångar nära dig</h3>
+        <div class="public-transport-container content-container">
+          <div class="station-container">
+            <h3><span class="station-name">Körsbärsvägen </span><span class="distance-to-station">59 meter </span><span>1094</span></h3>
+            <ul class="departure-list">
+              <li><span>Buss </span><span>61 </span><span>Ruddammen </span><span>Nu</span></li>
+              <li><span>Buss </span><span>61 </span><span>Hornsberg </span><span>Nu</span></li>
+            </ul>
+          </div>
+          <div class="station-container">
+            <h3><span class="station-name">Stickelbärsvägen </span><span class="distance-to-station">116 meter </span><span>1093</span></h3>
+            <ul class="departure-list">
+              <li><span>Buss </span><span>61 </span><span>Ruddammen </span><span>1 min</span></li>
+              <li><span>Buss </span><span>61 </span><span>Hornsberg </span><span>14 min</span></li>
+            </ul>
+          </div>
+          <div class="station-container">
+            <h3><span class="station-name">Odengatan </span><span class="distance-to-station">264 meter </span><span>1082</span></h3>
+            <ul class="departure-list">
+              <li><span>Buss </span><span>61 </span><span>Hornsberg </span><span>1 min</span></li>
+              <li><span>Buss </span><span>72 </span><span>Karlbergs station </span><span>2 min</span></li>
+              <li><span>Buss </span><span>67 </span><span>Skansen </span><span>2 min</span></li>
+              <li><span>Buss </span><span>4 </span><span>Radiohuset </span><span>2 min</span></li>
+              <li><span>Buss </span><span>72 </span><span>Frihamnen </span><span>3 min</span></li>
+              <li><span>Buss </span><span>4 </span><span>Gullmarsplan </span><span>4 min</span></li>
+              <li><span>Buss </span><span>67 </span><span>Frösundavik </span><span>7 min</span></li>
+              <li><span>Buss </span><span>4 </span><span>Radiohuset </span><span>8 min</span></li>
+              <li><span>Buss </span><span>4 </span><span>Gullmarsplan </span><span>10 min</span></li>
+              <li><span>Buss </span><span>4 </span><span>Radiohuset </span><span>14 min</span></li>
+              <li><span>Buss </span><span>61 </span><span>Ruddammen </span><span>14 min</span></li>
+            </ul>
+            <div class="number-of-departures">Visa alla 11 avgångar.</div>
+          </div>
+          <div class="station-container duplicate-container">
+            <h3><span class="station-name">Odengatan </span><span class="distance-to-station">264 meter </span><span>1082</span></h3>
+            <ul class="departure-list duplicate">
+              <li><span>Buss </span><span>61 </span><span>Hornsberg </span><span>1 min</span></li>
+              <li><span>Buss </span><span>72 </span><span>Karlbergs station </span><span>2 min</span></li>
+              <li><span>Buss </span><span>67 </span><span>Skansen </span><span>2 min</span></li>
+              <li><span>Buss </span><span>4 </span><span>Radiohuset </span><span>2 min</span></li>
+              <li><span>Buss </span><span>72 </span><span>Frihamnen </span><span>3 min</span></li>
+              <li><span>Buss </span><span>4 </span><span>Gullmarsplan </span><span>4 min</span></li>
+              <li><span>Buss </span><span>67 </span><span>Frösundavik </span><span>7 min</span></li>
+              <li><span>Buss </span><span>4 </span><span>Radiohuset </span><span>8 min</span></li>
+              <li><span>Buss </span><span>4 </span><span>Gullmarsplan </span><span>10 min</span></li>
+              <li><span>Buss </span><span>4 </span><span>Radiohuset </span><span>14 min</span></li>
+              <li><span>Buss </span><span>61 </span><span>Ruddammen </span><span>14 min</span></li>
+            </ul>
+            <div class="number-of-departures">Visa alla 11 avgångar.</div>
+          </div>
+          <div class="station-container">
+            <h3><span class="station-name">Roslagstull </span><span class="distance-to-station">306 meter </span><span>1084</span></h3>
+            <ul class="departure-list">
+              <li><span>Buss </span><span>670 </span><span>Vaxholm </span><span>3 min</span></li>
+              <li><span>Buss </span><span>676 </span><span>Norrtälje </span><span>8 min</span></li>
+            </ul>
+          </div>
+          <div class="station-container">
+            <h3><span class="station-name">Ruddammsparken </span><span class="distance-to-station">339 meter </span><span>1118</span></h3>
+            <ul class="departure-list">
+              <li><span>Buss </span><span>61 </span><span>Ruddammen </span><span>2 min</span></li>
+              <li><span>Buss </span><span>61 </span><span>Hornsberg </span><span>13 min</span></li>
+            </ul>
+          </div>
+          <div class="station-container">
+            <h3><span class="station-name">Frejgatan </span><span class="distance-to-station">354 meter </span><span>1097</span></h3>
+            <ul class="departure-list">
+              <li><span>Buss </span><span>50 </span><span>Stora Lappkärrsberget </span><span>Nu</span></li>
+              <li><span>Buss </span><span>50 </span><span>Hornsberg </span><span>Nu</span></li>
+              <li><span>Buss </span><span>50 </span><span>Hornsberg </span><span>7 min</span></li>
+              <li><span>Buss </span><span>50 </span><span>Stora Lappkärrsberget </span><span>9 min</span></li>
+              <li><span>Buss </span><span>50 </span><span>Hornsberg </span><span>14 min</span></li>
+            </ul>
+            <div class="number-of-departures">Visa alla 5 avgångar.</div>
+          </div>
+          <div class="station-container">
+            <h3><span class="station-name">Roslagstull </span><span class="distance-to-station">372 meter </span><span>1090</span></h3>
+            <ul class="departure-list">
+              <li><span>Buss </span><span>50 </span><span>Hornsberg </span><span>Nu</span></li>
+              <li><span>Buss </span><span>50 </span><span>Stora Lappkärrsberget </span><span>1 min</span></li>
+              <li><span>Buss </span><span>50 </span><span>Hornsberg </span><span>6 min</span></li>
+              <li><span>Buss </span><span>50 </span><span>Stora Lappkärrsberget </span><span>10 min</span></li>
+              <li><span>Buss </span><span>50 </span><span>Hornsberg </span><span>13 min</span></li>
+            </ul>
+            <div class="number-of-departures">Visa alla 5 avgångar.</div>
+          </div>
+          <div class="station-container">
+            <h3><span class="station-name">Surbrunnsgatan </span><span class="distance-to-station">406 meter </span><span>1092</span></h3>
+            <ul class="departure-list">
+              <li><span>Buss </span><span>50 </span><span>Hornsberg </span><span>1 min</span></li>
+              <li><span>Buss </span><span>50 </span><span>Hornsberg </span><span>8 min</span></li>
+              <li><span>Buss </span><span>50 </span><span>Stora Lappkärrsberget </span><span>8 min</span></li>
+            </ul>
+          </div>
+          <div class="station-container">
+            <h3><span class="station-name">Roslagsgatan </span><span class="distance-to-station">448 meter </span><span>1083</span></h3>
+            <ul class="departure-list">
+              <li><span>Buss </span><span>4 </span><span>Gullmarsplan </span><span>Nu</span></li>
+              <li><span>Buss </span><span>2 </span><span>Norrtull </span><span>Nu</span></li>
+              <li><span>Buss </span><span>67 </span><span>Skansen </span><span>1 min</span></li>
+              <li><span>Buss </span><span>4 </span><span>Radiohuset </span><span>1 min</span></li>
+              <li><span>Buss </span><span>50 </span><span>Hornsberg </span><span>2 min</span></li>
+              <li><span>Buss </span><span>72 </span><span>Frihamnen </span><span>2 min</span></li>
+              <li><span>Buss </span><span>61 </span><span>Hornsberg </span><span>3 min</span></li>
+              <li><span>Buss </span><span>72 </span><span>Karlbergs station </span><span>3 min</span></li>
+              <li><span>Buss </span><span>4 </span><span>Gullmarsplan </span><span>6 min</span></li>
+              <li><span>Buss </span><span>4 </span><span>Radiohuset </span><span>7 min</span></li>
+              <li><span>Buss </span><span>67 </span><span>Frösundavik </span><span>9 min</span></li>
+              <li><span>Buss </span><span>50 </span><span>Hornsberg </span><span>9 min</span></li>
+              <li><span>Buss </span><span>2 </span><span>Norrtull </span><span>9 min</span></li>
+              <li><span>Buss </span><span>4 </span><span>Gullmarsplan </span><span>11 min</span></li>
+              <li><span>Buss </span><span>4 </span><span>Radiohuset </span><span>12 min</span></li>
+              <li><span>Buss </span><span>61 </span><span>Ruddammen </span><span>12 min</span></li>
+              <li><span>Buss </span><span>2 </span><span>Norrtull </span><span>13 min</span></li>
+            </ul>
+            <div class="number-of-departures">Visa alla 17 avgångar.</div>
+          </div>
         </div>
-        <div class="tweet-container">
-          <p class="tweet-date">Lördag 16 Apr Klockan: 12:46</p>
-          <p class="tweet-content">Påven tar med sig tolv syriska flyktingar till Rom
-            <a href="https://t.co/J4sJ0VUoSx" class="twitter-link" target="_blank">Läs mer</a> <a href="https://t.co/o5opCpQ03v" class="twitter-link" target="_blank">Läs mer</a></p>
-        </div>
-        <div class="tweet-container">
-          <p class="tweet-date">Lördag 16 Apr Klockan: 12:30</p>
-          <p class="tweet-content">Informationstvång om det fria skolvalet räcker inte menar Lärarförbundets ordförande.
-            <a href="https://t.co/VpgImOxxy5" class="twitter-link" target="_blank">Läs mer</a> <a href="https://t.co/uiG54dtBeQ" class="twitter-link" target="_blank">Läs mer</a></p>
-        </div>
-        <div class="tweet-container">
-          <p class="tweet-date">Lördag 16 Apr Klockan: 11:43</p>
-          <p class="tweet-content">Bilfabriken i Trollhättan förbereder sig för omstart – men kommer bilarna att få heta Saab?
-            <a href="https://t.co/b6wmJNuI1h" class="twitter-link" target="_blank">Läs mer</a> <a href="https://t.co/8622Ivw7MN" class="twitter-link" target="_blank">Läs mer</a></p>
-        </div>
-        <div class="tweet-container">
-          <p class="tweet-date">Lördag 16 Apr Klockan: 09:31</p>
-          <p class="tweet-content">RT @DNKultur: De okända kvinnorna - Bakom männens klassiker finns en kreativ partner
-            <a href="https://t.co/rUBV9JLesd" class="twitter-link" target="_blank">Läs mer</a> <a href="https://t.co/8K15Lyj2nh" class="twitter-link" target="_blank">Läs mer</a></p>
+      </div>
+      <!-- TWITTER -->
+      <div class="flex-card twitter-card col-5-desk col-4-gtr-tab col-12-gtr-ml col-12-gtr-ms">
+        <h3 class="card-icon"><i class="fa fa-twitter "></i>Dagens Nyheters Twitterfeed</h3>
+        <div class="twitter-container content-container">
+          <div class="tweet-container">
+            <p class="tweet-date">Söndag 17 Apr Klockan: 13:52</p>
+            <p class="tweet-content">Israels premiärminister: Golanhöjderna kommer att förbli i Israels händer för evigt
+              <a href="https://t.co/XIPxSyUPae" class="twitter-link" target="_blank">Läs mer</a> <a href="https://t.co/r3MPj4oOiH" class="twitter-link" target="_blank">Läs mer</a></p>
+          </div>
+          <div class="tweet-container">
+            <p class="tweet-date">Söndag 17 Apr Klockan: 12:22</p>
+            <p class="tweet-content">Mehmet Kaplan jämförde israeler med nazister
+              <a href="https://t.co/OzsTlcoLmL" class="twitter-link" target="_blank">Läs mer</a> <a href="https://t.co/YOcGN0ntMN" class="twitter-link" target="_blank">Läs mer</a></p>
+          </div>
+          <div class="tweet-container">
+            <p class="tweet-date">Söndag 17 Apr Klockan: 11:51</p>
+            <p class="tweet-content">Barn släpptes från balkong vid brand i bostadslänga i Upplands Väsby
+              <a href="https://t.co/yBmTI7TRBg" class="twitter-link" target="_blank">Läs mer</a> <a href="https://t.co/oR3U05smRb" class="twitter-link" target="_blank">Läs mer</a></p>
+          </div>
+          <div class="tweet-container">
+            <p class="tweet-date">Söndag 17 Apr Klockan: 11:35</p>
+            <p class="tweet-content">Rekryteringsexpert: Våga ställa krav när du söker jobb
+              <a href="https://t.co/5H5OicIIOa" class="twitter-link" target="_blank">Läs mer</a> <a href="https://t.co/CAOsaTQAzI" class="twitter-link" target="_blank">Läs mer</a></p>
+          </div>
+          <div class="tweet-container">
+            <p class="tweet-date">Söndag 17 Apr Klockan: 11:11</p>
+            <p class="tweet-content">Moderaterna: lägg korten på bordet
+              <a href="https://t.co/oe3ntK7wH3" class="twitter-link" target="_blank">Läs mer</a> <a href="https://t.co/uxQkUDrPfm" class="twitter-link" target="_blank">Läs mer</a></p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <!--##############################################
+    <!--##############################################
         END SECOND FLEX-ROW
         ###############################################-->
   </div>
   <script src="js/jquery-2.1.4.min.js"></script>
+  <script src="js/dom.js"></script>
+
   <!--build:js js/main.min.js -->
   <!-- <script src="js/script.js"></script>
   <script src="js/googlecalender.js"></script> -->
