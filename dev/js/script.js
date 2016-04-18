@@ -101,21 +101,6 @@
   }
    getLocation();
 
-
-
-   //
-   // console.log(showPosition());
-   // console.log(showPosition());
-
-   // function getPosition(long,lat) {
-   //  var returnArray = [long,lat];
-   //
-   //
-   // }
-   //
-
-
-
   /*###########################################
   ############################################
   VÄDER FRÅN SMHI
@@ -123,11 +108,10 @@
   ############################################*/
 
   // function getWeather(lat,long) {
-  //
   // // var latitude = lat.substr(0,4);
   // // var longitude = long.substr(0,4);
-  //
   // console.log("Väder kallad!")
+  function getWeather() {
 
   // var smhiRequest = "http://opendata-download-metfcst.smhi.se/api/category/pmp1.5g/version/1/geopoint/lat/"+latitude+"/lon/"+longitude+"/data.json";
   var smhiRequest = "http://opendata-download-metfcst.smhi.se/api/category/pmp1.5g/version/1/geopoint/lat/59.32/lon/18.05/data.json";
@@ -141,9 +125,7 @@
 
    var numberOfObservation = 12;
 
-
-
-   function findWeather() {
+   // function findWeather() {
     for (var i = 0; i < allObservations.length; i++) {
      if (allObservations[i].validTime.substr(8, 2) == currentDay && allObservations[i].validTime.substr(11, 2) == today.getHours()) {
       for (var j = 0; j <= 24; j += 8) {
@@ -152,8 +134,8 @@
       return false;
      }
     }
-   }
-   findWeather();
+   // }
+   // findWeather();
 
 
    var cloudIcons = ["flaticon-weather-2", "flaticon-summer", "flaticon-summer", "flaticon-nature",
@@ -229,13 +211,16 @@
    $(".weather-container").append(observation);
   }
  })
-
+} // End Get Weather
 
  /*###########################################
  ############################################
  RESEPLANERARE
  ############################################
  ###########################################*/
+
+function findCloseDepartures() {
+
 function sl(lat,long) {
  $.ajax({
       type: "GET",
@@ -321,17 +306,6 @@ function sl(lat,long) {
           }
        }
        findDuplicates();
-      //  $( ".departure-list" ).each(function( ) {
-      //    // console.log(this.children.length);
-      //    if(this.children.length > 3 )
-      //    {
-      //     $(this).parent().append("<div class='number-of-departures'>Visa alla "+this.children.length+" avgångar.</div>")
-      //    }
-      // });
-      // $(".station-container").click(function(){
-      //  // console.log("Hejsan!");
-      //  $(this).toggleClass("open-station-container");
-      // });
 
       /*###########################################
        ############################################
@@ -344,7 +318,7 @@ function sl(lat,long) {
 
        var allStationContainers = document.getElementsByClassName('station-container');
        var stationLength = allStationContainers.length-1;
-       console.log(stationLength);
+       // console.log(stationLength);
 
       $('body').keydown(function(e) {
           if (e.keyCode == 27) {
@@ -380,7 +354,7 @@ function sl(lat,long) {
        ############################################
        ############################################*/
       $(".station-container").click(function() {
-       console.log("station-container");
+       // console.log("station-container");
 
        $(".modal-container").css({
         "display":"block",
@@ -437,14 +411,15 @@ function sl(lat,long) {
    }
   }
  }
-}
-
+} // End findDuplicates
+} // End findCloseDepartures
 /*###########################################
 ############################################
 TWITTER
 ############################################
 ############################################*/
 
+function getTwitterFeed() {
 function urlify(text) {
  var urlRegex = /(https?:\/\/[^\s]+)/g;
  return text.replace(urlRegex, function(url) {
@@ -480,7 +455,7 @@ $.ajax({
  dataType: "json",
  // jsonpCallback: 'callback',
  success: function(twitter) {
-  console.log(twitter);
+  // console.log(twitter);
   var twitterContainer = document.getElementsByClassName('twitter-container')[0];
   var tweetContainer;
   var tweetDate;
@@ -512,6 +487,6 @@ $.ajax({
   console.log('Inget svar från Twitters API');
  }
 })
-
+} // End get Twitterfeed;
 }); // End  jQuery
 })(); // End Iffe

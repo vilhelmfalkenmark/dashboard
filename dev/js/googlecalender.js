@@ -1,3 +1,5 @@
+function getGoogleCalender() {
+
 var CLIENT_ID = '765342006289-i5i1df5rcv6sg6vh4ejm30f9lm1tjrhc.apps.googleusercontent.com';
 var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
 /**
@@ -179,4 +181,5 @@ function formatDate() {
     }
    }
   }
+}
 }
