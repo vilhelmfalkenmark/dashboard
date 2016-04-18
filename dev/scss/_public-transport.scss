@@ -1,5 +1,6 @@
 .public-transport-container {
 
+  margin: 65px 5px 5px 5px;
   @extend .flex-row-gtr;
 }
 .duplicate-container {
@@ -7,45 +8,27 @@
 }
 .distance-to-station {
   display: block;
-  font-size: 12px;
+  font-style: italic;
 }
 
 .departure-list {
   list-style: none;
   padding: 10px 5px 10px 10px;
-
-  
+  display: none;
   li {
     margin: 5px 0;
-    display: none;
-  }
-  li:nth-child(0)
-  {
-    // display: block;
-  }
-  li:nth-child(1)
-  {
-    display: block;
-  }
-  li:nth-child(2)
-  {
-    display: block;
-  }
-  li:nth-child(3)
-  {
-    display: block;
   }
 }
-
-
-
-
+.number-of-departures {
+  text-align: center;
+  padding-bottom: 5px;
+}
 .station-container {
 
   cursor: pointer;
-  @extend .col-4-gtr;
+  @extend .col-3-gtr;
 
-  background-color: $lightGrey;
+  background-color: $red;
 
   h3 {
     text-align: center;
@@ -56,15 +39,36 @@
 
   }
 }
-.station-container:hover {
-  // background-color: darken($lightGrey,10%);
-}
-.open-station-container {
 
-  background-color: $red;
-  color: white;
-  li {
+/*###########################################
+ ############################################
+                MODAL
+ ############################################
+ ############################################*/
+
+
+.modal {
+  .departure-list {
     display: block;
+    color: $darkGrey;
+    padding: 0;
   }
+  .number-of-departures {
+    display: none;
+  }
+  h3 {
+    text-align: left;
+    // padding: 30px;
+    .station-name, .distance-to-station {
+      display: inline;
+    }
+    span:last-of-type { // ID FÖR STATION
+      display: none;
+    }
+
+  }
+
+
+
 
 }

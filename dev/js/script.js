@@ -321,31 +321,104 @@ function sl(lat,long) {
           }
        }
        findDuplicates();
-       $( ".departure-list" ).each(function( ) {
-         // console.log(this.children.length);
-         if(this.children.length > 3 )
-         {
-          $(this).parent().append("<div class='number-of-departures'>Visa alla "+this.children.length+" avgångar.</div>")
-         }
+      //  $( ".departure-list" ).each(function( ) {
+      //    // console.log(this.children.length);
+      //    if(this.children.length > 3 )
+      //    {
+      //     $(this).parent().append("<div class='number-of-departures'>Visa alla "+this.children.length+" avgångar.</div>")
+      //    }
+      // });
+      // $(".station-container").click(function(){
+      //  // console.log("Hejsan!");
+      //  $(this).toggleClass("open-station-container");
+      // });
+
+      /*###########################################
+       ############################################
+                PRESS ESCAPE ON OPEN MODAL
+       ############################################
+       ############################################*/
+       var tabIndex = 0;
+       var modalOpen = false;
+       $( ".duplicate-container" ).remove(); // TA BORT ALLA DUBLETTER UR DOMET.
+
+       var allStationContainers = document.getElementsByClassName('station-container');
+       var stationLength = allStationContainers.length-1;
+       console.log(stationLength);
+
+      $('body').keydown(function(e) {
+          if (e.keyCode == 27) {
+           console.log("HEJ");
+           $(".modal-container").css({
+            "opacity":0
+           })
+           setTimeout(function() {
+               $(".modal-container").css({
+                "display":"none"
+               })
+             }, 200);
+          }
+          else if (e.keyCode == 39) {
+
+           if(modalOpen) {
+            // tabIndex++;
+            tabIndex == stationLength ? tabIndex = 0 : tabIndex++;
+            $(".modal-inner").html("<div class='flex-center'><div>"+allStationContainers[tabIndex].innerHTML+"</div></div>")
+           }
+          }
+          else if (e.keyCode == 37) {
+           if(modalOpen) {
+            tabIndex == 0 ? tabIndex = stationLength: tabIndex--;
+            $(".modal-inner").html("<div class='flex-center'><div>"+allStationContainers[tabIndex].innerHTML+"</div></div>")
+           }
+          }
       });
-      $(".station-container").click(function(){
-       console.log("Hejsan!");
-       $(this).toggleClass("open-station-container");
+
+      /*###########################################
+       ############################################
+           OPEN MODAL AND PASS DEPARTURES
+       ############################################
+       ############################################*/
+      $(".station-container").click(function() {
+       console.log("station-container");
+
+       $(".modal-container").css({
+        "display":"block",
+         "opacity":1
+       })
+       modalOpen = true;
+       tabIndex = $(this).index();
+       $(".modal-inner").html("<div>"+allStationContainers[tabIndex].innerHTML+"</div>")
       });
 
+      /*###########################################
+       ############################################
+                       CLOSE MODAL
+       ############################################
+       ############################################*/
+       $(".close-modal-btn").click(function(){
+       modalOpen = false;
+       $(".modal-container").css({
+        "opacity":0
+       })
+       setTimeout(function() {
+           $(".modal-container").css({
+            "display":"none"
+           })
+         }, 200);
+      });
 
+      $( ".departure-list" ).each(function( ) {
+         $(this).parent().append("<div class='number-of-departures'>Visa alla "+this.children.length+" avgångar.</div>")
+         // $(this).parent().append("<span >Den här har index "+ $(this).parent().index()+"</span>")
+     });
 
-      },
+    }, // END SUCCESS
       error: function() {
        console.log('Inget svar från API');
       }
  });
-
-
-
-
 }
-
  function findDuplicates() {
   var departureList = document.getElementsByClassName('departure-list');
   for (var h = 0; h < departureList.length; h++) {
@@ -429,10 +502,16 @@ $.ajax({
    tweetContainer.appendChild(tweetContent);
    twitterContainer.appendChild(tweetContainer);
   }
+
+  $(".tweet-container").each(function() {
+   $(this).find(".twitter-link").wrapAll( "<div class='twitter-link-container'></div>" );
+  })
+
  },
  error: function() {
   console.log('Inget svar från Twitters API');
  }
 })
+
 }); // End  jQuery
 })(); // End Iffe

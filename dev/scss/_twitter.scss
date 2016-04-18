@@ -1,15 +1,19 @@
 .twitter-container {
-  margin-top: 50px;
+  margin: 65px 15px 15px 15px;
 }
-
 .tweet-container {
-  // background-color: lighten($lightGrey,10%);
-  margin: 5px 10px;
-}
 
+  border-bottom: 1px solid $darkBlue;
+  padding: 15px 0 5px 0;
+  p {
+    margin: 4px 0;
+  }
+}
 .twitter-link {
 display: inline-block;
 text-decoration: none;
-color: $red;
-margin: 10px;
+color: white;
+background-color: $red;
+padding: 8px;
+margin: 10px 10px 10px 0;
 }
