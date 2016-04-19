@@ -25,7 +25,12 @@
 }
 .station-container {
   cursor: pointer;
-  @extend .col-3-gtr;
+  @extend .col-3-gtr-desk;
+  @extend .col-4-gtr-tab;
+  @extend .col-6-gtr-ml;
+  @extend .col-6-gtr-ms;
+
+
   background-color: $red;
   @extend .btn;
   h3 {
@@ -37,16 +42,39 @@
   }
 }
 
-.departure-btn-container {
-  margin: 65px auto 0 auto;
-  @extend .flex-center;
+@include respond-to(mobile) {
+  .departure-btn-container {
+    margin: 65px 5px 0 5px;
+    display: block;
+  }
+  .departure-btn {
+    width: 100%;
+    max-width: 400px;
+    margin: 5px auto;
+    padding: 20px 0;
+
+  }
+
+
 }
+@include respond-to(not-mobile) {
+  .departure-btn-container {
+    margin: 65px auto 0 auto;
+    @extend .flex-center;
+  }
+  .departure-btn {
+    width: 180px;
+    margin: 5px;
+    padding: 20px 10px;
+
+  }
+}
+
+
 .departure-btn {
   // display: inline-block;
-  padding: 20px 10px;
   text-align: center;
-  width: 180px;
-  margin: 5px;
+  // width: 180px;
 }
 /*###########################################
  ############################################

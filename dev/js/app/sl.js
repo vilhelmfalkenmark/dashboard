@@ -102,7 +102,7 @@ $.ajax({
 
      /*###########################################
       ############################################
-               PRESS ESCAPE ON OPEN MODAL
+              ESCAPE TRYCK VID ÖPPEN MODAL
       ############################################
       ############################################*/
       var tabIndex = 0;
@@ -141,7 +141,7 @@ $.ajax({
 
      /*###########################################
       ############################################
-          OPEN MODAL AND PASS DEPARTURES
+          ÖPPNA MODAL OCH SKICKA IN AVGÅNGAR
       ############################################
       ############################################*/
      $(".station-container").click(function() {
@@ -186,7 +186,7 @@ function findDuplicates() {
 
 /*###########################################
  ############################################
-             FIND SPECIFIC STATION
+          HITTA SPECIFIK STATION
  ############################################
  ############################################*/
 
@@ -227,36 +227,39 @@ $(".find-specific-departures").click(function() {
     "opacity":1
   })
   // stationName = $("#station-name");
-  stationSearch = document.getElementById('station-search')
-  stationSearch.addEventListener("click",searchSpecificStation)
-
+  stationSearch = document.getElementById('station-search');
+  stationSearch.addEventListener("click",searchSpecificStation);
 });
-
 
 function searchSpecificStation() {
  var stationName = document.getElementById('station-name').value;
- console.log(stationName);
 
- $.ajax({
-      type: "GET",
-      url:  "searchstation.php?stationname="+stationName, // Stockholm Östra
-      dataType: "JSON",
-      // jsonpCallback: 'callback',
-      success: function(hej) {
-        console.log(hej)
-      }, // END SUCCESS
-      error: function() {
-       console.log('Inget svar från API');
-      }
-     });
+ if(stationName != "")
+ {
+  $.ajax({
+       type: "GET",
+       url:  "searchstation.php?stationname="+stationName, // Stockholm Östra
+       dataType: "JSON",
+       success: function(station) {
+         console.log(station)
+
+
+       }, // END SUCCESS
+       error: function() {
+        console.log('Inget svar från API hitta station');
+       }
+      });
+ }
+
 
 }
 
+// searchSpecificStation();
 
 
 /*###########################################
  ############################################
-                 CLOSE MODAL
+                 STÄNG MODAL
  ############################################
  ############################################*/
  $(".close-modal-btn").click(function(){

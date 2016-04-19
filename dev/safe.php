@@ -14,7 +14,7 @@ $apikey_places = "e1a91d0e65ab4ffbbc3fbd7425677d8c";
 if(isset($_GET['stationname'])) {
   $station_name = $_GET['stationname'];
 } else {
-  $station_name = "Östanå";
+  $station_name = "Orminge centrum";
 }
 
 
@@ -22,11 +22,13 @@ $query = "http://api.sl.se/api2/typeahead.json";
 $query .= "?key=".$apikey_places;
 $query .= "&searchstring=".$station_name."&stationsonly=true";
 
+echo $query;
+
 // $query = "http://api.sl.se/api2/typeahead.json?key=e1a91d0e65ab4ffbbc3fbd7425677d8c&searchstring=Danderyd&stationsonly=true";
 
-$json = file_get_contents($query);
-$allStations = json_encode($json);
-var_dump($json);
-// var_dump($allStations);
+// $json = file_get_contents($query);
+// $allStations = json_encode($json);
+// var_dump($json);
+// // var_dump($allStations);
 
 ?>

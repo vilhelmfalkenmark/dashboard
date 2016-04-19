@@ -20,4 +20,4 @@ var lat;
 
      // findCloseDepartures(lat,long);
  }
-  getLocation();
+  // getLocation();

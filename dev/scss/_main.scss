@@ -65,11 +65,29 @@ body
   //  color: $red;
    left: 15px;
    margin: 0;
-   font-size: 30px;
+  //  font-size: 30px;
    text-transform: uppercase;
    i {
      margin-right: 10px;
    }
  }
+@include respond-to(mobile) {
+.card-icon {
+  font-size: 20px;
+}
+}
+@include respond-to(tablet) {
+  .card-icon {
+    font-size: 25px;
+  }
+}
+@include respond-to(desktop) {
+  .card-icon {
+    font-size: 30px;
+  }
+}
+
+
+
  .content-container {
  }
