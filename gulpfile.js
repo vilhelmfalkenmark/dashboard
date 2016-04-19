@@ -12,6 +12,7 @@ var cache = require('gulp-cache');
 var del = require('del');
 var runSequence = require('run-sequence');
 var sassdoc = require('sassdoc');
+var concat = require("gulp-concat");
 
 // Development Tasks
 // -----------------
@@ -43,10 +44,26 @@ gulp.task('sass', function() {
         }));
 })
 
+gulp.task('js', function() {
+	return gulp.src([
+ 'dev/js/app/clockdate.js',
+ 'dev/js/app/geolocation.js',
+ 'dev/js/app/weather.js',
+ 'dev/js/app/sl.js',
+ 'dev/js/app/twitter.js',
+ 'dev/js/app/googlecalender.js'
+])
+		.pipe(concat('main.js'))
+		.pipe(gulp.dest("dev/js"));
+});
+
+
+
 // Watchers
 gulp.task('watch', function() {
     gulp.watch('dev/scss/**/*.scss', ['sass']);
     gulp.watch('dev/*.html', browserSync.reload);
+    gulp.watch("dev/js/app/**/*", ["js"]);
     gulp.watch('dev/js/**/*.js', browserSync.reload);
 })
 

@@ -13,6 +13,21 @@ body
 .flex-card {
   position: relative;
 }
+.btn {
+  transition: all .1s ease;
+  background-color: $red;
+  cursor: pointer;
+  &:hover {
+    background-color: darken($red,9%);
+  }
+  &:active {
+    background-color: darken($red,19%);
+  }
+}
+.lower-case {
+  text-transform: lowercase;
+}
+
 
 /*###########################################
  ############################################

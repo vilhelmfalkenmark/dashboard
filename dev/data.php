@@ -21,6 +21,7 @@ if(isset($_GET['lat'])) {
 } else {
   $lat = "58";
 }
+
 if(isset($_GET['long'])) {
   $long = $_GET['long'];
 } else {
@@ -41,7 +42,7 @@ $json = file_get_contents($query);
 $allStations = json_decode($json,true);
 
 // var_dump($json);
-
+// var_dump($allStations);
 
 foreach($allStations["LocationList"]["StopLocation"] as $item) {
   $stop_id = substr($item["id"],4);

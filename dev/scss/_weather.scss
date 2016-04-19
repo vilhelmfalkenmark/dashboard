@@ -1,7 +1,7 @@
 .weather-container {
   display: flex;
   flex-wrap: wrap;
-   margin: 65px 15px 15px 15px;
+   margin: 55px 15px 15px 15px;
   h4 {
     margin: 5px 0;
     text-transform: uppercase;
@@ -11,11 +11,12 @@
 
   }
 }
-.observation, .current-observation {
+.observation {
   width: calc(25% - 20px);
   position: relative;
   border-right: 1px solid $lightGrey;
   margin-right: 19px;
+  margin-top: 10px;
   .cloudicon {
     font-size: 26px;
   }

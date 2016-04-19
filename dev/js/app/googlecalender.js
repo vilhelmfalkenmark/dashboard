@@ -1,3 +1,9 @@
+/*###########################################
+ ############################################
+ SECTION GOOGLE CALENDER -- LAST SECTION
+ ############################################
+ ############################################*/
+
 function getGoogleCalender() {
 
 var CLIENT_ID = '765342006289-i5i1df5rcv6sg6vh4ejm30f9lm1tjrhc.apps.googleusercontent.com';
@@ -6,7 +12,7 @@ var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
  * Check if current user has authorized this application.
  */
 function checkAuth() {
-  gapi.auth.authorize({
+  gapi.auth.authorize({ 
     'client_id': CLIENT_ID,
     'scope': SCOPES.join(' '),
     'immediate': true
@@ -183,3 +189,6 @@ function formatDate() {
   }
 }
 }
+
+});// End $(document).ready
+})();// End iffe
