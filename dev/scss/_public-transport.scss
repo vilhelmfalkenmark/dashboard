@@ -44,17 +44,18 @@
 
 @include respond-to(mobile) {
   .departure-btn-container {
-    margin: 65px 5px 0 5px;
+    margin: 65px 0 0 0;
     display: block;
   }
   .departure-btn {
-    width: 100%;
-    max-width: 400px;
-    margin: 5px auto;
+    width: calc(100% - 15px);
+    // max-width: 400px;
+    margin: 5px 7.5px 5px 7.5px;
     padding: 20px 0;
-
   }
-
+  .departure-btn:last-of-type {
+      margin-bottom: 2.5px;
+  }
 
 }
 @include respond-to(not-mobile) {
@@ -76,6 +77,34 @@
   text-align: center;
   // width: 180px;
 }
+
+/*###########################################
+ ############################################
+ SÖK PÅ SPECIFIK STATION
+ ############################################
+ ############################################*/
+ .station-container-open {
+
+   @extend .col-12-gtr-desk;
+   @extend .col-12-gtr-tab;
+   @extend .col-12-gtr-ml;
+   @extend .col-12-gtr-ms;
+   background-color: white;
+   color: $darkGrey;
+   h3 {
+     text-align: center;
+     span:last-of-type {
+       display: none;
+     }
+   }
+ }
+.departure-list-open {
+  list-style-type: none;
+  li {
+    margin: 10px 0;
+  }
+}
+
 /*###########################################
  ############################################
                 MODAL
@@ -94,7 +123,6 @@
   }
   h3 {
     text-align: left;
-    // padding: 30px;
     .station-name, .distance-to-station {
       display: inline;
     }

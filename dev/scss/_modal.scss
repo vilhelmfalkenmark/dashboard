@@ -14,34 +14,34 @@
 
 .modal-container {
   animation: scale 0.2s  ease-in-out;
-  display: none;
+   visibility: hidden;
   transition: opacity 0.2s ease-in-out;
-  opacity: 0;
+  // opacity: 0;
   z-index: 999;
   position: fixed;
   height: 100%;
   width: 100%;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0,0,0,0.7);
+  @extend .flex-center;
 }
 .modal {
   // animation: scale .2s  ease-in-out;
-  position: relative;
+  // position: relative;
   width: 90%;
   max-width: 700px;
   margin: 30px auto;
 
 }
 .modal-inner {
+  position: relative;
   background-color: white;
-   min-height: 300px;
+   min-height: 340px;
   @extend .flex-center;
 }
 .close-modal-btn {
  cursor: pointer;
  position: absolute;
- // right: -20px;
- // top: -20px;
- // background-color: $lightBlue;
+ z-index: 99;
  height: 50px;
  width: 50px;
  i {
@@ -87,7 +87,28 @@ button {
   color: white;
   @extend .btn;
 }
+}
+/*###########################################
+ ############################################
+ Modal Loader
+ ############################################
+ ############################################*/
+.modal-inner {
 
+.loader {
+  display: block;
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  right: 0;
+  p {
+    color: $darkGrey;
+
+  }
+  div {
+    background-color: $red;
+  }
+}
 
 
 
