@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,21 +13,71 @@
 
 <body>
   <div class="container">
+
     <!--##############################################
     MODAL
     ###############################################-->
+    <header>
+      <div class="header-row">
+        <div class="menu-button">
+            <div id="hamburger">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+          <!-- <div class="setting-col">
+            <p><i class="fa fa-wrench"></i>Inställningar</p>
+          </div>
+          <div class="setting-col">
+            <p><i class="fa fa-github"></i>Gå till Repo på Github</p>
+          </div> -->
+      </div>
+      <div class="settings-container">
+        <div>
+            <div class="user-container">
+                <p>Inloggad som <span id="user-name"></span></p>
+
+
+            </div>
+            <!-- GOOGLE CAL -->
+            <div class="settings-category">
+            <label for="google-cal-amount">Antal kalenderhändelser</label>
+            <input type="number" min="1" name="google-cal-amount" id="google-cal-amount" placeholder="Antal kalenderhändelser"/>
+            </div>
+            <!-- TWITTER -->
+            <div class="settings-category">
+            <label for="twitter-follow">Vilket twitterkonto vill du föja?</label>
+            <input type="text" name="twitter-follow" id="twitter-follow" placeholder="Twitterkonto"/>
+            <label for="twitter-follow">Hur många tweets vill du ladda in?</label>
+            <input type="number" min="1" name="twitter-posts-amount" id="twitter-posts-amount" placeholder="Antal Tweets"/>
+            </div>
+            <!-- WEATHER -->
+            <div class="settings-category">
+            <label for="weather-rapport-amount">Hur många väderleksrapporter vill du ladda in?</label>
+            <input type="number" min="1" name="weather-rapport-amount" id="weather-rapport-amount" placeholder="Antal väderrapporter"/>
+            <label for="weather-rapport-interval">Vilket intervall i timmar ska det vara mellan rapporterna?</label>
+            <input type="number" min="1" name ="weather-rapport-interval" id="weather-rapport-interval" placeholder="Interval mellan rapporter"/>
+            </div>
+            <!-- SL -->
+            <div class="settings-category">
+            <label for="weather-rapport-interval">Ska närliggande avgångar med SL laddas direkt?</label>
+            <input type="checkbox" name="show-close-departures-now" id="show-close-departures-now"/>
+            <span id="load-close-departures-now">JA</span>
+            </div>
+            <button class="btn" id="submit-btn">Spara</button>
+        </div>
+      </div>
+    </header>
+    <main>
+
     <div class="modal-container">
       <div class="modal">
         <div class="close-modal-btn"><i class="fa fa-close"></i><span>Stäng</span></div>
         <div class="modal-inner">
-
         </div>
       </div>
     </div>
-    <!-- <div class="modal-search">
-      <input type="text" name="find-station" placeholder="Vilken station vill du resa ifrån?" />
-      <button type="button" name="search-station" class="search-station">Sök</button>
-    </div> -->
     <!--##############################################
     END MODAL
     &
@@ -80,7 +129,6 @@
                   <div class="bounce-three"></div>
             </div>
             <div class="public-transport-container content-container">
-          
            </div>
           </div>
           <!-- TWITTER -->
@@ -92,11 +140,16 @@
         <!--##############################################
         END SECOND FLEX-ROW
         ###############################################-->
+      </main>
       </div>
+      <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+
+      <script src="js/app/firebase.js"></script>
       <script src="js/jquery-2.1.4.min.js"></script>
       <!--build:js js/main.min.js -->
       <script src="js/main.js"></script>
       <!-- endbuild -->
       <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
+
     </body>
     </html>

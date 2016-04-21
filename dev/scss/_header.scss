@@ -1,0 +1,126 @@
+/*===========================================
+============== HAMBURGER! ==================
+==========================================*/
+.container {
+  // position: relative
+}
+.menu-button {
+  box-sizing:border-box;
+  cursor: pointer;
+  height: 45px;
+  width: 45px;
+  margin-left: 4px;
+
+  #hamburger {
+    z-index: 999;
+    position: relative;
+    height:100%;
+    span {
+      display: block;
+       position: absolute;
+       height: 4px;
+       width: 85%;
+        background: white;
+       border-radius: 0px;
+       right: 0;
+       opacity: 1;
+       left: 0;
+       margin: 0 auto;
+      transition: .25s ease-in-out;
+    }
+  }
+
+  #hamburger.open span {
+     background:$red;
+  }
+
+
+  #hamburger span:nth-child(1) {
+  top: 8px;
+  transform-origin: left center;
+}
+
+#hamburger span:nth-child(2) {
+  top: 20.5px;
+  transform-origin: left center;
+}
+#hamburger span:nth-child(3) {
+  bottom: 8px;
+  transform-origin: left center;
+}
+#hamburger.open span:nth-child(1) {
+  transform: rotate(45deg);
+  top: 7px;
+  left: 9px;
+}
+
+#hamburger.open span:nth-child(2) {
+  width: 0%;
+  opacity: 0;
+}
+
+#hamburger.open span:nth-child(3) {
+  transform: rotate(-45deg);
+  bottom: 7px;
+    left: 9px;
+}
+}
+.header-row {
+  height: 45px;
+  // width: 100%;
+  background: $darkBlue;
+  z-index: 99;
+}
+/*###########################################
+ ############################################
+            SETTINGS CONTAINER
+ ############################################
+ ############################################*/
+.settings-container {
+  transition: all .3s ease;
+  width: 100%;
+  height: 100%;
+  // top:-100%;
+  overflow-y: scroll;
+  bottom:0;
+  background-color: white;
+  position: fixed;
+  z-index: 99;
+  @extend .flex-center;
+  > div {
+    // overflow-y: scroll;
+  }
+
+}
+.settings-container.open {
+  top:0;
+}
+
+/*###########################################
+ ############################################
+ INPUTS
+ ############################################
+ ############################################*/
+
+.settings-category {
+  margin: 30px 0;
+}
+
+.settings-container {
+  input {
+    display: block;
+    margin: 10px 0;
+  }
+
+  input[type="text"],input[type="number"] {
+    height: 30px;
+    width: 320px;
+    outline: 0;
+  }
+
+  #submit-btn {
+    padding: 15px 150px;
+  }
+
+
+}

@@ -47,6 +47,7 @@ gulp.task('sass', function() {
 gulp.task('js', function() {
 	return gulp.src([
  'dev/js/app/clockdate.js',
+ 'dev/js/app/header.js',
  'dev/js/app/geolocation.js',
  'dev/js/app/weather.js',
  'dev/js/app/sl.js',

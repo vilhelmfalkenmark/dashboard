@@ -79,6 +79,11 @@ $(document).ready(function() {
    }
   })
 
+$(".menu-button").click(function(){
+ $("#hamburger").toggleClass('open');
+ $(".settings-container").toggleClass('open');
+});
+
 /*###########################################
 ############################################
       SECTION GEOLOCATION KOORDINATER
@@ -642,26 +647,29 @@ $.ajax({
 })
 } // End get Twitterfeed;
 
+});// End $(document).ready
+})();// End iffe
+
 /*###########################################
  ############################################
  SECTION GOOGLE CALENDER -- LAST SECTION
  ############################################
  ############################################*/
 
-function getGoogleCalender() {
-
+// function getGoogleCalender() {
 var CLIENT_ID = '765342006289-i5i1df5rcv6sg6vh4ejm30f9lm1tjrhc.apps.googleusercontent.com';
 var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
 /**
  * Check if current user has authorized this application.
  */
 function checkAuth() {
-  gapi.auth.authorize({ 
+  gapi.auth.authorize({
     'client_id': CLIENT_ID,
     'scope': SCOPES.join(' '),
     'immediate': true
   }, handleAuthResult);
 }
+
 /**
  * Handle response from authorization server.
  *
@@ -676,7 +684,7 @@ function handleAuthResult(authResult) {
   } else {
     // Show auth UI, allowing the user to initiate authorization by
     // clicking authorize button.
-    authorizeDiv.style.display = 'inline';
+    authorizeDiv.style.display = 'block';
   }
 }
 /**
@@ -698,6 +706,7 @@ function handleAuthClick(event) {
  * once client library is loaded.
  */
 function loadCalendarApi() {
+
   gapi.client.load('calendar', 'v3', listUpcomingEvents);
 }
 /**
@@ -706,19 +715,18 @@ function loadCalendarApi() {
  * appropriate message is printed.
  */
 function listUpcomingEvents() {
+
   var request = gapi.client.calendar.events.list({
     'calendarId': 'primary',
     'timeMin': (new Date()).toISOString(),
     'showDeleted': false,
     'singleEvents': true,
-    'maxResults': 5,
+    'maxResults': 3,
     'orderBy': 'startTime'
   });
 
   request.execute(function(resp) {
     var events = resp.items;
-
-    // console.log(events.length);
 
     appendPre('Kommande saker i din kalender:');
 
@@ -738,12 +746,12 @@ function listUpcomingEvents() {
         appendPre(event.summary, when, events.length);
       }
     } else {
-      appendPre('No upcoming events found.');
+      appendPre('Du ingenting i din kalender');
     }
 
   });
 }
-
+// listUpcomingEvents();
 /**
  * Append a pre element to the body containing the given message
  * as its text node.
@@ -832,7 +840,5 @@ function formatDate() {
    }
   }
 }
-}
-
-});// End $(document).ready
-})();// End iffe
+// } // End getGoogleCalender
+// getGoogleCalender();

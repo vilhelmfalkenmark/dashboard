@@ -17,6 +17,9 @@ body
   transition: all .1s ease;
   background-color: $red;
   cursor: pointer;
+  border: none;
+  outline: none;
+  color: white;
   &:hover {
     background-color: darken($red,9%);
   }
@@ -86,8 +89,3 @@ body
     font-size: 30px;
   }
 }
-
-
-
- .content-container {
- }
