@@ -37,7 +37,7 @@
               <p class="explaination"></p>
               <div class="settings-category col-6">
               <label for="google-cal-amount">Antal kalenderhändelser</label>
-              <input type="number" min="1" name="google-cal-amount" id="google-cal-amount" placeholder="Antal kalenderhändelser"/>
+              <input type="number" min="1" max="8" name="google-cal-amount" id="google-cal-amount" placeholder="Antal kalenderhändelser (1-8 st)"/>
               </div>
               <!-- TWITTER -->
               <div class="settings-category col-6">
@@ -56,8 +56,20 @@
               <!-- SL -->
               <div class="settings-category col-6">
               <label for="weather-rapport-interval">Ska närliggande avgångar med SL laddas direkt?</label>
-              <input type="checkbox" name="show-close-departures-now" id="show-close-departures-now"/>
-              <span id="load-close-departures-now"></span>
+
+
+              <div class="checkbox-animation-container">
+                <input type="checkbox" name="show-close-departures-now" class="checkbox" id="show-close-departures-now"/>
+                <div class="checkbox-container">
+                  <div class="checkbox-animation">
+                    <div class="animation-ball">  </div>
+                  </div>
+                  <span id="load-close-departures-now"></span>
+                </div>
+              </div>
+
+
+
               </div>
               <button class="btn" id="submit-btn">Spara</button>
             </div>
@@ -66,7 +78,7 @@
       </div>
       <div class="header-row">
         <!-- <div class="toggle-settings"> -->
-          <button class="toggle-settings btn" name="button">Inställningar  <i class="fa fa-cog"></i></button>
+          <button class="toggle-settings btn" name="button">Inställningar<i class="fa fa-cog"></i></button>
 
           <!-- <span>Inställningar</span> -->
 
@@ -174,8 +186,6 @@
       </main>
       </div>
       <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
-
-      <script src="js/app/firebase.js"></script>
       <script src="js/jquery-2.1.4.min.js"></script>
       <!--build:js js/main.min.js -->
       <script src="js/main.js"></script>

@@ -1,9 +1,7 @@
 /*===========================================
 ============== HAMBURGER! ==================
 ==========================================*/
-.container {
-  // position: relative
-}
+
 .menu-button {
   box-sizing:border-box;
   cursor: pointer;
@@ -11,59 +9,6 @@
   width: 45px;
   margin-left: 4px;
   display: inline-block;
-  #hamburger {
-    z-index: 999;
-    position: relative;
-    height:100%;
-    span {
-      display: block;
-       position: absolute;
-       height: 4px;
-       width: 85%;
-        background: white;
-       border-radius: 0px;
-       right: 0;
-       opacity: 1;
-       left: 0;
-       margin: 0 auto;
-      transition: .25s ease-in-out;
-    }
-  }
-
-  #hamburger.open span {
-     background:$red;
-  }
-
-
-  #hamburger span:nth-child(1) {
-  top: 8px;
-  transform-origin: left center;
-}
-
-#hamburger span:nth-child(2) {
-  top: 20.5px;
-  transform-origin: left center;
-}
-#hamburger span:nth-child(3) {
-  bottom: 8px;
-  transform-origin: left center;
-}
-#hamburger.open span:nth-child(1) {
-  transform: rotate(45deg);
-  top: 7px;
-  left: 9px;
-}
-
-#hamburger.open span:nth-child(2) {
-  width: 0%;
-  opacity: 0;
-}
-
-#hamburger.open span:nth-child(3) {
-  transform: rotate(-45deg);
-  bottom: 7px;
-    left: 9px;
-}
 }
 .header-row {
   height: 45px;
@@ -113,71 +58,64 @@
 
 /*###########################################
  ############################################
- LOGIN AND REGISTER FORM
- ############################################
- ############################################*/
-// #sign-in-btn,#register-btn {
-//   display: none;
-// }
-
-
-/*###########################################
- ############################################
             SETTINGS CONTAINER
  ############################################
  ############################################*/
+ html {
+   height: 100%;
+ }
 .settings-container {
-  transition: all .4s ease;
   width: 100%;
-  // height: 100%;
-  // left:-100%;
-  top: -120%;
-  // bottom:0;
+  top:0;
+  bottom: 0;
+  left:-100%;
+  min-height: 1000px;
+  height: 100%;
   padding-bottom: 0;
-  visibility: hidden;
-  opacity: 0;
   background-color: white;
   position: absolute;
   z-index: 99;
-  @extend .flex-center;
-  // padding-bottom: 40%; // TILLFÄLLIG
+  // padding-bottom: 30%;
 }
+
+.settings-container-inner {
+  margin: 80px auto;
+}
+
 .settings-container.open {
-  // left:0;
-  // padding-bottom: 40%;
-  // bottom:0;
-  opacity: 1;
-
-  visibility: visible;
-
-  top: 0;
+  left:0;
 }
 
 @include respond-to(mobile) {
+
+
+  .settings-container {
+    transition: all 0.4s ease;
+  }
+
   .settings-container.open {
-    padding-bottom: 40%;
+    // padding-bottom: 30%;
   }
   .settings-container-inner {
-    margin-top: 50px;
     background-color: beige;
-    width: 310px;
+    width: 300px;
   }
   .header-out-container  {
-
     div:first-of-type {
       display: none;
-
     }
-
   }
 }
 
 @include respond-to(not-mobile) {
+  .settings-container {
+    transition: all 0.5s ease;
+  }
   .settings-container.open {
-    padding-bottom: 20%;
+    // padding-bottom: 20%;
+    // min-height: 770px;
   }
   .settings-container-inner {
-    margin-top: 50px;
     background-color: beige;
     width: 360px;
   }
@@ -188,7 +126,6 @@
  INPUTS
  ############################################
  ############################################*/
-
 .settings-category {
   margin: 30px 0;
 }
@@ -196,7 +133,6 @@
 .settings-container {
   input {
     display: block;
-    // margin: 10px 0;
   }
 
   input[type="text"],input[type="number"],input[type="email"],input[type="password"],button {
@@ -206,27 +142,69 @@
     margin: 10px 0;
     box-sizing: border-box;
   }
-  #submit-btn {
-    padding: 15px 150px;
-  }
 }
+
+/*  ======  CHECKBOX ====== */
+$checkboxSize: 20px;
+.checkbox-animation-container {
+  position: relative;
+  margin-top: 10px;
+}
+  .checkbox-container {
+    cursor: pointer;
+    width: 80px;
+    height: $checkboxSize;
+    border-radius: $checkboxSize;
+    position: relative;
+    .checkbox-animation, span {
+      display: inline-block;
+    }
+    span {
+      margin: 2px 0 0 10px;
+      // padding-left: 10px;
+      vertical-align: top;
+    }
+    .checkbox-animation {
+      width: 40px;
+      height: 20px;
+      border-radius: 15px;
+      background-color: $red;
+      transition: all .2s ease;
+      .animation-ball {
+        height: $checkboxSize;
+        width: $checkboxSize;
+        border-radius: 50%;
+        background-color: white;
+        left: 20px;
+        transition: all .2s ease;
+        position: absolute;
+        z-index: 1;
+      }
+    }
+  }
+  .checkbox {
+    cursor: pointer;
+    width: 40px;
+    height: $checkboxSize;
+    box-sizing: border-box;
+    opacity: 0;
+    z-index: 10;
+    position: absolute;
+  }
+  .checkbox:checked ~ div {
+    .checkbox-animation {
+      background-color: $green;
+    }
+    .animation-ball {
+      left: 0;
+    }
+  }
 
 /*###########################################
  ############################################
  LOGOUT, LOGIN, SIGNUP
  ############################################
  ############################################*/
- .user-container {
-
-  input {
-    // // height: 30px;
-    // // width: 320px;
-    // box-sizing: border-box;
-    // width: 100%;
-    //
-    // outline: 0;
-  }
- }
  .register-container,.sign-out-container,.sign-in-container, .user-settings-container {
    display: none;
  }
