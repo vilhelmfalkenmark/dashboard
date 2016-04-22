@@ -10,7 +10,7 @@
   height: 45px;
   width: 45px;
   margin-left: 4px;
-
+  display: inline-block;
   #hamburger {
     z-index: 999;
     position: relative;
@@ -69,8 +69,34 @@
   height: 45px;
   // width: 100%;
   background: $darkBlue;
+  position: relative;
   z-index: 99;
+  &:after {
+    clear: both;
+    content: "";
+    display: block;
+  }
 }
+
+/*###########################################
+ ############################################
+ LOGGA UT I HEADER ROW
+ ############################################
+ ############################################*/
+.header-sign-out-container  {
+  position: absolute;
+  right: 10px;
+  top: 0;
+
+  div {
+    display: inline-block;
+  }
+
+  // display: inline-block;
+}
+
+
+
 /*###########################################
  ############################################
             SETTINGS CONTAINER
@@ -79,21 +105,45 @@
 .settings-container {
   transition: all .3s ease;
   width: 100%;
-  height: 100%;
-  // top:-100%;
-  overflow-y: scroll;
-  bottom:0;
+  // height: 100%;
+  // left:-100%;
+  top: -100%;
+  // bottom:0;
+  padding-bottom: 0;
+
   background-color: white;
-  position: fixed;
+  position: absolute;
   z-index: 99;
   @extend .flex-center;
-  > div {
-    // overflow-y: scroll;
-  }
-
+  // padding-bottom: 40%; // TILLFÄLLIG
 }
 .settings-container.open {
-  top:0;
+  // left:0;
+  // padding-bottom: 40%;
+  // bottom:0;
+  top: 0;
+}
+
+@include respond-to(mobile) {
+  .settings-container.open {
+    padding-bottom: 40%;
+  }
+  .settings-container-inner {
+    margin-top: 50px;
+    background-color: beige;
+    width: 310px;
+  }
+}
+
+@include respond-to(not-mobile) {
+  .settings-container.open {
+    padding-bottom: 20%;
+  }
+  .settings-container-inner {
+    margin-top: 50px;
+    background-color: beige;
+    width: 360px;
+  }
 }
 
 /*###########################################
@@ -109,18 +159,37 @@
 .settings-container {
   input {
     display: block;
-    margin: 10px 0;
+    // margin: 10px 0;
   }
 
-  input[type="text"],input[type="number"] {
-    height: 30px;
-    width: 320px;
+  input[type="text"],input[type="number"],input[type="email"],input[type="password"],button {
+    height: 50px;
+    width: 100%;
     outline: 0;
+    margin: 10px 0;
+    box-sizing: border-box;
   }
-
   #submit-btn {
     padding: 15px 150px;
   }
-
-
 }
+
+/*###########################################
+ ############################################
+ LOGOUT, LOGIN, SIGNUP
+ ############################################
+ ############################################*/
+ .user-container {
+
+  input {
+    // // height: 30px;
+    // // width: 320px;
+    // box-sizing: border-box;
+    // width: 100%;
+    //
+    // outline: 0;
+  }
+ }
+ .register-container,.sign-out-container,.sign-in-container, .user-settings-container {
+   display: none;
+ }

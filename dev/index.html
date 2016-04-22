@@ -10,14 +10,64 @@
   <link rel="stylesheet" href="css/stylesheet.css">
   <!--endbuild-->
 </head>
-
 <body>
   <div class="container">
-
     <!--##############################################
     MODAL
     ###############################################-->
     <header>
+
+      <div class="settings-container">
+        <div class="settings-container-inner">
+          <div class="user-container">
+              <div class="sign-out-container">
+                 <p>Inloggad som <span class="user-name"></span></p>
+                 <button class="btn" class="log-out-btn">Logga ut<i class="fa fa-sign-in "></i></button>
+              </div>
+              <div class="sign-in-container">
+                <input type="email" name="mail" placeholder="E-post Adress" class="user-email-adress">
+                <input type="password" name="password" placeholder="Lösenord" value="" class="user-password">
+                <button class="btn" id="sign-in-btn">Logga in<i class="fa fa-sign-in "></i></button>
+                <button class="btn" id="register-btn">Registrera dig<i class="fa fa-sign-in "></i></button>
+
+              </div>
+              <div class="register-container">
+                <input type="email" name="mail" placeholder="E-post Adress" class="user-email-adress">
+                <input type="password" name="password" placeholder="Lösenord" value="" class="user-password">
+                <!-- <button class="btn" id="register-btn">Registrera dig<i class="fa fa-sign-in "></i></button> -->
+              </div>
+          </div>
+            <div class="user-settings-container">
+              <p class="explaination"></p>
+              <div class="settings-category col-6">
+              <label for="google-cal-amount">Antal kalenderhändelser</label>
+              <input type="number" min="1" name="google-cal-amount" id="google-cal-amount" placeholder="Antal kalenderhändelser"/>
+              </div>
+              <!-- TWITTER -->
+              <div class="settings-category col-6">
+              <label for="twitter-follow">Vilket twitterkonto vill du föja?</label>
+              <input type="text" name="twitter-follow" id="twitter-follow" placeholder="Twitterkonto"/>
+              <label for="twitter-follow">Hur många tweets vill du ladda in?</label>
+              <input type="number" min="1" name="twitter-posts-amount" id="twitter-posts-amount" placeholder="Antal Tweets"/>
+              </div>
+              <!-- WEATHER -->
+              <div class="settings-category col-6">
+              <label for="weather-rapport-amount">Hur många väderleksrapporter vill du ladda in?</label>
+              <input type="number" min="1" name="weather-rapport-amount" id="weather-rapport-amount" placeholder="Antal väderrapporter"/>
+              <label for="weather-rapport-interval">Vilket intervall i timmar ska det vara mellan rapporterna?</label>
+              <input type="number" min="1" name ="weather-rapport-interval" id="weather-rapport-interval" placeholder="Interval mellan rapporter"/>
+              </div>
+              <!-- SL -->
+              <div class="settings-category col-6">
+              <label for="weather-rapport-interval">Ska närliggande avgångar med SL laddas direkt?</label>
+              <input type="checkbox" name="show-close-departures-now" id="show-close-departures-now"/>
+              <span id="load-close-departures-now"></span>
+              </div>
+              <button class="btn" id="submit-btn">Spara</button>
+            </div>
+            <!-- GOOGLE CAL -->
+        </div>
+      </div>
       <div class="header-row">
         <div class="menu-button">
             <div id="hamburger">
@@ -26,47 +76,19 @@
               <span></span>
             </div>
           </div>
+
+          <div class="header-sign-out-container">
+             <div>Inloggad som <span class="user-name"></span></div>
+             <div>
+               <button class="btn" class="log-out-btn">Logga ut<i class="fa fa-sign-in "></i></button>
+             </div>
+          </div>
           <!-- <div class="setting-col">
             <p><i class="fa fa-wrench"></i>Inställningar</p>
           </div>
           <div class="setting-col">
             <p><i class="fa fa-github"></i>Gå till Repo på Github</p>
           </div> -->
-      </div>
-      <div class="settings-container">
-        <div>
-            <div class="user-container">
-                <p>Inloggad som <span id="user-name"></span></p>
-
-
-            </div>
-            <!-- GOOGLE CAL -->
-            <div class="settings-category">
-            <label for="google-cal-amount">Antal kalenderhändelser</label>
-            <input type="number" min="1" name="google-cal-amount" id="google-cal-amount" placeholder="Antal kalenderhändelser"/>
-            </div>
-            <!-- TWITTER -->
-            <div class="settings-category">
-            <label for="twitter-follow">Vilket twitterkonto vill du föja?</label>
-            <input type="text" name="twitter-follow" id="twitter-follow" placeholder="Twitterkonto"/>
-            <label for="twitter-follow">Hur många tweets vill du ladda in?</label>
-            <input type="number" min="1" name="twitter-posts-amount" id="twitter-posts-amount" placeholder="Antal Tweets"/>
-            </div>
-            <!-- WEATHER -->
-            <div class="settings-category">
-            <label for="weather-rapport-amount">Hur många väderleksrapporter vill du ladda in?</label>
-            <input type="number" min="1" name="weather-rapport-amount" id="weather-rapport-amount" placeholder="Antal väderrapporter"/>
-            <label for="weather-rapport-interval">Vilket intervall i timmar ska det vara mellan rapporterna?</label>
-            <input type="number" min="1" name ="weather-rapport-interval" id="weather-rapport-interval" placeholder="Interval mellan rapporter"/>
-            </div>
-            <!-- SL -->
-            <div class="settings-category">
-            <label for="weather-rapport-interval">Ska närliggande avgångar med SL laddas direkt?</label>
-            <input type="checkbox" name="show-close-departures-now" id="show-close-departures-now"/>
-            <span id="load-close-departures-now">JA</span>
-            </div>
-            <button class="btn" id="submit-btn">Spara</button>
-        </div>
       </div>
     </header>
     <main>

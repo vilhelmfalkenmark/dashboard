@@ -8,13 +8,11 @@
       opacity: 1;
     }
 }
-
-
 .modal-container {
   animation: scale 0.2s  ease-in-out;
    visibility: hidden;
   transition: opacity 0.2s ease-in-out;
-  // opacity: 0;
+  opacity: 0;
   z-index: 999;
   position: fixed;
   height: 100%;
