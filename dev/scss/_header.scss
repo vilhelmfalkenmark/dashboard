@@ -80,21 +80,45 @@
 
 /*###########################################
  ############################################
+ SETTINGS-BTN i HEADER-ROW
+ ############################################
+ ############################################*/
+ .toggle-settings {
+   display: none;
+   padding: 13px 0;
+   width: 150px;
+ }
+
+
+
+/*###########################################
+ ############################################
  LOGGA UT I HEADER ROW
  ############################################
  ############################################*/
-.header-sign-out-container  {
+.header-out-container, .header-in-container  {
+  display: none;
   position: absolute;
-  right: 10px;
+  right: 0;
   top: 0;
-
   div {
     display: inline-block;
+    color: white;
   }
-
-  // display: inline-block;
+  button {
+    padding: 13px;
+    margin-left: 5px;
+  }
 }
 
+/*###########################################
+ ############################################
+ LOGIN AND REGISTER FORM
+ ############################################
+ ############################################*/
+// #sign-in-btn,#register-btn {
+//   display: none;
+// }
 
 
 /*###########################################
@@ -103,14 +127,15 @@
  ############################################
  ############################################*/
 .settings-container {
-  transition: all .3s ease;
+  transition: all .4s ease;
   width: 100%;
   // height: 100%;
   // left:-100%;
-  top: -100%;
+  top: -120%;
   // bottom:0;
   padding-bottom: 0;
-
+  visibility: hidden;
+  opacity: 0;
   background-color: white;
   position: absolute;
   z-index: 99;
@@ -121,6 +146,10 @@
   // left:0;
   // padding-bottom: 40%;
   // bottom:0;
+  opacity: 1;
+
+  visibility: visible;
+
   top: 0;
 }
 
@@ -132,6 +161,14 @@
     margin-top: 50px;
     background-color: beige;
     width: 310px;
+  }
+  .header-out-container  {
+
+    div:first-of-type {
+      display: none;
+
+    }
+
   }
 }
 

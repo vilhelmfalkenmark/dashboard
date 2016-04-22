@@ -15,22 +15,24 @@ var setings = {
 	var user = ref.getAuth();
 	// console.log(user);
 	var userName = document.getElementsByClassName('user-name');
-
-
 	if(user != null) {
-
 		for (var i = 0; i < userName.length; i++) {
-			userName[i].innerHTML = user.password.email
+			userName[i].innerHTML = "Inloggad som "+user.password.email;
 		}
 	}
 /*##########################################
 ############################################
-	              Skapa användare.
+	              Registrera
 ############################################
 ############################################*/
-
 var explanation = document.getElementsByClassName('explaination')[0];
+var signupButtons = document.getElementsByClassName('sign-up-btn');
 
+signupButtons[1].addEventListener("click",function() {
+document.getElementsByClassName('settings-container')[0].classList.toggle("open");
+	logInButtons[0].style.display = "none"; // Knappen i formulär ska visas.
+	signupButtons[0].style.display = "block"; // Knappen i formulär ska visas.
+});
 
 function createNewUser(email,password) {
 	ref.createUser({
@@ -50,10 +52,9 @@ function createNewUser(email,password) {
 });
 }
 
-var registerBtn = document.getElementById("register-btn");
-	registerBtn.addEventListener("click",function() {
+	signupButtons[0].addEventListener("click",function() {
 	createNewUser(
-		document.getElementsByClassName('user-email-adress')[0].value,
+	document.getElementsByClassName('user-email-adress')[0].value,
 	document.getElementsByClassName('user-password')[0].value
 	)
 })
@@ -62,26 +63,38 @@ var registerBtn = document.getElementById("register-btn");
 // createNewUser("hej@mail.se","abc");
 // createNewUser("tjena@mail.se","abc");
 // createNewUser("abc@mail.se","abc");
+
 /*###########################################
 	############################################
 													Logga in användare
 ############################################
 ############################################*/
-// var userName = document.getElementById('user-name');
-var signinContainer = document.getElementsByClassName('sign-in-container');
-var signinBtn = document.getElementById('sign-in-btn');
 
-signinBtn.addEventListener("click", function() {
+var signinContainer = document.getElementsByClassName('sign-in-container');
+var logInButtons = document.getElementsByClassName('log-in-btn'); // Logga in knappar i formulär och header
+
+logInButtons[1].addEventListener("click",function() { // Knappen i headern
+document.getElementsByClassName('settings-container')[0].classList.toggle("open");
+logInButtons[0].style.display = "block"; // Knappen i formulär ska visas.
+signupButtons[0].style.display = "none"; // Knappen i formulär ska visas.
+});
+
+logInButtons[0].addEventListener("click", function() {
 var signinName = document.getElementsByClassName('user-email-adress')[0].value;
 var signinPassword = document.getElementsByClassName('user-password')[0].value;
 logInUser(signinName,signinPassword,false);
 });
-function logInUser(email,password,newUser) {
+
+function logInUser(email,password,newUser) { // Om newUser är true så är det en ny användare som auto-loggas in.
+
+		document.getElementsByClassName('toggle-settings')[0].style.display = "block";
+
 		if(newUser) {
 			explanation.innerHTML = "Tack för att du registerat dig! Vi har fyllt i lite förslag på hur appen ska sättas upp. Välkommen att ändra efter eget huvud!";
 		}
 		else {
 			explanation.innerHTML = "";
+			document.getElementsByClassName('settings-container')[0].classList.toggle("open");
 		}
 	ref.authWithPassword({
 	   email    : email,
@@ -91,8 +104,6 @@ function logInUser(email,password,newUser) {
 		    // console.log("Login Failed!", error);
 		  } else {
 	    // console.log("Authenticated successfully with payload:", authData);
-					// userName.innerHTML = authData.password.email;
-
 					for (var i = 0; i < userName.length; i++) {
 						userName[i].innerHTML = authData.password.email
 					}
@@ -112,14 +123,17 @@ function logInUser(email,password,newUser) {
 function authDataCallback(authData) {
   if (authData) { // INLOGGAD
     console.log("User " + authData.uid + " is logged in with " + authData.provider);
-				document.getElementsByClassName('sign-in-container')[0].style.display = "none";
-				document.getElementsByClassName('sign-out-container')[0].style.display = "block";
 				document.getElementsByClassName('user-settings-container')[0].style.display = "block";
+				document.getElementsByClassName('header-out-container')[0].style.display = "block";
+				document.getElementsByClassName('toggle-settings')[0].style.display = "block";
+				document.getElementsByClassName('sign-in-container')[0].style.display = "none";
+				document.getElementsByClassName('header-in-container')[0].style.display = "none";
 				showData();
   } else { // EJ INLOGGAD
-
-			document.getElementsByClassName('sign-out-container')[0].style.display = "none";
 			document.getElementsByClassName('sign-in-container')[0].style.display = "block";
+			document.getElementsByClassName('header-in-container')[0].style.display = "block";
+			document.getElementsByClassName('header-out-container')[0].style.display = "none";
+
    // console.log("User is logged out");
   }
 }
@@ -131,16 +145,16 @@ ref.onAuth(authDataCallback);
  ############################################
  ############################################*/
 
-
 var logOutBtn = document.getElementsByClassName('log-out-btn')
-
 for (var i = 0; i < logOutBtn.length; i++) {
 	logOutBtn[i].addEventListener("click",logOut);
 }
 
 // document.getElementById('log-out-btn').addEventListener("click",logOut);
 function logOut() {
-document.getElementsByClassName('sign-out-container')[0].style.display = "none";
+// document.getElementsByClassName('sign-out-container')[0].style.display = "none";
+userName[0].innerHTML = "";
+document.getElementsByClassName('toggle-settings')[0].style.display = "none";
 document.getElementsByClassName('sign-in-container')[0].style.display = "block";
 document.getElementsByClassName('user-settings-container')[0].style.display = "none";
 ref.unauth();
@@ -217,3 +231,10 @@ function updateInfo () {
 			showCloseText.innerHTML = "Nej";
 		}
 // showData()
+
+/*###########################################
+ ############################################
+	FUNKTIONER FÖR ATT VISA OCH DÖLJA SAKER SOM
+	ÄR DE FÖRSTA MED SINA	KLASSNAMN.
+ ############################################
+ ############################################*/

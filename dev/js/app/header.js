@@ -1,4 +1,4 @@
-$(".menu-button").click(function(){
- $("#hamburger").toggleClass('open');
+$(".toggle-settings").click(function(){
+ // $("#hamburger").toggleClass('open');
  $(".settings-container").toggleClass('open');
 });

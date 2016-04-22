@@ -16,21 +16,17 @@
     MODAL
     ###############################################-->
     <header>
-
       <div class="settings-container">
         <div class="settings-container-inner">
           <div class="user-container">
-              <div class="sign-out-container">
-                 <p>Inloggad som <span class="user-name"></span></p>
-                 <button class="btn" class="log-out-btn">Logga ut<i class="fa fa-sign-in "></i></button>
-              </div>
+              <p class="user-name"></p>
               <div class="sign-in-container">
                 <input type="email" name="mail" placeholder="E-post Adress" class="user-email-adress">
                 <input type="password" name="password" placeholder="Lösenord" value="" class="user-password">
-                <button class="btn" id="sign-in-btn">Logga in<i class="fa fa-sign-in "></i></button>
-                <button class="btn" id="register-btn">Registrera dig<i class="fa fa-sign-in "></i></button>
-
+                <button class="btn log-in-btn">Logga in<i class="fa fa-sign-in "></i></button>
+                <button class="btn sign-up-btn" id="register-btn">Registrera dig<i class="fa fa-sign-in "></i></button>
               </div>
+
               <div class="register-container">
                 <input type="email" name="mail" placeholder="E-post Adress" class="user-email-adress">
                 <input type="password" name="password" placeholder="Lösenord" value="" class="user-password">
@@ -69,20 +65,33 @@
         </div>
       </div>
       <div class="header-row">
-        <div class="menu-button">
-            <div id="hamburger">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-          </div>
+        <!-- <div class="toggle-settings"> -->
+          <button class="toggle-settings btn" name="button">Inställningar  <i class="fa fa-cog"></i></button>
 
-          <div class="header-sign-out-container">
-             <div>Inloggad som <span class="user-name"></span></div>
+          <!-- <span>Inställningar</span> -->
+
+            <!-- <div id="hamburger">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div> -->
+          <!-- </div> -->
+
+          <div class="header-out-container">
+             <div class="user-name"></div>
              <div>
-               <button class="btn" class="log-out-btn">Logga ut<i class="fa fa-sign-in "></i></button>
+               <button class="log-out-btn btn">Logga ut<i class="fa fa-sign-in "></i></button>
              </div>
           </div>
+
+          <div class="header-in-container">
+             <div>Inte inloggad</div>
+             <div>
+               <button class="log-in-btn btn">Logga in<i class="fa fa-sign-in "></i></button>
+               <button class="sign-up-btn btn">Registrera<i class="fa fa-sign-in "></i></button>
+             </div>
+          </div>
+
           <!-- <div class="setting-col">
             <p><i class="fa fa-wrench"></i>Inställningar</p>
           </div>
