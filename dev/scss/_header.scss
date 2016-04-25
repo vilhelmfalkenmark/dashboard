@@ -90,7 +90,7 @@
 
 
   .settings-container {
-    transition: all 0.4s ease;
+    transition: all 0.2s ease;
   }
 
   .settings-container.open {
@@ -109,7 +109,7 @@
 
 @include respond-to(not-mobile) {
   .settings-container {
-    transition: all 0.5s ease;
+    transition: all .3s ease;
   }
   .settings-container.open {
     // padding-bottom: 20%;

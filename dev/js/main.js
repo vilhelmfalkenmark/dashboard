@@ -80,9 +80,33 @@ $(document).ready(function() {
   })
 
 $(".toggle-settings").click(function(){
- // $("#hamburger").toggleClass('open');
  $(".settings-container").toggleClass('open');
 });
+
+/*###########################################
+ ############################################
+       INSTÄLLNINGAR SOM ÄNDRAS OM NÅGON
+       ÄR INLOGGAD.
+ ############################################
+ ############################################*/
+var settings = {
+ numberofCalenderActivities: 3,
+ twitterAccount: "dagensnyheter",
+ numberofTweets: 5,
+ numberofWeatherRapports: 4,
+ intervalOfWeatherRapports: 8,
+ showDeparturesNow: false
+};
+
+function updateDOMData() {
+getWeather();
+getTwitterFeed();
+// getGoogleCalender();
+};
+
+
+
+// emptyFeed()
 
 var ref = new Firebase("https://vilhelmdashboard.firebaseio.com");
 /*###########################################
@@ -90,7 +114,7 @@ var ref = new Firebase("https://vilhelmdashboard.firebaseio.com");
  Skicka in inställningar
  ############################################
  ############################################*/
-var settings = {
+var defaultSettings = {
   numberofCalenderActivities: 3,
   twitterAccount: "dagensnyheter",
   numberofTweets: 5,
@@ -99,7 +123,6 @@ var settings = {
   showDeparturesNow: false
 };
 var user = ref.getAuth();
-// console.log(user);
 var userName = document.getElementsByClassName('user-name');
 if (user != null) {
   for (var i = 0; i < userName.length; i++) {
@@ -130,7 +153,7 @@ function createNewUser(email, password) {
         // console.log("Error creating user:", error);
       } else {
         // console.log("Successfully created user account with uid:", userData.uid);
-        ref.child("dashboardUsers").child(userData.uid).set(settings);
+        ref.child("dashboardUsers").child(userData.uid).set(defaultSettings);
         logInUser(email, password, true);
       }
     });
@@ -162,7 +185,7 @@ logInButtons[0].addEventListener("click", function() {
   logInUser(signinName, signinPassword, false);
 });
 function logInUser(email, password, newUser) { // Om newUser är true så är det en ny användare som auto-loggas in.
-  // document.getElementsByClassName('toggle-settings')[0].style.display = "block";
+
   showThis("toggle-settings");
   if (newUser) {
     explanation.innerHTML = "Tack för att du registerat dig! Vi har fyllt i lite förslag på hur appen ska sättas upp. Välkommen att ändra efter eget huvud!";
@@ -183,9 +206,43 @@ function logInUser(email, password, newUser) { // Om newUser är true så är de
       }
       showThis('user-settings-container');
       hideThis('sign-in-container');
-      // document.getElementsByClassName('sign-in-container')[0].style.display = "none";
-      // document.getElementsByClassName('user-settings-container')[0].style.display = "block";
-      showData(); // VISA ANVÄNDARENS DATA
+      console.log("Nu är vi inloggad!");
+      // showData(); // VISA ANVÄNDARENS DATA
+
+      /* START TEST */
+      var database = ref;
+      user = ref.getAuth();
+      database.on("value", function(snapshot) {
+          // console.log("database.on(value, kallad! från test");
+          var readableDB = snapshot.val(); // readableDB är alltså en läsbar snapshot på vår databas.
+          // if(user) { // Om någon är inloggad
+           for (var key in readableDB.dashboardUsers) {
+             if (key == user.uid) {
+               /* === SKRIV UT RÄTT VÄRDEN I FÄLTEN ==== */
+               googleAmount.value = readableDB.dashboardUsers[key].numberofCalenderActivities;
+               twitterFollow.value = readableDB.dashboardUsers[key].twitterAccount;
+               twitterAmount.value = readableDB.dashboardUsers[key].numberofTweets;
+               weatherAmount.value = readableDB.dashboardUsers[key].numberofWeatherRapports;
+               weatherInterval.value = readableDB.dashboardUsers[key].intervalOfWeatherRapports;
+               showCloseDepartures.checked = readableDB.dashboardUsers[key].showDeparturesNow;
+               showCloseDepartures.checked == true ? showCloseText.innerHTML = "Ja" : showCloseText.innerHTML = "Nej";
+               settings = {
+                 numberofCalenderActivities: readableDB.dashboardUsers[key].numberofCalenderActivities,
+                 twitterAccount: readableDB.dashboardUsers[key].twitterAccount,
+                 numberofTweets: readableDB.dashboardUsers[key].numberofTweets,
+                 numberofWeatherRapports: readableDB.dashboardUsers[key].numberofWeatherRapports,
+                 intervalOfWeatherRapports: readableDB.dashboardUsers[key].intervalOfWeatherRapports,
+                 showDeparturesNow: readableDB.dashboardUsers[key].showDeparturesNow
+                }
+                updateDOMData();
+               return false; // Sluta loopa
+              }
+           }
+        },
+        function(errorObject) {
+          // console.log("The read failed: " + errorObject.code);
+        });
+      /* SLUT TEST */
     }
   });
 }
@@ -196,32 +253,23 @@ function logInUser(email, password, newUser) { // Om newUser är true så är de
  ############################################*/
 function authDataCallback(authData) {
   if (authData) { // INLOGGAD
-    console.log("User " + authData.uid + " is logged in with " + authData.provider);
+    // console.log("User " + authData.uid + " is logged in with " + authData.provider);
 
     showThis('user-settings-container');
     showThis('header-out-container');
     showThis('toggle-settings');
     hideThis('sign-in-container');
     hideThis('header-in-container');
-    // document.getElementsByClassName('user-settings-container')[0].style.display = "block";
-    // document.getElementsByClassName('header-out-container')[0].style.display = "block";
-    // document.getElementsByClassName('toggle-settings')[0].style.display = "block";
-    // document.getElementsByClassName('sign-in-container')[0].style.display = "none";
-    // document.getElementsByClassName('header-in-container')[0].style.display = "none";
-    showData();
-  } else { // EJ INLOGGAD
 
+  } else { // EJ INLOGGAD
     showThis('header-in-container');
     showThis('sign-in-container');
     hideThis('header-out-container');
-    // document.getElementsByClassName('sign-in-container')[0].style.display = "block";
-    // document.getElementsByClassName('header-in-container')[0].style.display = "block";
-    // document.getElementsByClassName('header-out-container')[0].style.display = "none";
-    // console.log("User is logged out");
+    // updateDOMData()
+
   }
 }
 ref.onAuth(authDataCallback);
-
 /*###########################################
  ############################################
  Logga ut användare
@@ -232,20 +280,23 @@ var logOutBtn = document.getElementsByClassName('log-out-btn')
 for (var i = 0; i < logOutBtn.length; i++) {
   logOutBtn[i].addEventListener("click", logOut);
 }
-
-// document.getElementById('log-out-btn').addEventListener("click",logOut);
 function logOut() {
-  // document.getElementsByClassName('sign-out-container')[0].style.display = "none";
   userName[0].innerHTML = "";
 
   showThis('sign-in-container');
   hideThis('toggle-settings');
   hideThis('user-settings-container');
-  // document.getElementsByClassName('toggle-settings')[0].style.display = "none";
-  // document.getElementsByClassName('sign-in-container')[0].style.display = "block";
-  // document.getElementsByClassName('user-settings-container')[0].style.display = "none";
   ref.unauth();
   clearData();
+   settings = {
+   numberofCalenderActivities: 3,
+   twitterAccount: "dagensnyheter",
+   numberofTweets: 5,
+   numberofWeatherRapports: 4,
+   intervalOfWeatherRapports: 8,
+   showDeparturesNow: false
+  };
+  updateDOMData(); //
 }
 
 /*###########################################
@@ -266,10 +317,12 @@ showCloseDepartures.addEventListener("click", function() {
   this.checked == true ? showCloseText.innerHTML = "Ja" : showCloseText.innerHTML = "Nej";
 });
 
+/* UPPDATERING AV FORMULÄRET */
+
 var submitBtn = document.getElementById('submit-btn');
 submitBtn.addEventListener("click", updateInfo);
-
 function updateInfo() {
+
   ref.child('dashboardUsers').child(ref.getAuth().uid).update({
     numberofCalenderActivities: isNumber(googleAmount.value),
     twitterAccount: twitterFollow.value,
@@ -278,6 +331,7 @@ function updateInfo() {
     intervalOfWeatherRapports: isNumber(weatherInterval.value),
     showDeparturesNow: showCloseDepartures.checked
   });
+  // showData();
 }
 function isNumber(number) { // Validera besökaren faktiskt skickar in ett nummer.
   if (isNaN(number) == false) {
@@ -286,29 +340,53 @@ function isNumber(number) { // Validera besökaren faktiskt skickar in ett numme
     return "1";
   }
 }
-function showData() { // VISA ANVÄNDARENS SATTA DATA I INPUTFÄLTEN
-  // console.log("showdata kallad på");
+// function showData() { // VISA ANVÄNDARENS SATTA DATA I INPUTFÄLTEN
+   // console.log("showdata kallad på");
   var database = ref;
   user = ref.getAuth();
   database.on("value", function(snapshot) {
+      // console.log("database.on(value, kallad!");
       var readableDB = snapshot.val(); // readableDB är alltså en läsbar snapshot på vår databas.
-      for (var key in readableDB.dashboardUsers) {
-        if (key == user.uid) {
-          googleAmount.value = readableDB.dashboardUsers[key].numberofCalenderActivities;
-          twitterFollow.value = readableDB.dashboardUsers[key].twitterAccount;
-          twitterAmount.value = readableDB.dashboardUsers[key].numberofTweets;
-          weatherAmount.value = readableDB.dashboardUsers[key].numberofWeatherRapports;
-          weatherInterval.value = readableDB.dashboardUsers[key].intervalOfWeatherRapports;
-          showCloseDepartures.checked = readableDB.dashboardUsers[key].showDeparturesNow;
-          showCloseDepartures.checked == true ? showCloseText.innerHTML = "Ja" : showCloseText.innerHTML = "Nej";
-        }
+      if(user) { // Om någon är inloggad
+       for (var key in readableDB.dashboardUsers) {
+         if (key == user.uid) {
+ 										/* === SKRIV UT RÄTT VÄRDEN I FÄLTEN ==== */
+ 										googleAmount.value = readableDB.dashboardUsers[key].numberofCalenderActivities;
+           twitterFollow.value = readableDB.dashboardUsers[key].twitterAccount;
+           twitterAmount.value = readableDB.dashboardUsers[key].numberofTweets;
+           // weatherAmount.value = 5;
+           // weatherInterval.value = 8;
+           // // console.log(weatherInterval.value+" är value");
+           weatherAmount.value = readableDB.dashboardUsers[key].numberofWeatherRapports;
+           weatherInterval.value = readableDB.dashboardUsers[key].intervalOfWeatherRapports;
+           showCloseDepartures.checked = readableDB.dashboardUsers[key].showDeparturesNow;
+           showCloseDepartures.checked == true ? showCloseText.innerHTML = "Ja" : showCloseText.innerHTML = "Nej";
+
+            settings = {
+             numberofCalenderActivities: readableDB.dashboardUsers[key].numberofCalenderActivities,
+             twitterAccount: readableDB.dashboardUsers[key].twitterAccount,
+             numberofTweets: readableDB.dashboardUsers[key].numberofTweets,
+             numberofWeatherRapports: readableDB.dashboardUsers[key].numberofWeatherRapports,
+             intervalOfWeatherRapports: readableDB.dashboardUsers[key].intervalOfWeatherRapports,
+             showDeparturesNow: readableDB.dashboardUsers[key].showDeparturesNow
+            }
+            console.log(settings);
+            // console.log("updateDOMData(); kallad från On value");
+            updateDOMData();
+          	return false; // Sluta loopa
+ 									}
+       }
       }
-      // console.log("Authenticated user with uid:", user.uid);
+      else {
+       // console.log("Ingen inloggad!");
+       updateDOMData();
+      }
+
     },
     function(errorObject) {
       // console.log("The read failed: " + errorObject.code);
     });
-}
+// }
 function clearData() { // Exempelvis när någon loggar ut
   googleAmount.value = "";
   twitterFollow.value = "";
@@ -318,6 +396,13 @@ function clearData() { // Exempelvis när någon loggar ut
   showCloseDepartures.checked = false;
   showCloseText.innerHTML = "Nej";
 }
+
+
+
+
+
+
+
 /*###########################################
  ############################################
 	FUNKTIONER FÖR ATT VISA OCH DÖLJA SAKER SOM
@@ -367,124 +452,134 @@ VÄDER FRÅN SMHI
 // // var longitude = long.substr(0,4);
 // console.log("Väder kallad!")
 function getWeather() {
-
   var smhiRequest = "http://opendata-download-metfcst.smhi.se/api/category/pmp1.5g/version/1/geopoint/lat/59.32/lon/18.05/data.json";
+  $(".weather-container").html("");
+  $.ajax({
+       type: "GET",
+       url:  smhiRequest, // Stockholm Östra
 
-  var today = new Date();
-  var res = $.getJSON(smhiRequest, function(json) {
-    // console.log(json);
-    var observations = [];
-    var allObservations = json.timeseries;
-    var limiter = 1;
+       dataType: "JSON",
+       // jsonpCallback: 'callback',
+       success: function(json) {
 
-    var numberOfObservation = 12;
+        var today = new Date();
+        // var res = $.getJSON(smhiRequest, function(json) {
+          // console.log(json);
+          var observations = [];
+          var allObservations = json.timeseries;
+          var limiter = 1;
 
-    currentDay = today.getDate();
+          var numberOfObservation = 12;
 
-    var startIndex = 0;
+          currentDay = today.getDate();
 
-    function findStartIndex() {
-      for (var i = 0; i < allObservations.length; i++) {
-        if (allObservations[i].validTime.substr(8, 2) == currentDay && allObservations[i].validTime.substr(11, 2) == today.getHours()) {
-          startIndex = i;
-          return false;
-        }
-      }
-    }
-    findStartIndex(); // Vi gör det till en funktion så att vi kan returnera false så att den inte behöver loopa igenom hela JSON objektet
-    var timeSpan = 48 // Vi vill ha alla prognoser de kommande 48 timmarna
-    var interval = 6 // Och vi vill ha var åttonde timme
-    for (var j = startIndex; j < (timeSpan + startIndex); j += interval) {
-      observations.push(allObservations[j])
-    }
-    var cloudIcons = ["flaticon-weather-1", "flaticon-weather-5", "flaticon-weather-4", "flaticon-weather-4",
-      "flaticon-cloud", "flaticon-cloud", "flaticon-cloud-2", "flaticon-sky", "flaticon-sky", "flaticon-sky"];
+          var startIndex = 0;
 
-    var rainIcons = ["flaticon-weather-3", "flaticon-cloud-1"];
-
-    var cloudText = ["Klart", "Överlag klart", "Halvklart", "Lätt molnighet", "Lite moln", "Överlag molnigt", "Molnigt", "Mulet", "Mulet", "Kraftigt molntäcke"]
-
-    for (var k = 0; k < observations.length; k++) {
-      var observation = document.createElement("div");
-      observation.className = "observation";
-
-      var weatherDate = document.createElement("h4");
-      var dayNumber = observations[k].validTime.substr(8, 2); // Exempelvis 19
-      var monthNumber = observations[k].validTime.substr(5, 2); // Exempelvis 04 för April
-
-      if (k == 0) {
-        weatherDate.innerHTML = "Just nu";
-      } else {
-        if (dayNumber == currentDay) {
-          weatherDate.innerHTML = "Idag <br>klockan " + observations[k].validTime.substr(11, 2);
-        } else if (dayNumber == currentDay + 1) {
-          weatherDate.innerHTML = "Imorgon <br>klockan " + observations[k].validTime.substr(11, 2);
-        } else {
-          if (monthNumber.charAt(0) == "0") {
-            weatherDate.innerHTML = dayNumber + "/" + monthNumber.substr(1, 1) + " <br>Klockan " + observations[k].validTime.substr(11, 2);
-          } else {
-            weatherDate.innerHTML = dayNumber + "/" + monthNumber + " <br>Klockan " + observations[k].validTime.substr(11, 2);
+          function findStartIndex() {
+            for (var i = 0; i < allObservations.length; i++) {
+              if (allObservations[i].validTime.substr(8, 2) == currentDay && allObservations[i].validTime.substr(11, 2) == today.getHours()) {
+                startIndex = i;
+                return false;
+              }
+            }
           }
-        }
-      }
-      var weatherTemp = document.createElement("span");
-      weatherTemp.className = "weather-temp";
-      weatherTemp.innerHTML = observations[k].t + "<i class='flaticon-weather'></i>";
+          findStartIndex(); // Vi gör det till en funktion så att vi kan returnera false så att den inte behöver loopa igenom hela JSON objektet
+          var timeSpan; // Vi vill ha alla prognoser de kommande 48 timmarna
+          timeSpan = settings.intervalOfWeatherRapports * settings.numberofWeatherRapports;
+          var interval = parseInt(settings.intervalOfWeatherRapports); // Se till att det är ett nummer!
 
-      var windSpeed = document.createElement("span");
-      windSpeed.className = "weather-windspeed";
-      windSpeed.innerHTML = observations[k].ws + " m/s";
+          for (var j = startIndex; j < (timeSpan + startIndex); j += interval) {
+            observations.push(allObservations[j])
+          }
+          var cloudIcons = ["flaticon-weather-1", "flaticon-weather-5", "flaticon-weather-4", "flaticon-weather-4",
+            "flaticon-cloud", "flaticon-cloud", "flaticon-cloud-2", "flaticon-sky", "flaticon-sky", "flaticon-sky"];
 
-      var windDirection = document.createElement("span");
-      windDirection.className = "weather-winddirection";
+          var rainIcons = ["flaticon-weather-3", "flaticon-cloud-1"];
 
-      var windIcon = document.createElement("i");
-      windIcon.className = "fa fa-arrow-down";
-      windIcon.style.transform = "rotate(" + observations[k].wd + "deg)";
+          var cloudText = ["Klart", "Överlag klart", "Halvklart", "Lätt molnighet", "Lite moln", "Överlag molnigt", "Molnigt", "Mulet", "Mulet", "Kraftigt molntäcke"]
 
-      windDirection.appendChild(windIcon);
+          for (var k = 0; k < observations.length; k++) {
+            var observation = document.createElement("div");
+            observation.className = "observation";
 
-      var clouds = document.createElement("i");
+            var weatherDate = document.createElement("h4");
+            var dayNumber = observations[k].validTime.substr(8, 2); // Exempelvis 19
+            var monthNumber = observations[k].validTime.substr(5, 2); // Exempelvis 04 för April
 
-      var weatherText = document.createElement("span");
-      weatherText.className = "weather-text";
-      weatherText.innerHTML = cloudText[observations[k].tcc] + ". " + observations[k].tcc + "/8"; //+ ". " + rainText[observations[k].pit / 2];
+            if (k == 0) {
+              weatherDate.innerHTML = "Just nu";
+            } else {
+              if (dayNumber == currentDay) {
+                weatherDate.innerHTML = "Idag <br>klockan " + observations[k].validTime.substr(11, 2);
+              } else if (dayNumber == currentDay + 1) {
+                weatherDate.innerHTML = "Imorgon <br>klockan " + observations[k].validTime.substr(11, 2);
+              } else {
+                if (monthNumber.charAt(0) == "0") {
+                  weatherDate.innerHTML = dayNumber + "/" + monthNumber.substr(1, 1) + " <br>Klockan " + observations[k].validTime.substr(11, 2);
+                } else {
+                  weatherDate.innerHTML = dayNumber + "/" + monthNumber + " <br>Klockan " + observations[k].validTime.substr(11, 2);
+                }
+              }
+            }
+            var weatherTemp = document.createElement("span");
+            weatherTemp.className = "weather-temp";
+            weatherTemp.innerHTML = observations[k].t + "<i class='flaticon-weather'></i>";
 
-      if (observations[k].pit == 0) {
-        clouds.className = cloudIcons[observations[k].tcc] + " cloudicon";
-        weatherText.innerHTML += "<br>Ingen nederbörd";
-      } else if (observations[k].pit > 0 && observations[k].pit <= 0.2) { // Lätt nederbörd
-        weatherText.innerHTML += "<br>Lätt nederbörd<br>" + observations[k].pit + " mm/h";
+            var windSpeed = document.createElement("span");
+            windSpeed.className = "weather-windspeed";
+            windSpeed.innerHTML = observations[k].ws + " m/s";
 
-        if (observations[k].tcc < 5) { // Hur ser molntäcket ut
-          clouds.className = rainIcons[0] + " cloudicon";
-        } else {
-          clouds.className = rainIcons[1] + " cloudicon";
-        }
-      } else if (observations[k].pit > 0.2 && observations[k].pit <= 0.8) {
-        weatherText.innerHTML += "<br>Måttlig Nederbörd<br>" + observations[k].pit + " mm/h";
-        if (observations[k].tcc < 5) { // Hur ser molntäcket ut
-          clouds.className = rainIcons[0] + " cloudicon";
-        } else {
-          clouds.className = rainIcons[1] + " cloudicon";
-        }
-      } else if (observations[k].pit > 0.8) {
-        weatherText.innerHTML += "<br>Kraftig Nederbörd<br>" + observations[k].pit + " mm/h";
-        clouds.className = rainIcons[1] + " cloudicon";
-      }
+            var windDirection = document.createElement("span");
+            windDirection.className = "weather-winddirection";
 
-      observation.appendChild(weatherDate)
-      observation.appendChild(clouds)
-      observation.appendChild(weatherText)
-      observation.appendChild(weatherTemp)
-      observation.appendChild(windSpeed)
-      observation.appendChild(windDirection)
+            var windIcon = document.createElement("i");
+            windIcon.className = "fa fa-arrow-down";
+            windIcon.style.transform = "rotate(" + observations[k].wd + "deg)";
 
-      $(".weather-container").append(observation);
-    }
-  })
-} // End Get Weather
-// getWeather();
+            windDirection.appendChild(windIcon);
+
+            var clouds = document.createElement("i");
+
+            var weatherText = document.createElement("span");
+            weatherText.className = "weather-text";
+            weatherText.innerHTML = cloudText[observations[k].tcc] + ". " + observations[k].tcc + "/8"; //+ ". " + rainText[observations[k].pit / 2];
+
+            if (observations[k].pit == 0) {
+              clouds.className = cloudIcons[observations[k].tcc] + " cloudicon";
+              weatherText.innerHTML += "<br>Ingen nederbörd";
+            } else if (observations[k].pit > 0 && observations[k].pit <= 0.2) { // Lätt nederbörd
+              weatherText.innerHTML += "<br>Lätt nederbörd<br>" + observations[k].pit + " mm/h";
+
+              if (observations[k].tcc < 5) { // Hur ser molntäcket ut
+                clouds.className = rainIcons[0] + " cloudicon";
+              } else {
+                clouds.className = rainIcons[1] + " cloudicon";
+              }
+            } else if (observations[k].pit > 0.2 && observations[k].pit <= 0.8) {
+              weatherText.innerHTML += "<br>Måttlig Nederbörd<br>" + observations[k].pit + " mm/h";
+              if (observations[k].tcc < 5) { // Hur ser molntäcket ut
+                clouds.className = rainIcons[0] + " cloudicon";
+              } else {
+                clouds.className = rainIcons[1] + " cloudicon";
+              }
+            } else if (observations[k].pit > 0.8) {
+              weatherText.innerHTML += "<br>Kraftig Nederbörd<br>" + observations[k].pit + " mm/h";
+              clouds.className = rainIcons[1] + " cloudicon";
+            }
+            observation.appendChild(weatherDate)
+            observation.appendChild(clouds)
+            observation.appendChild(weatherText)
+            observation.appendChild(weatherTemp)
+            observation.appendChild(windSpeed)
+            observation.appendChild(windDirection)
+            $(".weather-container").append(observation);
+          }
+        },
+        error: function() {
+          console.log('Inget svar från SMHI API');
+       }
+     });
+}
 
 /*###########################################
 ############################################
@@ -823,9 +918,9 @@ $('body').keydown(function(e) {
            SECTION TWITTER
 ############################################
 ############################################*/
-
-
 function getTwitterFeed() {
+ $(".twitter-container").html("");
+
 function urlify(text) {
  var urlRegex = /(https?:\/\/[^\s]+)/g;
  return text.replace(urlRegex, function(url) {
@@ -854,10 +949,11 @@ function formatTwitterDate(date) {
  }
  return dateSub + " " + day + " " + month + " Klockan: " + time;
 }
+$(".twitter-account").html(settings.twitterAccount);
 
 $.ajax({
  type: "GET",
- url: "twitter.php",
+ url: "twitter.php?twitterAccount="+settings.twitterAccount+"&numberofTweets="+settings.numberofTweets,
  dataType: "json",
  // jsonpCallback: 'callback',
  success: function(twitter) {
@@ -872,7 +968,6 @@ $.ajax({
    tweetContainer.className = "tweet-container";
    tweetDate = document.createElement("p");
    tweetDate.className = "tweet-date";
-   // tweetDate.innerText  = twitter[t].created_at.substr(0,16);
    tweetDate.innerText = formatTwitterDate(twitter[t].created_at);
 
    tweetContent = document.createElement("p");
@@ -890,10 +985,15 @@ $.ajax({
 
  },
  error: function() {
+  $(".twitter-container").html("Inget svar från Twitters API");
+
   console.log('Inget svar från Twitters API');
  }
 })
 } // End get Twitterfeed;
+
+
+
 
 });// End $(document).ready
 })();// End iffe
@@ -905,6 +1005,7 @@ $.ajax({
  ############################################*/
 
 // function getGoogleCalender() {
+ console.log("getGoogleCalender kallad");
 var CLIENT_ID = '765342006289-i5i1df5rcv6sg6vh4ejm30f9lm1tjrhc.apps.googleusercontent.com';
 var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
 /**
@@ -962,6 +1063,9 @@ function loadCalendarApi() {
  * the authorized user's calendar. If no events are found an
  * appropriate message is printed.
  */
+
+// console.log(settings);
+
 function listUpcomingEvents() {
 
   var request = gapi.client.calendar.events.list({
@@ -969,7 +1073,7 @@ function listUpcomingEvents() {
     'timeMin': (new Date()).toISOString(),
     'showDeleted': false,
     'singleEvents': true,
-    'maxResults': 3,
+    'maxResults': 5,
     'orderBy': 'startTime'
   });
 

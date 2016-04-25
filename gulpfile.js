@@ -48,6 +48,7 @@ gulp.task('js', function() {
 	return gulp.src([
  'dev/js/app/clockdate.js',
  'dev/js/app/header.js',
+ 'dev/js/app/settings.js',
  'dev/js/app/firebase.js',
  'dev/js/app/geolocation.js',
  'dev/js/app/weather.js',

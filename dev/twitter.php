@@ -2,8 +2,16 @@
 session_start();
 require_once("twitteroauth/twitteroauth/twitteroauth.php"); //Path to twitteroauth library
 
-$twitteruser = "dagensnyheter";
-$notweets = 5;
+if(isset($_GET['twitterAccount'])) {
+  $twitteruser = $_GET['twitterAccount'];
+} else {
+  $twitteruser = "dagensnyheter";
+}
+if(isset($_GET['numberofTweets'])) {
+  $notweets = $_GET['numberofTweets'];
+} else {
+  $notweets = 5;
+}
 $consumerkey = "dJUUVznOTJYgdwS3rY2RzPdEt";
 $consumersecret = "v9Q31hgBarcvoPjGu7IHwyxRMXNxb0xtts93HltEuX7kfSCvuk";
 $accesstoken = "721044744206475264-kW7Pb2SeniCxuVZDfzD3yR3IORQDWzj";

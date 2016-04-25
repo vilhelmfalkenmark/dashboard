@@ -1,3 +1,6 @@
+
+
+
 });// End $(document).ready
 })();// End iffe
 
@@ -8,6 +11,7 @@
  ############################################*/
 
 // function getGoogleCalender() {
+ console.log("getGoogleCalender kallad");
 var CLIENT_ID = '765342006289-i5i1df5rcv6sg6vh4ejm30f9lm1tjrhc.apps.googleusercontent.com';
 var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
 /**
@@ -65,6 +69,9 @@ function loadCalendarApi() {
  * the authorized user's calendar. If no events are found an
  * appropriate message is printed.
  */
+
+// console.log(settings);
+
 function listUpcomingEvents() {
 
   var request = gapi.client.calendar.events.list({
@@ -72,7 +79,7 @@ function listUpcomingEvents() {
     'timeMin': (new Date()).toISOString(),
     'showDeleted': false,
     'singleEvents': true,
-    'maxResults': 3,
+    'maxResults': 5,
     'orderBy': 'startTime'
   });
 

@@ -4,7 +4,7 @@ var ref = new Firebase("https://vilhelmdashboard.firebaseio.com");
  Skicka in inställningar
  ############################################
  ############################################*/
-var settings = {
+var defaultSettings = {
   numberofCalenderActivities: 3,
   twitterAccount: "dagensnyheter",
   numberofTweets: 5,
@@ -13,7 +13,6 @@ var settings = {
   showDeparturesNow: false
 };
 var user = ref.getAuth();
-// console.log(user);
 var userName = document.getElementsByClassName('user-name');
 if (user != null) {
   for (var i = 0; i < userName.length; i++) {
@@ -44,7 +43,7 @@ function createNewUser(email, password) {
         // console.log("Error creating user:", error);
       } else {
         // console.log("Successfully created user account with uid:", userData.uid);
-        ref.child("dashboardUsers").child(userData.uid).set(settings);
+        ref.child("dashboardUsers").child(userData.uid).set(defaultSettings);
         logInUser(email, password, true);
       }
     });
@@ -76,7 +75,7 @@ logInButtons[0].addEventListener("click", function() {
   logInUser(signinName, signinPassword, false);
 });
 function logInUser(email, password, newUser) { // Om newUser är true så är det en ny användare som auto-loggas in.
-  // document.getElementsByClassName('toggle-settings')[0].style.display = "block";
+
   showThis("toggle-settings");
   if (newUser) {
     explanation.innerHTML = "Tack för att du registerat dig! Vi har fyllt i lite förslag på hur appen ska sättas upp. Välkommen att ändra efter eget huvud!";
@@ -97,9 +96,43 @@ function logInUser(email, password, newUser) { // Om newUser är true så är de
       }
       showThis('user-settings-container');
       hideThis('sign-in-container');
-      // document.getElementsByClassName('sign-in-container')[0].style.display = "none";
-      // document.getElementsByClassName('user-settings-container')[0].style.display = "block";
-      showData(); // VISA ANVÄNDARENS DATA
+      console.log("Nu är vi inloggad!");
+      // showData(); // VISA ANVÄNDARENS DATA
+
+      /* START TEST */
+      var database = ref;
+      user = ref.getAuth();
+      database.on("value", function(snapshot) {
+          // console.log("database.on(value, kallad! från test");
+          var readableDB = snapshot.val(); // readableDB är alltså en läsbar snapshot på vår databas.
+          // if(user) { // Om någon är inloggad
+           for (var key in readableDB.dashboardUsers) {
+             if (key == user.uid) {
+               /* === SKRIV UT RÄTT VÄRDEN I FÄLTEN ==== */
+               googleAmount.value = readableDB.dashboardUsers[key].numberofCalenderActivities;
+               twitterFollow.value = readableDB.dashboardUsers[key].twitterAccount;
+               twitterAmount.value = readableDB.dashboardUsers[key].numberofTweets;
+               weatherAmount.value = readableDB.dashboardUsers[key].numberofWeatherRapports;
+               weatherInterval.value = readableDB.dashboardUsers[key].intervalOfWeatherRapports;
+               showCloseDepartures.checked = readableDB.dashboardUsers[key].showDeparturesNow;
+               showCloseDepartures.checked == true ? showCloseText.innerHTML = "Ja" : showCloseText.innerHTML = "Nej";
+               settings = {
+                 numberofCalenderActivities: readableDB.dashboardUsers[key].numberofCalenderActivities,
+                 twitterAccount: readableDB.dashboardUsers[key].twitterAccount,
+                 numberofTweets: readableDB.dashboardUsers[key].numberofTweets,
+                 numberofWeatherRapports: readableDB.dashboardUsers[key].numberofWeatherRapports,
+                 intervalOfWeatherRapports: readableDB.dashboardUsers[key].intervalOfWeatherRapports,
+                 showDeparturesNow: readableDB.dashboardUsers[key].showDeparturesNow
+                }
+                updateDOMData();
+               return false; // Sluta loopa
+              }
+           }
+        },
+        function(errorObject) {
+          // console.log("The read failed: " + errorObject.code);
+        });
+      /* SLUT TEST */
     }
   });
 }
@@ -110,32 +143,23 @@ function logInUser(email, password, newUser) { // Om newUser är true så är de
  ############################################*/
 function authDataCallback(authData) {
   if (authData) { // INLOGGAD
-    console.log("User " + authData.uid + " is logged in with " + authData.provider);
+    // console.log("User " + authData.uid + " is logged in with " + authData.provider);
 
     showThis('user-settings-container');
     showThis('header-out-container');
     showThis('toggle-settings');
     hideThis('sign-in-container');
     hideThis('header-in-container');
-    // document.getElementsByClassName('user-settings-container')[0].style.display = "block";
-    // document.getElementsByClassName('header-out-container')[0].style.display = "block";
-    // document.getElementsByClassName('toggle-settings')[0].style.display = "block";
-    // document.getElementsByClassName('sign-in-container')[0].style.display = "none";
-    // document.getElementsByClassName('header-in-container')[0].style.display = "none";
-    showData();
-  } else { // EJ INLOGGAD
 
+  } else { // EJ INLOGGAD
     showThis('header-in-container');
     showThis('sign-in-container');
     hideThis('header-out-container');
-    // document.getElementsByClassName('sign-in-container')[0].style.display = "block";
-    // document.getElementsByClassName('header-in-container')[0].style.display = "block";
-    // document.getElementsByClassName('header-out-container')[0].style.display = "none";
-    // console.log("User is logged out");
+    // updateDOMData()
+
   }
 }
 ref.onAuth(authDataCallback);
-
 /*###########################################
  ############################################
  Logga ut användare
@@ -146,20 +170,23 @@ var logOutBtn = document.getElementsByClassName('log-out-btn')
 for (var i = 0; i < logOutBtn.length; i++) {
   logOutBtn[i].addEventListener("click", logOut);
 }
-
-// document.getElementById('log-out-btn').addEventListener("click",logOut);
 function logOut() {
-  // document.getElementsByClassName('sign-out-container')[0].style.display = "none";
   userName[0].innerHTML = "";
 
   showThis('sign-in-container');
   hideThis('toggle-settings');
   hideThis('user-settings-container');
-  // document.getElementsByClassName('toggle-settings')[0].style.display = "none";
-  // document.getElementsByClassName('sign-in-container')[0].style.display = "block";
-  // document.getElementsByClassName('user-settings-container')[0].style.display = "none";
   ref.unauth();
   clearData();
+   settings = {
+   numberofCalenderActivities: 3,
+   twitterAccount: "dagensnyheter",
+   numberofTweets: 5,
+   numberofWeatherRapports: 4,
+   intervalOfWeatherRapports: 8,
+   showDeparturesNow: false
+  };
+  updateDOMData(); //
 }
 
 /*###########################################
@@ -180,10 +207,12 @@ showCloseDepartures.addEventListener("click", function() {
   this.checked == true ? showCloseText.innerHTML = "Ja" : showCloseText.innerHTML = "Nej";
 });
 
+/* UPPDATERING AV FORMULÄRET */
+
 var submitBtn = document.getElementById('submit-btn');
 submitBtn.addEventListener("click", updateInfo);
-
 function updateInfo() {
+
   ref.child('dashboardUsers').child(ref.getAuth().uid).update({
     numberofCalenderActivities: isNumber(googleAmount.value),
     twitterAccount: twitterFollow.value,
@@ -192,6 +221,7 @@ function updateInfo() {
     intervalOfWeatherRapports: isNumber(weatherInterval.value),
     showDeparturesNow: showCloseDepartures.checked
   });
+  // showData();
 }
 function isNumber(number) { // Validera besökaren faktiskt skickar in ett nummer.
   if (isNaN(number) == false) {
@@ -200,29 +230,53 @@ function isNumber(number) { // Validera besökaren faktiskt skickar in ett numme
     return "1";
   }
 }
-function showData() { // VISA ANVÄNDARENS SATTA DATA I INPUTFÄLTEN
-  // console.log("showdata kallad på");
+// function showData() { // VISA ANVÄNDARENS SATTA DATA I INPUTFÄLTEN
+   // console.log("showdata kallad på");
   var database = ref;
   user = ref.getAuth();
   database.on("value", function(snapshot) {
+      // console.log("database.on(value, kallad!");
       var readableDB = snapshot.val(); // readableDB är alltså en läsbar snapshot på vår databas.
-      for (var key in readableDB.dashboardUsers) {
-        if (key == user.uid) {
-          googleAmount.value = readableDB.dashboardUsers[key].numberofCalenderActivities;
-          twitterFollow.value = readableDB.dashboardUsers[key].twitterAccount;
-          twitterAmount.value = readableDB.dashboardUsers[key].numberofTweets;
-          weatherAmount.value = readableDB.dashboardUsers[key].numberofWeatherRapports;
-          weatherInterval.value = readableDB.dashboardUsers[key].intervalOfWeatherRapports;
-          showCloseDepartures.checked = readableDB.dashboardUsers[key].showDeparturesNow;
-          showCloseDepartures.checked == true ? showCloseText.innerHTML = "Ja" : showCloseText.innerHTML = "Nej";
-        }
+      if(user) { // Om någon är inloggad
+       for (var key in readableDB.dashboardUsers) {
+         if (key == user.uid) {
+ 										/* === SKRIV UT RÄTT VÄRDEN I FÄLTEN ==== */
+ 										googleAmount.value = readableDB.dashboardUsers[key].numberofCalenderActivities;
+           twitterFollow.value = readableDB.dashboardUsers[key].twitterAccount;
+           twitterAmount.value = readableDB.dashboardUsers[key].numberofTweets;
+           // weatherAmount.value = 5;
+           // weatherInterval.value = 8;
+           // // console.log(weatherInterval.value+" är value");
+           weatherAmount.value = readableDB.dashboardUsers[key].numberofWeatherRapports;
+           weatherInterval.value = readableDB.dashboardUsers[key].intervalOfWeatherRapports;
+           showCloseDepartures.checked = readableDB.dashboardUsers[key].showDeparturesNow;
+           showCloseDepartures.checked == true ? showCloseText.innerHTML = "Ja" : showCloseText.innerHTML = "Nej";
+
+            settings = {
+             numberofCalenderActivities: readableDB.dashboardUsers[key].numberofCalenderActivities,
+             twitterAccount: readableDB.dashboardUsers[key].twitterAccount,
+             numberofTweets: readableDB.dashboardUsers[key].numberofTweets,
+             numberofWeatherRapports: readableDB.dashboardUsers[key].numberofWeatherRapports,
+             intervalOfWeatherRapports: readableDB.dashboardUsers[key].intervalOfWeatherRapports,
+             showDeparturesNow: readableDB.dashboardUsers[key].showDeparturesNow
+            }
+            console.log(settings);
+            // console.log("updateDOMData(); kallad från On value");
+            updateDOMData();
+          	return false; // Sluta loopa
+ 									}
+       }
       }
-      // console.log("Authenticated user with uid:", user.uid);
+      else {
+       // console.log("Ingen inloggad!");
+       updateDOMData();
+      }
+
     },
     function(errorObject) {
       // console.log("The read failed: " + errorObject.code);
     });
-}
+// }
 function clearData() { // Exempelvis när någon loggar ut
   googleAmount.value = "";
   twitterFollow.value = "";
@@ -232,6 +286,13 @@ function clearData() { // Exempelvis när någon loggar ut
   showCloseDepartures.checked = false;
   showCloseText.innerHTML = "Nej";
 }
+
+
+
+
+
+
+
 /*###########################################
  ############################################
 	FUNKTIONER FÖR ATT VISA OCH DÖLJA SAKER SOM

@@ -3,9 +3,9 @@
            SECTION TWITTER
 ############################################
 ############################################*/
-
-
 function getTwitterFeed() {
+ $(".twitter-container").html("");
+
 function urlify(text) {
  var urlRegex = /(https?:\/\/[^\s]+)/g;
  return text.replace(urlRegex, function(url) {
@@ -34,10 +34,11 @@ function formatTwitterDate(date) {
  }
  return dateSub + " " + day + " " + month + " Klockan: " + time;
 }
+$(".twitter-account").html(settings.twitterAccount);
 
 $.ajax({
  type: "GET",
- url: "twitter.php",
+ url: "twitter.php?twitterAccount="+settings.twitterAccount+"&numberofTweets="+settings.numberofTweets,
  dataType: "json",
  // jsonpCallback: 'callback',
  success: function(twitter) {
@@ -52,7 +53,6 @@ $.ajax({
    tweetContainer.className = "tweet-container";
    tweetDate = document.createElement("p");
    tweetDate.className = "tweet-date";
-   // tweetDate.innerText  = twitter[t].created_at.substr(0,16);
    tweetDate.innerText = formatTwitterDate(twitter[t].created_at);
 
    tweetContent = document.createElement("p");
@@ -70,6 +70,8 @@ $.ajax({
 
  },
  error: function() {
+  $(".twitter-container").html("Inget svar från Twitters API");
+
   console.log('Inget svar från Twitters API');
  }
 })
