@@ -9,7 +9,16 @@ body
   color: $darkGrey;
   overflow-x: hidden;
 }
+html{
+  min-height: 100%;
+  position: relative;
+  bottom: 0;
+}
+.container{
+  // position: relative;
+  // min-height: 100%;
 
+}
 .flex-card {
   position: relative;
 }
@@ -94,4 +103,7 @@ body
  ############################################*/
 button i {
   margin-left: 5px;
+}
+.error-message {
+  color: $red;
 }

@@ -99,7 +99,7 @@ function getWeather() {
 
             var weatherText = document.createElement("span");
             weatherText.className = "weather-text";
-            weatherText.innerHTML = cloudText[observations[k].tcc] + ". " + observations[k].tcc + "/8"; //+ ". " + rainText[observations[k].pit / 2];
+            weatherText.innerHTML = cloudText[observations[k].tcc] + "."; //+ ". " + rainText[observations[k].pit / 2];
 
             if (observations[k].pit == 0) {
               clouds.className = cloudIcons[observations[k].tcc] + " cloudicon";

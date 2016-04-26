@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="images/dashboard.ico"/>
   <title>Dashboard</title>
   <link rel="stylesheet" href="css/weather-icons/font/flaticon.css">
   <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
@@ -15,27 +16,30 @@
     <!--##############################################
     MODAL
     ###############################################-->
-    <header>
+    <!-- <header> -->
       <div class="settings-container">
         <div class="settings-container-inner">
+          <div class="close-settings-btn"><i class="fa fa-close"></i><span>Stäng</span></div>
           <div class="user-container">
               <p class="user-name"></p>
               <div class="sign-in-container">
-                <input type="email" name="mail" placeholder="E-post Adress" class="user-email-adress">
-                <input type="password" name="password" placeholder="Lösenord" value="" class="user-password">
-                <button class="btn log-in-btn">Logga in<i class="fa fa-sign-in "></i></button>
-                <button class="btn sign-up-btn" id="register-btn">Registrera dig<i class="fa fa-sign-in "></i></button>
+                <!-- <form class=""  method=""> -->
+                  <input type="email" name="mail" placeholder="E-post Adress" class="user-email-adress">
+                  <input type="password" name="password" placeholder="Lösenord" value="" class="user-password">
+                  <button class="btn log-in-btn">Logga in<i class="fa fa-sign-in "></i></button>
+                  <button class="btn sign-up-btn" id="register-btn">Registrera dig<i class="fa fa-sign-in "></i></button>
+                  <p class="error-message"></p>
+                <!-- </form> -->
               </div>
-
               <div class="register-container">
                 <input type="email" name="mail" placeholder="E-post Adress" class="user-email-adress">
                 <input type="password" name="password" placeholder="Lösenord" value="" class="user-password">
-                <!-- <button class="btn" id="register-btn">Registrera dig<i class="fa fa-sign-in "></i></button> -->
               </div>
           </div>
             <div class="user-settings-container">
               <p class="explaination"></p>
               <div class="settings-category col-6">
+              <!-- GOOGLE CAL -->
               <label for="google-cal-amount">Antal kalenderhändelser</label>
               <input type="number" min="1" max="8" name="google-cal-amount" id="google-cal-amount" placeholder="Antal kalenderhändelser (1-8 st)"/>
               </div>
@@ -56,8 +60,6 @@
               <!-- SL -->
               <div class="settings-category col-6">
               <label for="weather-rapport-interval">Ska närliggande avgångar med SL laddas direkt?</label>
-
-
               <div class="checkbox-animation-container">
                 <input type="checkbox" name="show-close-departures-now" class="checkbox" id="show-close-departures-now"/>
                 <div class="checkbox-container">
@@ -67,35 +69,28 @@
                   <span id="load-close-departures-now"></span>
                 </div>
               </div>
-
-
-
               </div>
-              <button class="btn" id="submit-btn">Spara</button>
+              <button class="btn" id="submit-btn">
+                <div class="submit-btn-save">Spara</div>
+                <div class="submit-btn-save-todb">Sparar till databas</div>
+                <div class="save-loader">
+                      <span class="bounce-one"></span>
+                      <span class="bounce-two"></span>
+                      <span class="bounce-three"></span>
+                </div>
+              </button>
             </div>
-            <!-- GOOGLE CAL -->
         </div>
       </div>
       <div class="header-row">
         <!-- <div class="toggle-settings"> -->
-          <button class="toggle-settings btn" name="button">Inställningar<i class="fa fa-cog"></i></button>
-
-          <!-- <span>Inställningar</span> -->
-
-            <!-- <div id="hamburger">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div> -->
-          <!-- </div> -->
-
+          <button class="toggle-settings btn" name="button"><span class="settings-text">Öppna</span> Inställningar<i class="fa fa-cog"></i></button>
           <div class="header-out-container">
              <div class="user-name"></div>
              <div>
                <button class="log-out-btn btn">Logga ut<i class="fa fa-sign-in "></i></button>
              </div>
           </div>
-
           <div class="header-in-container">
              <div>Inte inloggad</div>
              <div>
@@ -103,20 +98,14 @@
                <button class="sign-up-btn btn">Registrera<i class="fa fa-sign-in "></i></button>
              </div>
           </div>
-
-          <!-- <div class="setting-col">
-            <p><i class="fa fa-wrench"></i>Inställningar</p>
-          </div>
-          <div class="setting-col">
-            <p><i class="fa fa-github"></i>Gå till Repo på Github</p>
-          </div> -->
       </div>
-    </header>
+    <!-- </header> -->
     <main>
-
     <div class="modal-container">
       <div class="modal">
         <div class="close-modal-btn"><i class="fa fa-close"></i><span>Stäng</span></div>
+        <div class="modal-left-arrow"><i class="fa fa-angle-left"></i></div>
+        <div class="modal-right-arrow"><i class="fa fa-angle-right"></i></div>
         <div class="modal-inner">
         </div>
       </div>
@@ -139,13 +128,13 @@
           </div>
           <!-- CALENDER -->
           <div class="flex-card calender-card col-4-desk col-6-tab col-12-ml col-12-ms">
-            <h3 class="card-icon"><i class="fa fa-calendar"></i>Kalender</h3>
+            <h3 class="card-icon"><i class="fa fa-calendar"></i>Google Kalender</h3>
             <div class="calender-container content-container">
               <div id="authorize-div" style="display: none">
-                <span >Authorize access to Google Calendar API</span>
+                <span >Logga in med Google Calendar API</span>
                 <!--Button for the user to click to initiate auth sequence -->
                 <button id="authorize-button" class="btn" onclick="handleAuthClick(event)">
-                  Authorize
+                  Logga in
                 </button>
               </div>
               <ul class="calender"></ul>
@@ -157,7 +146,6 @@
             <div class="weather-container content-container">
             </div>
           </div>
-
           <!-- PUBLIC TRANSPORT -->
           <div class="flex-card public-transport-card col-7-desk col-8-tab col-12-ml col-12-ms">
             <h3 class="card-icon"><i class="fa fa-bus "></i>Sök i Lokaltrafiken</h3>
@@ -184,6 +172,18 @@
         END SECOND FLEX-ROW
         ###############################################-->
       </main>
+      <footer>
+        <div class="footer-inner">
+          <p>
+            Skapat av <a href="http://vilhelmfalkenmark.se" target="_blank">Vilhelm Falkenmark</a> i april 2016.
+          </p>
+          <p>
+             <a href="https://github.com/vilhelmfalkenmark/dashboard" target="_blank">Till projekt på: <i class="fa fa-github"></i></a>
+          </p>
+          <p class="small-text">Följande API:er har använts: Trafiklab.se (sl.se), SMHI, Twitter, Google Calender, dryg.net (Namnsdagar etc.) & Firebase</p>
+          <p class="small-text">Projektet är byggt av ren nyfikenhet på REST API:er och hur dessa kan kombineras och integreras med varandra.</p>
+        </div>
+      </footer>
       </div>
       <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
       <script src="js/jquery-2.1.4.min.js"></script>

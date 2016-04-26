@@ -4,7 +4,7 @@
        ÄR INLOGGAD.
  ############################################
  ############################################*/
-var settings = {
+window.settings = {
  numberofCalenderActivities: 3,
  twitterAccount: "dagensnyheter",
  numberofTweets: 5,
@@ -13,12 +13,9 @@ var settings = {
  showDeparturesNow: false
 };
 
-function updateDOMData() {
+function updateDOMData(source) {
+// console.log("updateDOMData kallad från "+source);
 getWeather();
 getTwitterFeed();
-// getGoogleCalender();
+checkIfShowNow()
 };
-
-
-
-// emptyFeed()

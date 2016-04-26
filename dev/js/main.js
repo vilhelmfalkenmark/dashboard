@@ -81,6 +81,28 @@ $(document).ready(function() {
 
 $(".toggle-settings").click(function(){
  $(".settings-container").toggleClass('open');
+ if($(".settings-container").hasClass("open")) {
+  $(".settings-text").html("Stäng")
+ }
+ else {
+  $(".settings-text").html("Öppna")
+ }
+});
+$("#submit-btn").click(function() { // RENT UX
+ $(".submit-btn-save-todb").fadeIn( 300 ).delay( 800 ).fadeOut( 400 );
+ $(".save-loader").fadeIn( 300 ).delay( 800 ).fadeOut( 400 );
+ $(".submit-btn-save").fadeOut( 300 ).delay( 800 ).fadeIn( 400 );
+});
+
+$(".close-settings-btn").click(function() {
+
+$(".settings-container").removeClass("open");
+if($(".settings-container").hasClass("open")) {
+ $(".settings-text").html("Stäng")
+}
+else {
+ $(".settings-text").html("Öppna")
+}
 });
 
 /*###########################################
@@ -89,7 +111,7 @@ $(".toggle-settings").click(function(){
        ÄR INLOGGAD.
  ############################################
  ############################################*/
-var settings = {
+window.settings = {
  numberofCalenderActivities: 3,
  twitterAccount: "dagensnyheter",
  numberofTweets: 5,
@@ -98,15 +120,12 @@ var settings = {
  showDeparturesNow: false
 };
 
-function updateDOMData() {
+function updateDOMData(source) {
+// console.log("updateDOMData kallad från "+source);
 getWeather();
 getTwitterFeed();
-// getGoogleCalender();
+checkIfShowNow()
 };
-
-
-
-// emptyFeed()
 
 var ref = new Firebase("https://vilhelmdashboard.firebaseio.com");
 /*###########################################
@@ -122,6 +141,15 @@ var defaultSettings = {
   intervalOfWeatherRapports: 6,
   showDeparturesNow: false
 };
+var googleAmount = document.getElementById('google-cal-amount');
+var twitterFollow = document.getElementById('twitter-follow');
+var twitterAmount = document.getElementById('twitter-posts-amount');
+var weatherAmount = document.getElementById('weather-rapport-amount');
+var weatherInterval = document.getElementById('weather-rapport-interval');
+var showCloseDepartures = document.getElementById('show-close-departures-now');
+var showCloseText = document.getElementById('load-close-departures-now');
+var setter = 0;
+
 var user = ref.getAuth();
 var userName = document.getElementsByClassName('user-name');
 if (user != null) {
@@ -138,9 +166,12 @@ var explanation = document.getElementsByClassName('explaination')[0];
 var signupButtons = document.getElementsByClassName('sign-up-btn');
 
 signupButtons[1].addEventListener("click", function() {
-  document.getElementsByClassName('settings-container')[0].classList.toggle("open");
+  // document.getElementsByClassName('settings-container')[0].classList.toggle("open");
+  document.getElementsByClassName('settings-container')[0].className = "settings-container open";
   logInButtons[0].style.display = "none"; // Knappen i formulär ska visas.
   signupButtons[0].style.display = "block"; // Knappen i formulär ska visas.
+  $(".error-message").html("");
+
 });
 
 function createNewUser(email, password) {
@@ -150,6 +181,9 @@ function createNewUser(email, password) {
     },
     function(error, userData) {
       if (error) {
+
+       $(".error-message").html("Användarnamnet är upptaget eller felaktigt angivet")
+
         // console.log("Error creating user:", error);
       } else {
         // console.log("Successfully created user account with uid:", userData.uid);
@@ -158,7 +192,6 @@ function createNewUser(email, password) {
       }
     });
 }
-
 signupButtons[0].addEventListener("click", function() {
     createNewUser(
       document.getElementsByClassName('user-email-adress')[0].value,
@@ -175,9 +208,12 @@ var signinContainer = document.getElementsByClassName('sign-in-container');
 var logInButtons = document.getElementsByClassName('log-in-btn'); // Logga in knappar i formulär och header
 
 logInButtons[1].addEventListener("click", function() { // Knappen i headern
-  document.getElementsByClassName('settings-container')[0].classList.toggle("open");
+  // document.getElementsByClassName('settings-container')[0].classList.toggle("open");
+  document.getElementsByClassName('settings-container')[0].className = "settings-container open";
   logInButtons[0].style.display = "block"; // Knappen i formulär ska visas.
   signupButtons[0].style.display = "none"; // Knappen i formulär ska visas.
+  $(".error-message").html("");
+
 });
 logInButtons[0].addEventListener("click", function() {
   var signinName = document.getElementsByClassName('user-email-adress')[0].value;
@@ -185,29 +221,33 @@ logInButtons[0].addEventListener("click", function() {
   logInUser(signinName, signinPassword, false);
 });
 function logInUser(email, password, newUser) { // Om newUser är true så är det en ny användare som auto-loggas in.
-
   showThis("toggle-settings");
   if (newUser) {
     explanation.innerHTML = "Tack för att du registerat dig! Vi har fyllt i lite förslag på hur appen ska sättas upp. Välkommen att ändra efter eget huvud!";
+     // $(".weather-container").html("");
+     // $(".twitter-container").html("");
   } else {
+    // updateDOMData();
     explanation.innerHTML = "";
-    document.getElementsByClassName('settings-container')[0].classList.toggle("open");
   }
   ref.authWithPassword({
     email: email,
     password: password
   }, function(error, authData) {
     if (error) {
-      // console.log("Login Failed!", error);
+     $(".error-message").html("Felaktiga uppgifter");
+
+      console.log("Login Failed!", error);
     } else {
+     document.getElementsByClassName('settings-container')[0].classList.toggle("open");
+
       // console.log("Authenticated successfully with payload:", authData);
       for (var i = 0; i < userName.length; i++) {
         userName[i].innerHTML = "Inloggad som " + authData.password.email
       }
       showThis('user-settings-container');
       hideThis('sign-in-container');
-      console.log("Nu är vi inloggad!");
-      // showData(); // VISA ANVÄNDARENS DATA
+      // console.log("Nu är vi inloggad!");
 
       /* START TEST */
       var database = ref;
@@ -226,15 +266,16 @@ function logInUser(email, password, newUser) { // Om newUser är true så är de
                weatherInterval.value = readableDB.dashboardUsers[key].intervalOfWeatherRapports;
                showCloseDepartures.checked = readableDB.dashboardUsers[key].showDeparturesNow;
                showCloseDepartures.checked == true ? showCloseText.innerHTML = "Ja" : showCloseText.innerHTML = "Nej";
-               settings = {
-                 numberofCalenderActivities: readableDB.dashboardUsers[key].numberofCalenderActivities,
-                 twitterAccount: readableDB.dashboardUsers[key].twitterAccount,
-                 numberofTweets: readableDB.dashboardUsers[key].numberofTweets,
-                 numberofWeatherRapports: readableDB.dashboardUsers[key].numberofWeatherRapports,
-                 intervalOfWeatherRapports: readableDB.dashboardUsers[key].intervalOfWeatherRapports,
-                 showDeparturesNow: readableDB.dashboardUsers[key].showDeparturesNow
-                }
-                updateDOMData();
+               // window.settings = {
+               //   numberofCalenderActivities: parseInt(readableDB.dashboardUsers[key].numberofCalenderActivities),
+               //   twitterAccount: readableDB.dashboardUsers[key].twitterAccount,
+               //   numberofTweets: readableDB.dashboardUsers[key].numberofTweets,
+               //   numberofWeatherRapports: readableDB.dashboardUsers[key].numberofWeatherRapports,
+               //   intervalOfWeatherRapports: readableDB.dashboardUsers[key].intervalOfWeatherRapports,
+               //   showDeparturesNow: readableDB.dashboardUsers[key].showDeparturesNow
+               // }
+               // updateDOMData();
+
                return false; // Sluta loopa
               }
            }
@@ -251,25 +292,33 @@ function logInUser(email, password, newUser) { // Om newUser är true så är de
  Kolla om någon är inloggad
  ############################################
  ############################################*/
+
+
 function authDataCallback(authData) {
   if (authData) { // INLOGGAD
     // console.log("User " + authData.uid + " is logged in with " + authData.provider);
-
+    console.log("Någon är inloggad");
     showThis('user-settings-container');
     showThis('header-out-container');
     showThis('toggle-settings');
     hideThis('sign-in-container');
     hideThis('header-in-container');
-
+    ref.child("dashboardUsers").child(ref.getAuth().uid).once("value", function(snapshot){
+    settings = snapshot.val();
+    if(setter != 0)
+    {
+     updateDOMData("authDataCallback(authData)");
+    }
+    setter++;
+    });
   } else { // EJ INLOGGAD
     showThis('header-in-container');
     showThis('sign-in-container');
     hideThis('header-out-container');
-    // updateDOMData()
-
   }
 }
 ref.onAuth(authDataCallback);
+
 /*###########################################
  ############################################
  Logga ut användare
@@ -296,7 +345,7 @@ function logOut() {
    intervalOfWeatherRapports: 8,
    showDeparturesNow: false
   };
-  updateDOMData(); //
+  updateDOMData("logOut()");
 }
 
 /*###########################################
@@ -305,13 +354,7 @@ function logOut() {
  ############################################
  ############################################*/
 
-var googleAmount = document.getElementById('google-cal-amount');
-var twitterFollow = document.getElementById('twitter-follow');
-var twitterAmount = document.getElementById('twitter-posts-amount');
-var weatherAmount = document.getElementById('weather-rapport-amount');
-var weatherInterval = document.getElementById('weather-rapport-interval');
-var showCloseDepartures = document.getElementById('show-close-departures-now');
-var showCloseText = document.getElementById('load-close-departures-now');
+
 
 showCloseDepartures.addEventListener("click", function() {
   this.checked == true ? showCloseText.innerHTML = "Ja" : showCloseText.innerHTML = "Nej";
@@ -331,7 +374,6 @@ function updateInfo() {
     intervalOfWeatherRapports: isNumber(weatherInterval.value),
     showDeparturesNow: showCloseDepartures.checked
   });
-  // showData();
 }
 function isNumber(number) { // Validera besökaren faktiskt skickar in ett nummer.
   if (isNaN(number) == false) {
@@ -362,26 +404,25 @@ function isNumber(number) { // Validera besökaren faktiskt skickar in ett numme
            showCloseDepartures.checked = readableDB.dashboardUsers[key].showDeparturesNow;
            showCloseDepartures.checked == true ? showCloseText.innerHTML = "Ja" : showCloseText.innerHTML = "Nej";
 
-            settings = {
-             numberofCalenderActivities: readableDB.dashboardUsers[key].numberofCalenderActivities,
+           window.settings = {
+             numberofCalenderActivities: parseInt(readableDB.dashboardUsers[key].numberofCalenderActivities),
              twitterAccount: readableDB.dashboardUsers[key].twitterAccount,
              numberofTweets: readableDB.dashboardUsers[key].numberofTweets,
-             numberofWeatherRapports: readableDB.dashboardUsers[key].numberofWeatherRapports,
+             numberofWeatherRapports:readableDB.dashboardUsers[key].numberofWeatherRapports,
              intervalOfWeatherRapports: readableDB.dashboardUsers[key].intervalOfWeatherRapports,
              showDeparturesNow: readableDB.dashboardUsers[key].showDeparturesNow
             }
-            console.log(settings);
+            // console.log(settings);
             // console.log("updateDOMData(); kallad från On value");
-            updateDOMData();
+            updateDOMData(" database.on(value, function(snapshot) {");
           	return false; // Sluta loopa
  									}
        }
       }
       else {
        // console.log("Ingen inloggad!");
-       updateDOMData();
+       updateDOMData("else database.on(value, function(snapshot) {);")
       }
-
     },
     function(errorObject) {
       // console.log("The read failed: " + errorObject.code);
@@ -396,13 +437,6 @@ function clearData() { // Exempelvis när någon loggar ut
   showCloseDepartures.checked = false;
   showCloseText.innerHTML = "Nej";
 }
-
-
-
-
-
-
-
 /*###########################################
  ############################################
 	FUNKTIONER FÖR ATT VISA OCH DÖLJA SAKER SOM
@@ -412,7 +446,6 @@ function clearData() { // Exempelvis när någon loggar ut
 function showThis(element) {
   document.getElementsByClassName(element)[0].style.display = "block";
 }
-
 function hideThis(element) {
   document.getElementsByClassName(element)[0].style.display = "none";
 }
@@ -436,10 +469,8 @@ var lat;
  function showPosition(position) {
     lat = position.coords.latitude;
     long = position.coords.longitude;
-
-     // findCloseDepartures(lat,long);
+    findCloseDepartures(lat,long);
  }
-  // getLocation();
 
 /*###########################################
 ############################################
@@ -542,7 +573,7 @@ function getWeather() {
 
             var weatherText = document.createElement("span");
             weatherText.className = "weather-text";
-            weatherText.innerHTML = cloudText[observations[k].tcc] + ". " + observations[k].tcc + "/8"; //+ ". " + rainText[observations[k].pit / 2];
+            weatherText.innerHTML = cloudText[observations[k].tcc] + "."; //+ ". " + rainText[observations[k].pit / 2];
 
             if (observations[k].pit == 0) {
               clouds.className = cloudIcons[observations[k].tcc] + " cloudicon";
@@ -589,12 +620,8 @@ function getWeather() {
 var loop;
 
 function writeDepartures(response) {
-
- // console.log(response.length);
-
   if(response.constructor === Array ) { // Om vi tar emot flera stationer dvs. en array av objekt.
    for (var i = 0; i < response.length; i++) {
-      console.log("Kommer in här också!");
       loopStationObject(i,true); // True innebär att det är en Array som kommer in med flera avgångar
       var distance = document.createElement("span");
       distance.innerHTML = response[i].distance;
@@ -603,7 +630,6 @@ function writeDepartures(response) {
   else { // Vi tar bara emot en station dvs. ett objekt
    loopStationObject(0,false); // False innebär att det är en Array som kommer in med flera avgångar
   }
-
     function loopStationObject(i,multipleStations) {
      if (multipleStations) {
        loop = response[i];
@@ -617,33 +643,26 @@ function writeDepartures(response) {
       )
       {
         var stationContainer = document.createElement("div");
-
         if(multipleStations) {
          stationContainer.className = "station-container";
         }
         else {
          stationContainer.className = "station-container-open";
         }
-
-
         var stationName = document.createElement("span")
         stationName.className = "station-name";
         stationName.innerText = loop.ResponseData[key][0].StopAreaName+" ";
 
          var distance = document.createElement("span")
 
+
          if(multipleStations) {
           distance.className = "distance-to-station";
-          distance.innerText = loop.distance+" meter ";
-          distance.innerText = " meter ";
+          distance.innerText = loop.distance+" meter";
          }
-
-
         var stationId = document.createElement("span");
         stationId.innerText = loop.ResponseData[key][0].SiteId;
-
         var stationNameHeader = document.createElement("h3");
-
         stationNameHeader.appendChild(stationName)
         stationNameHeader.appendChild(distance)
         stationNameHeader.appendChild(stationId)
@@ -658,8 +677,6 @@ function writeDepartures(response) {
         else {
          ul.className = "departure-list-open";
         }
-
-
         for (var k = 0; k < loop.ResponseData[key].length; k++) {
 
          var li = document.createElement("li");
@@ -698,38 +715,40 @@ function writeDepartures(response) {
       $(".public-transport-container").append(stationContainer);
     }
  }
-
-
-
 }
-
 var modalOpen;
+
+function checkIfShowNow() {
+ if(settings.showDeparturesNow == true )
+ {
+  $(".loader").show();
+  getLocation();
+  // findCloseDepartures("59.319600","18.072087");
+ }
+}
+checkIfShowNow();
+
 $(".find-close-departures").click(function() {
-  findCloseDepartures("59.319600","18.072087");
+ $(".loader").show();
+ getLocation();
+  // findCloseDepartures("59.319600","18.072087");
 });
 
+
 function findCloseDepartures(lat,long) {
- $(".loader").show();
  $(".public-transport-container").html("");
 
 $.ajax({
      type: "GET",
-     // url:  "data.php?lat=59.3024216&long=18.1870591", // Chas
-     // url:  "data.php?lat=59.3490464&long=18.065024", // Körsbärsvägen
-     // url:  "data.php?lat=59.319600&long=18.072087", // Slussen
-     url:  "data.php?lat="+lat+"&+long="+long, // Stockholm Östra
-
+     url:  "closedepartures.php?lat="+lat+"&+long="+long,
      dataType: "JSON",
-     // jsonpCallback: 'callback',
      success: function(response) {
        // console.log(response);
        writeDepartures(response)
-
-      // findDuplicates();
-
      /*###########################################
       ############################################
-              ESCAPE TRYCK VID ÖPPEN MODAL
+             ESCAPE TRYCK VID ÖPPEN MODAL
+             OCH TOGGLA MELLAN AVGÅNGAR
       ############################################
       ############################################*/
       var tabIndex = 0;
@@ -741,29 +760,33 @@ $.ajax({
 
      $('body').keydown(function(key) {
          if (key.keyCode == 27) {
-          // $(".modal-container").css({
-          //  "opacity":0
-          // })
-          // setTimeout(function() {
-          //     $(".modal-container").css({
-          //      "display":"none"
-          //     })
-          //   }, 200);
           closeModal();
          }
-
          else if (key.keyCode == 39) {
           if(modalOpen) {
            tabIndex == stationLength ? tabIndex = 0 : tabIndex++;
-           $(".modal-inner").html("<div class='flex-center'><div>"+allStationContainers[tabIndex].innerHTML+"</div></div>")
+           $(".modal-inner").html("<div class='flex-center'><div class='modal-inner-div'>"+allStationContainers[tabIndex].innerHTML+"</div></div>")
           }
          }
          else if (key.keyCode == 37) {
           if(modalOpen) {
            tabIndex == 0 ? tabIndex = stationLength: tabIndex--;
-           $(".modal-inner").html("<div class='flex-center'><div>"+allStationContainers[tabIndex].innerHTML+"</div></div>")
+           $(".modal-inner").html("<div class='flex-center'><div class='modal-inner-div'>"+allStationContainers[tabIndex].innerHTML+"</div></div>")
           }
          }
+     });
+
+     $(".modal-left-arrow").click(function() {
+      if(modalOpen) {
+       tabIndex == 0 ? tabIndex = stationLength: tabIndex--;
+       $(".modal-inner").html("<div class='flex-center'><div class='modal-inner-div'>"+allStationContainers[tabIndex].innerHTML+"</div></div>")
+      }
+     });
+     $(".modal-right-arrow").click(function() {
+      if(modalOpen) {
+       tabIndex == stationLength ? tabIndex = 0 : tabIndex++;
+       $(".modal-inner").html("<div class='flex-center'><div class='modal-inner-div'>"+allStationContainers[tabIndex].innerHTML+"</div></div>")
+      }
      });
 
      /*###########################################
@@ -776,9 +799,10 @@ $.ajax({
        "visibility":"visible",
         "opacity":1
       })
+      $(".modal-container").addClass("modal-with-arrows");
       modalOpen = true;
       tabIndex = $(this).index();
-      $(".modal-inner").html("<div>"+allStationContainers[tabIndex].innerHTML+"</div>")
+      $(".modal-inner").html("<div class='flex-center'><div class='modal-inner-div'>"+allStationContainers[tabIndex].innerHTML+"</div></div>")
      });
 
      $( ".departure-list" ).each(function( ) {
@@ -828,24 +852,19 @@ function addSearchToModal (inputID, inputPlaceholder, searchID, searchBtnText,mo
  var modalHeader = document.createElement("h3");
  modalHeader.innerText = modalheader;
 
-
  var modalInput = document.createElement("input");
  modalInput.setAttribute("type", "text");
  modalInput.id = inputID;
  modalInput.setAttribute("placeholder", inputPlaceholder);
-
  var modalSearchBtn = document.createElement("button");
  modalSearchBtn.id = searchID;
  modalSearchBtn.innerText = searchBtnText;
-
  modalSearchContainer.appendChild(modalHeader)
  modalSearchContainer.appendChild(modalInput)
  modalSearchContainer.appendChild(modalSearchBtn)
  modalInner.appendChild(modalSearchContainer)
 };
-
 var stationSearch;
-
 $(".find-specific-departures").click(function() {
  modalOpen = true;
  addSearchToModal("station-name","Skriv namn på station","station-search","Sök resa","Sök resa med SL")
@@ -862,7 +881,8 @@ function searchSpecificStation() {
  var stationName = document.getElementById('station-name').value;
  $(".public-transport-container").html(""); // Töm eventuella tidigare resultat.
 
- $(".modal-inner").append($(".loader"));
+ var modalLoader = $(".loader").clone();
+ $(".modal-inner").append(modalLoader);
 
  if(stationName != "")
  {
@@ -871,12 +891,14 @@ function searchSpecificStation() {
        url:  "searchstation.php?stationname="+stationName, // Stockholm Östra
        dataType: "JSON",
        success: function(station) {
-         $(".modal-inner.loader").remove();
+         $(".modal-inner.loader").css({
+          "display":"none"
+         })
          closeModal();
          writeDepartures(station)
        }, // END SUCCESS
        error: function() {
-        console.log('Inget svar från API hitta station');
+        // console.log('Inget svar från API hitta station');
        }
       });
  }
@@ -887,15 +909,13 @@ function searchSpecificStation() {
                  STÄNG MODAL
  ############################################
  ############################################*/
-
-
 function closeModal() {
- console.log("Close modal kallad!");
+ // console.log("Close modal kallad!");
  modalOpen = false;
-
  $(".modal-container").css({
   "opacity":0
  })
+ $(".modal-container").removeClass("modal-with-arrows");
  setTimeout(function() {
      $(".modal-container").css({
       "visibility":"hidden"
@@ -992,12 +1012,8 @@ $.ajax({
 })
 } // End get Twitterfeed;
 
-
-
-
 });// End $(document).ready
 })();// End iffe
-
 /*###########################################
  ############################################
  SECTION GOOGLE CALENDER -- LAST SECTION
@@ -1005,7 +1021,7 @@ $.ajax({
  ############################################*/
 
 // function getGoogleCalender() {
- console.log("getGoogleCalender kallad");
+// console.log("getGoogleCalender kallad");
 var CLIENT_ID = '765342006289-i5i1df5rcv6sg6vh4ejm30f9lm1tjrhc.apps.googleusercontent.com';
 var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
 /**
@@ -1018,7 +1034,6 @@ function checkAuth() {
     'immediate': true
   }, handleAuthResult);
 }
-
 /**
  * Handle response from authorization server.
  *
@@ -1055,7 +1070,6 @@ function handleAuthClick(event) {
  * once client library is loaded.
  */
 function loadCalendarApi() {
-
   gapi.client.load('calendar', 'v3', listUpcomingEvents);
 }
 /**
@@ -1064,16 +1078,14 @@ function loadCalendarApi() {
  * appropriate message is printed.
  */
 
-// console.log(settings);
-
 function listUpcomingEvents() {
-
   var request = gapi.client.calendar.events.list({
     'calendarId': 'primary',
     'timeMin': (new Date()).toISOString(),
     'showDeleted': false,
     'singleEvents': true,
-    'maxResults': 5,
+    'maxResults': settings.numberofCalenderActivities,
+    // 'maxResults': 1,
     'orderBy': 'startTime'
   });
 
@@ -1081,49 +1093,38 @@ function listUpcomingEvents() {
     var events = resp.items;
 
     appendPre('Kommande saker i din kalender:');
-
     if (events.length > 0) {
       for (i = 0; i < events.length; i++) {
         var event = events[i];
-
         var when = event.start.dateTime;
         // when = "<span>"+when+"</span>";
         // whenSpan.innerText = event.start.dateTime;
-
         if (!when) {
           when = event.start.date;
           // when = "<span>"+when+"</span>";
-
         }
         appendPre(event.summary, when, events.length);
       }
     } else {
-      appendPre('Du ingenting i din kalender');
+      appendPre('Du har ingenting i din kalender');
     }
-
   });
 }
 // listUpcomingEvents();
 /**
  * Append a pre element to the body containing the given message
  * as its text node.
- *
- * @param {string} message Text to be placed in pre element.
  */
 
 var counter = 0;
-
 function appendPre(event, when, numberofActivities) {
   var calender = document.getElementsByClassName('calender')[0];
-
   var activity = document.createElement("li");
   activity.className = "calender-activity";
   // activity.innerText = event;
-
   activitySpan = document.createElement("span");
   activitySpan.className = "the-activity";
   activitySpan.innerText = event;
-
   var whenSpan = document.createElement("div");
   whenSpan.className = "activity-date format-date";
   whenSpan.innerText = when;
@@ -1139,8 +1140,8 @@ function appendPre(event, when, numberofActivities) {
      formatDate();
   }
   counter++;
+  // formatDate();
 }
-
 /*###########################################
  ############################################
                   Format-date
@@ -1192,5 +1193,5 @@ function formatDate() {
    }
   }
 }
-// } // End getGoogleCalender
+// }
 // getGoogleCalender();

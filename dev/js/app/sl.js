@@ -6,12 +6,8 @@
 var loop;
 
 function writeDepartures(response) {
-
- // console.log(response.length);
-
   if(response.constructor === Array ) { // Om vi tar emot flera stationer dvs. en array av objekt.
    for (var i = 0; i < response.length; i++) {
-      console.log("Kommer in här också!");
       loopStationObject(i,true); // True innebär att det är en Array som kommer in med flera avgångar
       var distance = document.createElement("span");
       distance.innerHTML = response[i].distance;
@@ -20,7 +16,6 @@ function writeDepartures(response) {
   else { // Vi tar bara emot en station dvs. ett objekt
    loopStationObject(0,false); // False innebär att det är en Array som kommer in med flera avgångar
   }
-
     function loopStationObject(i,multipleStations) {
      if (multipleStations) {
        loop = response[i];
@@ -34,33 +29,26 @@ function writeDepartures(response) {
       )
       {
         var stationContainer = document.createElement("div");
-
         if(multipleStations) {
          stationContainer.className = "station-container";
         }
         else {
          stationContainer.className = "station-container-open";
         }
-
-
         var stationName = document.createElement("span")
         stationName.className = "station-name";
         stationName.innerText = loop.ResponseData[key][0].StopAreaName+" ";
 
          var distance = document.createElement("span")
 
+
          if(multipleStations) {
           distance.className = "distance-to-station";
-          distance.innerText = loop.distance+" meter ";
-          distance.innerText = " meter ";
+          distance.innerText = loop.distance+" meter";
          }
-
-
         var stationId = document.createElement("span");
         stationId.innerText = loop.ResponseData[key][0].SiteId;
-
         var stationNameHeader = document.createElement("h3");
-
         stationNameHeader.appendChild(stationName)
         stationNameHeader.appendChild(distance)
         stationNameHeader.appendChild(stationId)
@@ -75,8 +63,6 @@ function writeDepartures(response) {
         else {
          ul.className = "departure-list-open";
         }
-
-
         for (var k = 0; k < loop.ResponseData[key].length; k++) {
 
          var li = document.createElement("li");
@@ -115,38 +101,40 @@ function writeDepartures(response) {
       $(".public-transport-container").append(stationContainer);
     }
  }
-
-
-
 }
-
 var modalOpen;
+
+function checkIfShowNow() {
+ if(settings.showDeparturesNow == true )
+ {
+  $(".loader").show();
+  getLocation();
+  // findCloseDepartures("59.319600","18.072087");
+ }
+}
+checkIfShowNow();
+
 $(".find-close-departures").click(function() {
-  findCloseDepartures("59.319600","18.072087");
+ $(".loader").show();
+ getLocation();
+  // findCloseDepartures("59.319600","18.072087");
 });
 
+
 function findCloseDepartures(lat,long) {
- $(".loader").show();
  $(".public-transport-container").html("");
 
 $.ajax({
      type: "GET",
-     // url:  "data.php?lat=59.3024216&long=18.1870591", // Chas
-     // url:  "data.php?lat=59.3490464&long=18.065024", // Körsbärsvägen
-     // url:  "data.php?lat=59.319600&long=18.072087", // Slussen
-     url:  "data.php?lat="+lat+"&+long="+long, // Stockholm Östra
-
+     url:  "closedepartures.php?lat="+lat+"&+long="+long,
      dataType: "JSON",
-     // jsonpCallback: 'callback',
      success: function(response) {
        // console.log(response);
        writeDepartures(response)
-
-      // findDuplicates();
-
      /*###########################################
       ############################################
-              ESCAPE TRYCK VID ÖPPEN MODAL
+             ESCAPE TRYCK VID ÖPPEN MODAL
+             OCH TOGGLA MELLAN AVGÅNGAR
       ############################################
       ############################################*/
       var tabIndex = 0;
@@ -158,29 +146,33 @@ $.ajax({
 
      $('body').keydown(function(key) {
          if (key.keyCode == 27) {
-          // $(".modal-container").css({
-          //  "opacity":0
-          // })
-          // setTimeout(function() {
-          //     $(".modal-container").css({
-          //      "display":"none"
-          //     })
-          //   }, 200);
           closeModal();
          }
-
          else if (key.keyCode == 39) {
           if(modalOpen) {
            tabIndex == stationLength ? tabIndex = 0 : tabIndex++;
-           $(".modal-inner").html("<div class='flex-center'><div>"+allStationContainers[tabIndex].innerHTML+"</div></div>")
+           $(".modal-inner").html("<div class='flex-center'><div class='modal-inner-div'>"+allStationContainers[tabIndex].innerHTML+"</div></div>")
           }
          }
          else if (key.keyCode == 37) {
           if(modalOpen) {
            tabIndex == 0 ? tabIndex = stationLength: tabIndex--;
-           $(".modal-inner").html("<div class='flex-center'><div>"+allStationContainers[tabIndex].innerHTML+"</div></div>")
+           $(".modal-inner").html("<div class='flex-center'><div class='modal-inner-div'>"+allStationContainers[tabIndex].innerHTML+"</div></div>")
           }
          }
+     });
+
+     $(".modal-left-arrow").click(function() {
+      if(modalOpen) {
+       tabIndex == 0 ? tabIndex = stationLength: tabIndex--;
+       $(".modal-inner").html("<div class='flex-center'><div class='modal-inner-div'>"+allStationContainers[tabIndex].innerHTML+"</div></div>")
+      }
+     });
+     $(".modal-right-arrow").click(function() {
+      if(modalOpen) {
+       tabIndex == stationLength ? tabIndex = 0 : tabIndex++;
+       $(".modal-inner").html("<div class='flex-center'><div class='modal-inner-div'>"+allStationContainers[tabIndex].innerHTML+"</div></div>")
+      }
      });
 
      /*###########################################
@@ -193,9 +185,10 @@ $.ajax({
        "visibility":"visible",
         "opacity":1
       })
+      $(".modal-container").addClass("modal-with-arrows");
       modalOpen = true;
       tabIndex = $(this).index();
-      $(".modal-inner").html("<div>"+allStationContainers[tabIndex].innerHTML+"</div>")
+      $(".modal-inner").html("<div class='flex-center'><div class='modal-inner-div'>"+allStationContainers[tabIndex].innerHTML+"</div></div>")
      });
 
      $( ".departure-list" ).each(function( ) {
@@ -245,24 +238,19 @@ function addSearchToModal (inputID, inputPlaceholder, searchID, searchBtnText,mo
  var modalHeader = document.createElement("h3");
  modalHeader.innerText = modalheader;
 
-
  var modalInput = document.createElement("input");
  modalInput.setAttribute("type", "text");
  modalInput.id = inputID;
  modalInput.setAttribute("placeholder", inputPlaceholder);
-
  var modalSearchBtn = document.createElement("button");
  modalSearchBtn.id = searchID;
  modalSearchBtn.innerText = searchBtnText;
-
  modalSearchContainer.appendChild(modalHeader)
  modalSearchContainer.appendChild(modalInput)
  modalSearchContainer.appendChild(modalSearchBtn)
  modalInner.appendChild(modalSearchContainer)
 };
-
 var stationSearch;
-
 $(".find-specific-departures").click(function() {
  modalOpen = true;
  addSearchToModal("station-name","Skriv namn på station","station-search","Sök resa","Sök resa med SL")
@@ -279,7 +267,8 @@ function searchSpecificStation() {
  var stationName = document.getElementById('station-name').value;
  $(".public-transport-container").html(""); // Töm eventuella tidigare resultat.
 
- $(".modal-inner").append($(".loader"));
+ var modalLoader = $(".loader").clone();
+ $(".modal-inner").append(modalLoader);
 
  if(stationName != "")
  {
@@ -288,12 +277,14 @@ function searchSpecificStation() {
        url:  "searchstation.php?stationname="+stationName, // Stockholm Östra
        dataType: "JSON",
        success: function(station) {
-         $(".modal-inner.loader").remove();
+         $(".modal-inner.loader").css({
+          "display":"none"
+         })
          closeModal();
          writeDepartures(station)
        }, // END SUCCESS
        error: function() {
-        console.log('Inget svar från API hitta station');
+        // console.log('Inget svar från API hitta station');
        }
       });
  }
@@ -304,15 +295,13 @@ function searchSpecificStation() {
                  STÄNG MODAL
  ############################################
  ############################################*/
-
-
 function closeModal() {
- console.log("Close modal kallad!");
+ // console.log("Close modal kallad!");
  modalOpen = false;
-
  $(".modal-container").css({
   "opacity":0
  })
+ $(".modal-container").removeClass("modal-with-arrows");
  setTimeout(function() {
      $(".modal-container").css({
       "visibility":"hidden"

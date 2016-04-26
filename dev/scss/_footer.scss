@@ -1,0 +1,24 @@
+footer {
+   width:100%;
+.footer-inner {
+  color: white;
+  width: 90%;
+  text-align: center;
+  font-size: 12px;
+  a {
+    color: white;
+    transition: all 0.2s ease; 
+    &:hover {
+      color: $red;
+    }
+  }
+  .small-text {
+    font-size: 8px;
+  }
+  i {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 20px;
+  }
+}
+}

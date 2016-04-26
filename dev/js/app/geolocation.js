@@ -17,7 +17,5 @@ var lat;
  function showPosition(position) {
     lat = position.coords.latitude;
     long = position.coords.longitude;
-
-     // findCloseDepartures(lat,long);
+    findCloseDepartures(lat,long);
  }
-  // getLocation();

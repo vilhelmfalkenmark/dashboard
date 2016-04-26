@@ -1,5 +1,5 @@
 /*===========================================
-============== HAMBURGER! ==================
+============== menu-button ==================
 ==========================================*/
 
 .menu-button {
@@ -31,7 +31,7 @@
  .toggle-settings {
    display: none;
    padding: 13px 0;
-   width: 150px;
+   width: 170px;
  }
 
 
@@ -61,31 +61,45 @@
             SETTINGS CONTAINER
  ############################################
  ############################################*/
- html {
-   height: 100%;
+ .user-container .user-name {
+   text-align: center;
+   margin-top: 20px;
+   visibility: hidden;
  }
 .settings-container {
   width: 100%;
   top:0;
   bottom: 0;
-  left:-100%;
-  min-height: 1000px;
-  height: 100%;
+  // left:-100%;
+  animation: scale 0.2s  ease-in-out;
+  opacity: 0;
+  left:0;
+  // height: 100%;
+  visibility: hidden;
+  min-height: 1100px;
   padding-bottom: 0;
-  background-color: white;
+  background-color: rgba(0,0,0,0.8);
   position: absolute;
   z-index: 99;
-  // padding-bottom: 30%;
 }
-
 .settings-container-inner {
-  margin: 80px auto;
+  margin: 80px auto 200px auto;
+  background-color: white;
+  padding: 50px 30px;
+  position: relative;
 }
-
+.close-settings-btn {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+.sign-in-container {
+  margin-top: 40px;
+}
 .settings-container.open {
-  left:0;
+  opacity: 1;
+  visibility: visible;
 }
-
 @include respond-to(mobile) {
 
 
@@ -97,7 +111,6 @@
     // padding-bottom: 30%;
   }
   .settings-container-inner {
-    background-color: beige;
     width: 300px;
   }
   .header-out-container  {
@@ -116,7 +129,6 @@
     // min-height: 770px;
   }
   .settings-container-inner {
-    background-color: beige;
     width: 360px;
   }
 }
@@ -199,6 +211,40 @@ $checkboxSize: 20px;
       left: 0;
     }
   }
+
+/*###########################################
+############################################
+   SPARA TILL DB KNAPPEN
+############################################
+############################################*/
+#submit-btn {
+  position: relative;
+}
+
+.submit-btn-save-todb, .submit-btn-save {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  top: 15px;
+}
+.save-loader {
+  position: absolute;
+  right: 40px;
+  top: 17px;
+  span {
+    height: 10px;
+    width: 10px;
+  }
+}
+
+.save-loader, .submit-btn-save-todb {
+  display: none;
+}
+
+
+
+
 
 /*###########################################
  ############################################

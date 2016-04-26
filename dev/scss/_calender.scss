@@ -1,6 +1,11 @@
 .calender-card {
   // @extend .flex-center;
 }
+#authorize-button {
+  margin-top: 20px;
+  display: block;
+  padding: 10px 20px;
+}
 
 .calender {
   list-style-type: none;

@@ -1,3 +1,8 @@
+.modal-inner-div {
+  // overflow: auto;
+  padding-top: 60px;
+}
+
 .public-transport-container {
 
   margin: 0px 5px 5px 5px;
@@ -15,6 +20,7 @@
   list-style: none;
   padding: 10px 5px 10px 10px;
   display: none;
+  overflow-y: auto;
   li {
     margin: 5px 0;
   }
@@ -22,6 +28,7 @@
 .number-of-departures {
   text-align: center;
   padding-bottom: 5px;
+  font-size: 12px;
 }
 .station-container {
   cursor: pointer;

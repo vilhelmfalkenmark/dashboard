@@ -4,8 +4,7 @@
   text-align: center;
   display: none;
 }
-
-.loader > div {
+.loader > div, .save-loader > span  {
   width: 18px;
   height: 18px;
   background-color: white;
@@ -14,21 +13,21 @@
   display: inline-block;
   animation: sk-bouncedelay 1.4s infinite ease-in-out both;
 }
-
-.loader .bounce-one {
+.save-loader > span {
+  // display: block;
+  // opacity: 0;
+}
+.save-loader > span {
+  background-color: white;
+}
+.loader .bounce-one, .save-loader .bounce-one {
   -webkit-animation-delay: -0.32s;
   animation-delay: -0.32s;
 }
 
-.loader .bounce-two {
+.loader .bounce-two, .save-loader .bounce-one {
   animation-delay: -0.16s;
 }
-
-// @-webkit-keyframes sk-bouncedelay {
-//   0%, 80%, 100% { -webkit-transform: scale(0) }
-//   40% { -webkit-transform: scale(1.0) }
-// }
-
 @keyframes sk-bouncedelay {
   0%, 80%, 100% {
     transform: scale(0);

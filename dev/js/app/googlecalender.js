@@ -1,9 +1,5 @@
-
-
-
 });// End $(document).ready
 })();// End iffe
-
 /*###########################################
  ############################################
  SECTION GOOGLE CALENDER -- LAST SECTION
@@ -11,7 +7,7 @@
  ############################################*/
 
 // function getGoogleCalender() {
- console.log("getGoogleCalender kallad");
+// console.log("getGoogleCalender kallad");
 var CLIENT_ID = '765342006289-i5i1df5rcv6sg6vh4ejm30f9lm1tjrhc.apps.googleusercontent.com';
 var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
 /**
@@ -24,7 +20,6 @@ function checkAuth() {
     'immediate': true
   }, handleAuthResult);
 }
-
 /**
  * Handle response from authorization server.
  *
@@ -61,7 +56,6 @@ function handleAuthClick(event) {
  * once client library is loaded.
  */
 function loadCalendarApi() {
-
   gapi.client.load('calendar', 'v3', listUpcomingEvents);
 }
 /**
@@ -70,16 +64,14 @@ function loadCalendarApi() {
  * appropriate message is printed.
  */
 
-// console.log(settings);
-
 function listUpcomingEvents() {
-
   var request = gapi.client.calendar.events.list({
     'calendarId': 'primary',
     'timeMin': (new Date()).toISOString(),
     'showDeleted': false,
     'singleEvents': true,
-    'maxResults': 5,
+    'maxResults': settings.numberofCalenderActivities,
+    // 'maxResults': 1,
     'orderBy': 'startTime'
   });
 
@@ -87,49 +79,38 @@ function listUpcomingEvents() {
     var events = resp.items;
 
     appendPre('Kommande saker i din kalender:');
-
     if (events.length > 0) {
       for (i = 0; i < events.length; i++) {
         var event = events[i];
-
         var when = event.start.dateTime;
         // when = "<span>"+when+"</span>";
         // whenSpan.innerText = event.start.dateTime;
-
         if (!when) {
           when = event.start.date;
           // when = "<span>"+when+"</span>";
-
         }
         appendPre(event.summary, when, events.length);
       }
     } else {
-      appendPre('Du ingenting i din kalender');
+      appendPre('Du har ingenting i din kalender');
     }
-
   });
 }
 // listUpcomingEvents();
 /**
  * Append a pre element to the body containing the given message
  * as its text node.
- *
- * @param {string} message Text to be placed in pre element.
  */
 
 var counter = 0;
-
 function appendPre(event, when, numberofActivities) {
   var calender = document.getElementsByClassName('calender')[0];
-
   var activity = document.createElement("li");
   activity.className = "calender-activity";
   // activity.innerText = event;
-
   activitySpan = document.createElement("span");
   activitySpan.className = "the-activity";
   activitySpan.innerText = event;
-
   var whenSpan = document.createElement("div");
   whenSpan.className = "activity-date format-date";
   whenSpan.innerText = when;
@@ -145,8 +126,8 @@ function appendPre(event, when, numberofActivities) {
      formatDate();
   }
   counter++;
+  // formatDate();
 }
-
 /*###########################################
  ############################################
                   Format-date
@@ -198,5 +179,5 @@ function formatDate() {
    }
   }
 }
-// } // End getGoogleCalender
+// }
 // getGoogleCalender();

@@ -54,14 +54,12 @@ gulp.task('js', function() {
  'dev/js/app/weather.js',
  'dev/js/app/sl.js',
  'dev/js/app/twitter.js',
- 'dev/js/app/googlecalender.js'
+ 'dev/js/app/googlecalender.js',
+ 'dev/js/app/googleauth.js'
 ])
 		.pipe(concat('main.js'))
 		.pipe(gulp.dest("dev/js"));
 });
-
-
-
 // Watchers
 gulp.task('watch', function() {
     gulp.watch('dev/scss/**/*.scss', ['sass']);

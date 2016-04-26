@@ -27,7 +27,7 @@
 .weather-text {
   display: block;
   font-size: 12px;
-  height: 40px;
+  height: 55px;
   width: 80%;
   margin: 4px 0;
 }
@@ -37,11 +37,12 @@
   position: relative;
   margin: 20px 0;
 }
-.wheater-windspeed, .weather-winddirection {
-  // display: inline-block;
-}
+
 .flaticon-weather, .fa-arrow-down {
   margin-left: 10px;
+}
+.flaticon-weather:before {
+  font-size: 15px;
 }
 .weather-date {
   text-transform: uppercase;
